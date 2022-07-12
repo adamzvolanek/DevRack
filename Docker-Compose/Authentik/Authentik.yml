@@ -4,19 +4,19 @@ services:
     container_name: redis
     image: bitnami/redis:latest
     ports:
-      - {SERVER_NAME}:6379:6379
+      - ${SERVER_NAME}:6379:6379
     volumes:
       - /mnt/user/appdata/redis/bitnami:/bitnami
     environment:
       - ALLOW_EMPTY_PASSWORD=no
-      - Password = {PASSWORD_REDIS}
+      - Password = ${PASSWORD_REDIS}
     networks:
       - proxy
     restart: unless-stopped
 
 networks:
   proxy:
-    name: {DOCKER_NETWORK}
+    name: ${DOCKER_NETWORK}
     driver: bridge
-    external: truE
+    external: true
     
