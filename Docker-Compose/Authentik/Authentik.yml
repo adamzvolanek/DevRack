@@ -1,6 +1,6 @@
 version: '3'
 services:
-  authentik_stack:
+  db_cache:
     container_name: redis
     image: bitnami/redis:latest
     networks:
@@ -10,26 +10,28 @@ services:
     volumes:
       - /mnt/user/appdata/redis/bitnami:/bitnami
     environment:
-      - ALLOW_EMPTY_PASSWORD= no
-      - Password = ${PASSWORD_REDIS}
+      - ALLOW_EMPTY_PASSWORD=no
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     restart: unless-stopped
-    
-  container_name: postgres_authentik
-  image: postgres:12.5-alpine
-  networks:
-    - proxy
-  ports:
-    - ${SERVER_NAME}:5432:5432
-  volumes:
-    - /mnt/user/appdata/postgres_authentik/data/
-  environment:
-    - POSTGRES_PASSWORD = ${PASSWORD_POSTGRES}
-    - POSTGRES_USER = ${USER_POSTGRES}
-    - POSTGRES_DB = ${POSTGRES_DB}
-  restart: unless-stopped
 
-  networks:
-    proxy:
-      name: ${DOCKER_NETWORK}
-      driver: bridge
-      external: true
+  db_sql:
+    container_name: postgres_authentik
+    image: postgres:12.5-alpine
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:5432:5432
+    volumes:
+      - /mnt/user/appdata/postgres_authentik/data/:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
+    
