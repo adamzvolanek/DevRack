@@ -32,8 +32,8 @@ services:
     
   authentik_worker:
     container_name: authentik-worker
-    image: beryju/authentik:2022.6.2
-    netowrks:
+    image: beryju/authentik:latest
+    networks:
       - proxy
     ports:
     volumes:
@@ -42,6 +42,7 @@ services:
       - /mnt/user/appdata/authentik/certs:/certs
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/user/appdata/authentik/templates:/templates
+      - /mnt/user/appdata/authentik/geoip:/geoip
     environment:
       - AUTHENTIK_REDIS__HOST=${REDIS_CONTRAINER_NAME}
       - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
@@ -53,6 +54,34 @@ services:
       - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
     restart: unless-stopped
     
+  authentik:
+    container_name: authentik
+    privileged: true
+    image: beryju/authentik:latest
+    networks:
+      - proxy
+    ports: 
+      - ${SERVER_NAME}:9000:9000
+      - ${SERVER_NAME}:9443:9443
+    volumes:
+      - /mnt/user/appdata/authentik/templates/:/templates
+      - /mnt/user/appdata/authentik/geoip:/geoip
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/user/appdata/authentik/media/:/media
+    environment:
+      - AUTHENTIK_REDIS__HOST=${REDIS_CONTRAINER_NAME}
+      - AUTHENTIK_POSTGRESQL__HOST=${POSTGRES_CONTAINER_NAME}
+      - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER}
+      - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB}
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
+      - AUTHENTIK_ERROR_REPORTING__ENABLED=true
+      - GEOIPUPDATE_ACCOUNT_ID=null
+      - GEOIPUPDATE_LICENSE_KEY=null
+      - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
+      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
+    restart: unless-stopped
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
