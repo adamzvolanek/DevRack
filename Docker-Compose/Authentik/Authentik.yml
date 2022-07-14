@@ -35,7 +35,6 @@ services:
     image: beryju/authentik:latest
     networks:
       - proxy
-    ports:
     volumes:
       - /mnt/user/appdata/authentik/backups:/backups
       - /mnt/user/appdata/authentik/media:/media
@@ -44,7 +43,7 @@ services:
       - /mnt/user/appdata/authentik/templates:/templates
       - /mnt/user/appdata/authentik/geoip:/geoip
     environment:
-      - AUTHENTIK_REDIS__HOST=${REDIS_CONTRAINER_NAME}
+      - AUTHENTIK_REDIS__HOST=${REDIS_CONTAINER_NAME}
       - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
       - AUTHENTIK_POSTGRESQL__HOST=${POSTGRES_CONTAINER_NAME}
       - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER}
@@ -69,7 +68,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/user/appdata/authentik/media/:/media
     environment:
-      - AUTHENTIK_REDIS__HOST=${REDIS_CONTRAINER_NAME}
+      - AUTHENTIK_REDIS__HOST=${REDIS_CONTAINER_NAME}
       - AUTHENTIK_POSTGRESQL__HOST=${POSTGRES_CONTAINER_NAME}
       - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER}
       - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB}
