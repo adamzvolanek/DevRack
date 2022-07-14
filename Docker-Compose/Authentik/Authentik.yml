@@ -1,8 +1,23 @@
 ---
 version: '3'
 services:
-  db_cache:
-    container_name: redis_authentik
+  postgresql:
+    container_name: postgres_authentik
+    image: postgres:12-alpine
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:5432:5432
+    volumes:
+      - /mnt/user/appdata/postgres_authentik/data/:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER:-authentik}
+      - POSTGRES_DB=${POSTGRES_DB:-authentik}
+    restart: unless-stopped
+
+  redis:
+    container_name: redis
     image: bitnami/redis:latest
     networks:
       - proxy
@@ -13,50 +28,19 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
     restart: unless-stopped
-
-  db_sql:
-    container_name: postgres_authentik
-    image: postgres:12.5-alpine
-    networks:
-      - proxy
-    ports:
-      - ${SERVER_NAME}:5432:5432
-    volumes:
-      - /mnt/user/appdata/postgres_authentik/data/:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_DB=${POSTGRES_DB}
-    restart: unless-stopped
-    
-  authentik_worker:
-    container_name: authentik-worker
-    image: beryju/authentik:latest
-    networks:
-      - proxy
-    volumes:
-      - /mnt/user/appdata/authentik/backups:/backups
-      - /mnt/user/appdata/authentik/media:/media
-      - /mnt/user/appdata/authentik/certs:/certs
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/user/appdata/authentik/templates:/templates
-      - /mnt/user/appdata/authentik/geoip:/geoip
-    environment:
-      - AUTHENTIK_REDIS__HOST=${REDIS_CONTAINER_NAME}
-      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
-      - AUTHENTIK_POSTGRESQL__HOST=${POSTGRES_CONTAINER_NAME}
-      - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER}
-      - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB}
-      - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
-      - AUTHENTIK_ERROR_REPORTING__ENABLED=true
-      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
-    restart: unless-stopped
-    
-  authentik:
-    container_name: authentik
+  
+  server:
     privileged: true
+    container_name: authentik
     image: beryju/authentik:latest
+    command: server
     networks:
       - proxy
     ports: 
@@ -68,19 +52,43 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/user/appdata/authentik/media/:/media
     environment:
-      - AUTHENTIK_REDIS__HOST=${REDIS_CONTAINER_NAME}
-      - AUTHENTIK_POSTGRESQL__HOST=${POSTGRES_CONTAINER_NAME}
-      - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER}
-      - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB}
+      - AUTHENTIK_REDIS__HOST=redis
+      - AUTHENTIK_POSTGRESQL__HOST=postgres_authentik
+      - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER:-authentik}
+      - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB:-authentik}
       - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
+      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=true
       - GEOIPUPDATE_ACCOUNT_ID=null
       - GEOIPUPDATE_LICENSE_KEY=null
       - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
       - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
-      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
     restart: unless-stopped
-
+    
+  worker:
+    container_name: authentik-worker
+    image: beryju/authentik:latest
+    command: worker
+    networks:
+      - proxy
+    volumes:
+      - /mnt/user/appdata/authentik/backups:/backups
+      - /mnt/user/appdata/authentik/media:/media
+      - /mnt/user/appdata/authentik/certs:/certs
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/user/appdata/authentik/templates:/templates
+      - /mnt/user/appdata/authentik/geoip:/geoip
+    environment:
+      - AUTHENTIK_REDIS__HOST=redis
+      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
+      - AUTHENTIK_POSTGRESQL__HOST=postgres_authentik
+      - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER:-authentik}
+      - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB:-authentik}
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
+      - AUTHENTIK_ERROR_REPORTING__ENABLED=true
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
+    restart: unless-stopped
+  
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
