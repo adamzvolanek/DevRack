@@ -2,14 +2,14 @@
 version: '3'
 services:
   db_cache:
-    container_name: redis
+    container_name: redis_authentik
     image: bitnami/redis:latest
     networks:
       - proxy
     ports:
       - ${SERVER_NAME}:6379:6379
     volumes:
-      - /mnt/user/appdata/redis/bitnami:/bitnami
+      - /mnt/user/appdata/redis_authentik/bitnami:/bitnami
     environment:
       - ALLOW_EMPTY_PASSWORD=no
       - REDIS_PASSWORD=${REDIS_PASSWORD}
