@@ -34,7 +34,7 @@ services:
     container_name: authentik-worker
     image: beryju/authentik:2022.6.2
     netowrks:
-     - proxy
+      - proxy
     ports:
     volumes:
       - /mnt/user/appdata/authentik/backups:/backups
