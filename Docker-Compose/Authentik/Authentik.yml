@@ -2,14 +2,14 @@
 version: '3'
 services:
   postgresql:
-    container_name: postgres_authentik
+    container_name: postgres
     image: postgres:12-alpine
     networks:
       - proxy
     ports:
       - ${SERVER_NAME}:5432:5432
     volumes:
-      - /mnt/user/appdata/postgres_authentik/data/:/var/lib/postgresql/data
+      - /mnt/user/appdata/postgres/data/:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER:-authentik}
@@ -30,9 +30,9 @@ services:
     ports:
       - ${SERVER_NAME}:6379:6379
     volumes:
-      - /mnt/user/appdata/redis_authentik:/redis
+      - /mnt/user/appdata/redis:/redis
     environment:
-      - ALLOW_EMPTY_PASSWORD=no
+      - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
@@ -43,7 +43,6 @@ services:
     restart: unless-stopped
   
   server:
-    privileged: true
     container_name: authentik
     image: beryju/authentik:latest
     command: server
@@ -59,16 +58,15 @@ services:
       - /mnt/user/appdata/authentik/media/:/media
     environment:
       - AUTHENTIK_REDIS__HOST=redis
-      - AUTHENTIK_POSTGRESQL__HOST=postgres_authentik
+      - AUTHENTIK_POSTGRESQL__HOST=postgres
       - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER:-authentik}
       - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB:-authentik}
       - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
-      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=true
-      - GEOIPUPDATE_ACCOUNT_ID=null
-      - GEOIPUPDATE_LICENSE_KEY=null
-      - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
-      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
+#      - GEOIPUPDATE_ACCOUNT_ID=null
+#      - GEOIPUPDATE_LICENSE_KEY=null
+#      - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
+      - AUTHENTIK_SECRET_KEY=${secret_key}
     restart: unless-stopped
     
   worker:
@@ -86,13 +84,12 @@ services:
       - /mnt/user/appdata/authentik/geoip:/geoip
     environment:
       - AUTHENTIK_REDIS__HOST=redis
-      - AUTHENTIK_REDIS__PASSWORD=${REDIS_PASSWORD}
-      - AUTHENTIK_POSTGRESQL__HOST=postgres_authentik
+      - AUTHENTIK_POSTGRESQL__HOST=postgres
       - AUTHENTIK_POSTGRESQL__USER=${POSTGRES_USER:-authentik}
       - AUTHENTIK_POSTGRESQL__NAME=${POSTGRES_DB:-authentik}
       - AUTHENTIK_POSTGRESQL__PASSWORD=${POSTGRES_PASSWORD}
       - AUTHENTIK_ERROR_REPORTING__ENABLED=true
-      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_KEY}
+      - AUTHENTIK_SECRET_KEY=${secret_key}
     restart: unless-stopped
   
 networks:
