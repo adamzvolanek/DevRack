@@ -1,0 +1,21 @@
+---
+version: '3'
+services:
+  <SERVICE_NAME>:
+    container_name: <CONTAINER>
+    image: <CONTAINER_REPO>:<TAG>
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:<PORTS>:<PORTS>
+    volumes:
+      - /mnt/user/appdata/<SERVICE_NAME>/<CONTAINER>/:/
+    environment:
+    restart: unless-stopped
+  
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
+    
