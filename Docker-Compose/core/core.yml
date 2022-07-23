@@ -33,8 +33,8 @@ services:
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT} # Public HTTP Port
-      - ${SERVER_NAME}:${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT} # Public HTTPS Port
+      - ${SERVER_NAME}:${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT} # HTTP Port
+      - ${SERVER_NAME}:${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT} # HTTPS Port
       - ${SERVER_NAME}:${NGINX_ADMIN_PORT}:${NGINX_ADMIN_PORT} # Admin Web Port
     environment:
       DISABLE_IPV6: 'true'
