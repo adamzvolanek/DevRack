@@ -15,18 +15,43 @@ services:
       - /mnt/user/appdata/core/pihole:/etc/pihole
       - /mnt/user/appdata/core/pihole/dnsmasq.d:/etc/dnsmasq.d   
     environment:
-      TZ: 'America/Chicago' # US
-      WEBPASSWORD: ${PIHOLE_PASSWORD}
-      DNS1: 1.1.1.1 # Cloudflare
-      DNS2: 8.8.8.8 # Google
-      INTERFACE: ${HARDWARE_CONNECTION}
-      ServerIP: ${PIHOLE_IP}
-      IPv6: False
-      DNSMASQ_LISTENING: all
-      PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
-      WEBUIBOXEDLAYOUT: boxed 
-    restart: unless-stopped
+      - TZ: 'America/Chicago' # US
+      - WEBPASSWORD: ${PIHOLE_PASSWORD}
+      - DNS1: 1.1.1.1 # Cloudflare
+      - DNS2: 8.8.8.8 # Google
+      - INTERFACE: ${HARDWARE_CONNECTION}
+      - ServerIP: ${PIHOLE_IP}
+      - IPv6: False
+      - DNSMASQ_LISTENING: all
+      - PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
+      - WEBUIBOXEDLAYOUT: boxed 
+    restart: always
     
+  duckdns:
+    container_name: duckdns
+    image: lscr.io/linuxserver/duckdns:latest
+    networks:
+      - proxy
+    environment:
+      - TZ: America/Chicago
+      - SUBDOMAINS: ${DUCKDNS_SUBDOMAIN}
+      - TOKEN: ${DUCKDNS_TOKEN}
+    restart: unless-stopped
+
+  cloudflare:
+    container_name: CloudflareDDNS
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - proxy
+    environment:
+      - EMAIL: ${CLOUDFLARE_EMAIL}
+      - API_KEY: ${CLOUDFLARE_API_KEY}
+      - ZONE: ${CLOUDFLARE_DOMAIN}
+      - SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN}
+      - PROXIED: true
+      - RRTYPE: A #IPv6 is AAAA
+    restart: always
+
   nginx:
     container_name: nginx
     image: jc21/nginx-proxy-manager:latest
@@ -41,31 +66,7 @@ services:
     volumes:
       - /mnt/user/appdata/core/nginx:/data
       - /mnt/user/appdata/core/nginx:/etc/letsencrypt
-    restart: unless-stopped
-    
-#  <SERVICE_NAME>:
-#    container_name: <CONTAINER>
-#    image: <CONTAINER_REPO>:<TAG>
-#    networks:
-#      - proxy
-#    ports:
-#      - ${SERVER_NAME}:<PORTS>:<PORTS>
-#    volumes:
-#      - /mnt/user/appdata/<SERVICE_NAME>/<CONTAINER>/:/
-#    environment:
-#    restart: unless-stopped
-
-#  <SERVICE_NAME>:
-#    container_name: <CONTAINER>
-#    image: <CONTAINER_REPO>:<TAG>
-#    networks:
-#      - proxy
-#    ports:
-#      - ${SERVER_NAME}:<PORTS>:<PORTS>
-#    volumes:
-#      - /mnt/user/appdata/<SERVICE_NAME>/<CONTAINER>/:/
-#    environment:
-#    restart: unless-stopped
+    restart: always
 
 networks:
   fixed_pi:
