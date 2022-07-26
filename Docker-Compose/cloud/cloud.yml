@@ -1,16 +1,35 @@
 ---
 version: '3'
 services:
-  <SERVICE_NAME>:
-    container_name: <CONTAINER>
-    image: <CONTAINER_REPO>:<TAG>
+  mariadb:
+    container_name: mariadb
+    image: lscr.io/linuxserver/mariadb:latest
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:<PORTS>:<PORTS>
+      - ${SERVER_NAME}:3306:3306
     volumes:
-      - /mnt/user/appdata/<SERVICE_NAME>/<CONTAINER>/:/
+      - /mnt/user/appdata/cloud/mariadb/config:/config
     environment:
+      MYSQL_ROOT_PASSWORD: ${mariadb_password:-mariadb}
+      TZ: 'America/Chicago'
+    # MYSQL_DATABASE=USER_DB_NAME #optional
+    # MYSQL_USER=MYSQL_USER #optional
+    # MYSQL_PASSWORD=DATABASE_PASSWORD #optional
+    restart: unless-stopped
+  
+  nextcloud:
+    container_name: nextcloud
+    image: lscr.io/linuxserver/nextcloud:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:444:444
+    volumes:
+      - /mnt/user/NextCloud/:/data
+      - /mnt/user/appdata/cloud/nextcloud/config:/config
+    environment:
+      TZ: 'America/Chicago'
     restart: unless-stopped
   
 networks:

@@ -13,10 +13,10 @@ services:
       - :80:80
     volumes:
       - /mnt/user/appdata/core/pihole:/etc/pihole
-      - /mnt/user/appdata/core/pihole/dnsmasq.d:/etc/dnsmasq.d   
+      - /mnt/user/appdata/core/pihole/dnsmasq.d:/etc/dnsmasq.d
     environment:
       TZ: 'America/Chicago' # US
-      WEBPASSWORD: ${PIHOLE_PASSWORD}
+      WEBPASSWORD: ${PIHOLE_PASSWORD:-pihole}
       DNS1: '1.1.1.1' # Cloudflare
       DNS2: '8.8.8.8' # Google
       INTERFACE: ${HARDWARE_CONNECTION}
