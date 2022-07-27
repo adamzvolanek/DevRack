@@ -21,10 +21,12 @@ services:
   nextcloud:
     container_name: nextcloud
     image: lscr.io/linuxserver/nextcloud:latest
+    depends_on:
+      - 'mariadb'
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:444:444
+      - ${SERVER_NAME}:444:444 # Changing port causes issues.
     volumes:
       - /mnt/user/NextCloud/:/data
       - /mnt/user/appdata/cloud/nextcloud/config:/config

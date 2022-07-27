@@ -13,6 +13,20 @@ services:
     environment:
     restart: unless-stopped
   
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:5055:5055
+    volumes:
+      - /mnt/user/appdata/arrs/jellyseerr:/config
+    environment:
+      - LOG_LEVEL= info
+      - TZ= 'America/Chicago'
+    restart: unless-stopped
+  
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
