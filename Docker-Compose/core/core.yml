@@ -61,11 +61,11 @@ services:
       - ${SERVER_NAME}:${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT} # HTTP Port
       - ${SERVER_NAME}:${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT} # HTTPS Port
       - ${SERVER_NAME}:${NGINX_ADMIN_PORT}:${NGINX_ADMIN_PORT} # Admin Web Port
-    environment:
-      DISABLE_IPV6: 'true'
     volumes:
       - /mnt/user/appdata/core/nginx:/data
-      - /mnt/user/appdata/core/nginx:/etc/letsencrypt
+      - /mnt/user/appdata/core/nginx:/etc/letsencrypt    
+    environment:
+      DISABLE_IPV6: 'true'
     restart: always
 
 networks:
