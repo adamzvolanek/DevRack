@@ -11,7 +11,7 @@ services:
     volumes:
       - /mnt/user/appdata/cloud/mariadb/config:/config
     environment:
-      MYSQL_ROOT_PASSWORD: ${mariadb_password:-mariadb}
+      MYSQL_ROOT_PASSWORD: ${MARIADB_PASSWORD}
       TZ: 'America/Chicago'
     # MYSQL_DATABASE=USER_DB_NAME #optional
     # MYSQL_USER=MYSQL_USER #optional
