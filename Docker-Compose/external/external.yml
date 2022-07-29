@@ -1,18 +1,26 @@
 ---
 version: '3'
 services:
-  <SERVICE_NAME>:
-    container_name: <CONTAINER>
-    image: <CONTAINER_REPO>:<TAG>
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    runtime: nvidia
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:<PORTS>:<PORTS>
+      - 8096:8096
+      - 8920:8920 # HTTPS
+      - 1900:1900/udp # Service Discovery
     volumes:
-      - /mnt/user/appdata/<SERVICE_NAME>/<CONTAINER>/:/
+      - /mnt/user/appdata/external/jellyfin:/config
+      - /mnt/user/TV_Shows/:/data/tvshows
+      - /mnt/user/Movies/:/data/movies
+      - /mnt/user/Music:/data/music
     environment:
+      - TZ=America/Chicago
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
     restart: unless-stopped
-  
+    
   jellyseerr:
     container_name: jellyseerr
     image: fallenbagel/jellyseerr:latest
@@ -24,7 +32,20 @@ services:
       - /mnt/user/appdata/arrs/jellyseerr:/config
     environment:
       - LOG_LEVEL= info
-      - TZ= 'America/Chicago'
+      - TZ='America/Chicago'
+    restart: unless-stopped
+    
+  photoprism:
+    container_name: photoprism_external
+    image: photoprism/photoprism:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:2342:2342
+    volumes:
+      - /mnt/user/appdata/external/photoprism_external:/config
+    environment:
+      PHOTOPRISM_ADMIN_PASSWORD: "insecure"          # INITIAL PASSWORD FOR "admin" USER, MINIMUM 8 CHARACTERS
     restart: unless-stopped
   
 networks:
