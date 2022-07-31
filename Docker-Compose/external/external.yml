@@ -17,8 +17,8 @@ services:
       - /mnt/user/Movies/:/data/movies
       - /mnt/user/Music:/data/music
     environment:
-      - TZ: "America/Chicago"
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
+      - TZ: 'America/Chicago'
+      - NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
     restart: unless-stopped
     
   jellyseerr:
