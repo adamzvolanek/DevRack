@@ -13,7 +13,7 @@ services:
       - /mnt/user/TV_Shows:/tv
       - /mnt/user/Scratch/Downloads:/downloads
     environment:
-      - TZ= 'America/Chicago'
+      - TZ: 'America/Chicago'
     restart: unless-stopped
     
   radarr:
@@ -28,7 +28,7 @@ services:
       - /mnt/user/Movies:/movies
       - /mnt/user/Scratch/Downloads:/downloads
     environment:
-      - TZ= 'America/Chicago'
+      - TZ: 'America/Chicago'
     restart: unless-stopped
 
   jackett:
@@ -42,7 +42,7 @@ services:
       - /mnt/user/appdata/arrs/jackett:/config # Creates additional layer
       - /mnt/user/Scratch/Downloads:/downloads
     environment:
-      - TZ='America/Chicago'
+      - TZ: 'America/Chicago'
     restart: unless-stopped
   
 networks:
