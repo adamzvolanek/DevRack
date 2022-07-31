@@ -47,7 +47,7 @@ services:
       - /mnt/user/Pictures/PhotoAlbum:/photoprism/originals
       # - /mnt/user/Adam/Cloud/File Drop/PhotoAlbum_Import/:/photoprism/import
     environment:
-      PHOTOPRISM_ADMIN_PASSWORD: insecure # INITIAL PASSWORD FOR "admin" USER, MINIMUM 8 CHARACTERS
+      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD}
       PHOTOPRISM_UPLOAD_NSFW: 'true'
       PHOTOPRISM_DETECT_NSFW: 'false'
       PHOTOPRISM_SITE_TITLE: 'Adams Photography Album'
@@ -55,9 +55,10 @@ services:
       PHOTOPRISM_SITE_AUTHOR: 'Adam Zvolanek'
       PHOTOPRISM_DATABASE_DRIVER: mysql
       # PHOTOPRISM_DATABASE_DSN: 'DBUSER:DBPASSWORD@tcp(DBIP:DBPORT)/photoprism?parseTime=true' # Combined
-      PHOTOPRISM_DATABASE_SERVER: 'mariadb:' # add port as variable?
-      PHOTOPRISM_DATABASE_NAME: photoprism
-      
+      PHOTOPRISM_DATABASE_SERVER: 'mariadb:${MARIADB_PORT}' # add port as variable?
+      PHOTOPRISM_DATABASE_NAME: ${PHOTOPRISM_DB_NAME}
+      PHOTOPRISM_DATABASE_USER: ${PHOTOPRISM_DB_USER}
+      PHOTOPRISM_DATABASE_PASSWORD: ${PHOTOPRISM_DB_PASSWORD}
     restart: unless-stopped
   
 networks:

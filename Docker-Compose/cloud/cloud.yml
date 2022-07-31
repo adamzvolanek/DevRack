@@ -7,7 +7,7 @@ services:
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:3306:3306
+      - ${SERVER_NAME}:3306:${MARIADB_PORT}
     volumes:
       - /mnt/user/appdata/cloud/mariadb/config:/config
     environment:
