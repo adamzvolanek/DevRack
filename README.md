@@ -41,3 +41,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * A thanks goes out to the YouTube channels I follow ot begin this NAS journey, and to those at work that encouraged me to simply try. My work has allowed me to enter the cloud space specifically, but without my foundational knowledge and continued interest, I would not have the job I currently have. 
 * A last thanks to those that have supported me: my awesome group of friends from highschool, my girlfriend, and those that say I can't do something.
 
+## Shameless Plug
+
+Blog Link
