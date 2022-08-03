@@ -1,23 +1,25 @@
 # DevRack
 
-The title is still a work in progress... That said, this is a project consisting of both self-learning and creating repeatable, deployable code that exists on my Unraid server: Alexandria. An effort to remove myself from the 'simplified' UI of dockers in Unraid, VMs, and other running tools. This includes creating docker-compose files for the dockers that currently exist on my server, and future dockers I may deploy. Likewise, creation of VMs, testing Ansible scripts, and in the future, configuration scripts for the docker containers themselves. An end goal of a 1-click deployment of my dockers and VMs, already configured to any platform that supports docker/docker-compose. 
+The title is still a work in progress... That said, this is a project consisting of both self-learning and creating repeatable, deployable code that exists on my Unraid server: Alexandria. An effort to remove myself from the 'simplified' UI of dockers in Unraid, VMs, and other running tools. This includes creating docker-compose files for the dockers that currently exist on my server, and future dockers I may deploy. 
+
+Likewise, creation of VMs, testing Ansible scripts, and in the future, configuration scripts for the docker containers themselves. An end goal of a 1-click deployment of my dockers and VMs, already configured to any platform that supports docker/docker-compose.
 
 ## Getting Started
 
-While this repo was not made to distribute or really be written in a way for others to use. As I am learning the abstract-ness of the code is not beyond most people's understanding and others are free to pick-up and use my work; download the Docker-Compose folder and there will be included my .env file which is used throughout the stacks inside of the Docker-Compose folder. (again naming not my strong suite)
+While this repository was not made to distribute or really be written in a way for others to use. As I am learning the abstract-ness of the code is not beyond most people's understanding and others are free to pick-up and use my work; download the Docker-Compose folder and there will be included my .env file which is used throughout the stacks inside of the Docker-Compose folder.
 
-Please take a look at my [Dev Rack Project](https://github.com/users/adamzvolanek/projects/1) under the Alexandria board to view my current progress, completion, and future work. 
+Please take a look at my [Dev Rack Project](https://github.com/users/adamzvolanek/projects/1) under the Alexandria board to view my current progress, completion, and future work.
 
 ### Prerequisites
 
-Currently, I am testing these docker-compose stacks on my Unraid server, however theoretically any compute node that is capable of running docker, 37.6 Gb for (my current) docker image, and 10 Gb of RAM with the dockers running.
+Currently, I am testing these docker-compose stacks on my Unraid server, however theoretically any compute platform (EC2s for example) that is capable of running docker, 37.6 Gb for (my current) docker image, and 10 Gb of RAM with the dockers running.
 
 
 ## Built With
 
 * [Unraid](https://unraid.net/) - Server, test-bed, and host
 * [compose_plugin](https://github.com/dcflachs/compose_plugin) - Docker-Compose plugin for Unraid
-* [Notepad++](https://notepad-plus-plus.org/) - Used to write yaml files. 
+* [Notepad++](https://notepad-plus-plus.org/) - Used to write yaml files.
 
 ## Contributing
 
@@ -37,7 +39,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* A special thanks for those that maintain the docker containers I use and reference. Without you, I would not have started on this journey. A special thanks to those that create wonderful installation documentation and at times include a docker-compose file already. 
+* A special thanks for those that maintain the docker containers I use and reference. Without you, I would not have started on this journey. A special thanks to those that create wonderful installation documentation and at times include a docker-compose file already.
 * A thanks goes out to the YouTube channels I follow ot begin this NAS journey, and to those at work that encouraged me to simply try. My work has allowed me to enter the cloud space specifically, but without my foundational knowledge and continued interest, I would not have the job I currently have. 
 * A last thanks to those that have supported me: my awesome group of friends from highschool, my girlfriend, and those that say I can't do something.
 
