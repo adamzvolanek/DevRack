@@ -1,0 +1,69 @@
+---
+version: '3'
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    runtime: nvidia
+    networks:
+      - proxy
+    ports:
+      - 8096:8096
+      - 8920:8920 # HTTPS
+      - 1900:1900/udp # Service Discovery
+    volumes:
+      - /mnt/user/appdata/external/jellyfin:/config
+      - /mnt/user/TV_Shows/:/data/tvshows
+      - /mnt/user/Movies/:/data/movies
+      - /mnt/user/Music:/data/music
+    environment:
+      - TZ: 'America/Chicago'
+      - NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
+    restart: unless-stopped
+    
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:5055:5055
+    volumes:
+      - /mnt/user/appdata/arrs/jellyseerr:/config
+    environment:
+      - LOG_LEVEL: info
+      - TZ: 'America/Chicago'
+    restart: unless-stopped
+    
+  photoprism:
+    container_name: photoprism_external
+    image: photoprism/photoprism:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:2342:2342
+    volumes:
+      - /mnt/user/appdata/external/photoprism_external:/photoprism/storage
+      - /mnt/user/Pictures/PhotoAlbum:/photoprism/originals
+      # - /mnt/user/Adam/Cloud/File Drop/PhotoAlbum_Import/:/photoprism/import
+    environment:
+      PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD}
+      PHOTOPRISM_UPLOAD_NSFW: 'true'
+      PHOTOPRISM_DETECT_NSFW: 'false'
+      PHOTOPRISM_SITE_TITLE: 'Adams Photography Album'
+      PHOTOPRISM_SITE_DESCRIPTION: 'Collection of Adams Photos'
+      PHOTOPRISM_SITE_AUTHOR: 'Adam Zvolanek'
+      PHOTOPRISM_DATABASE_DRIVER: mysql
+      # PHOTOPRISM_DATABASE_DSN: 'DBUSER:DBPASSWORD@tcp(DBIP:DBPORT)/photoprism?parseTime=true' # Combined
+      PHOTOPRISM_DATABASE_SERVER: 'mariadb:${MARIADB_PORT}' # add port as variable?
+      PHOTOPRISM_DATABASE_NAME: ${PHOTOPRISM_DB_NAME}
+      PHOTOPRISM_DATABASE_USER: ${PHOTOPRISM_DB_USER}
+      PHOTOPRISM_DATABASE_PASSWORD: ${PHOTOPRISM_DB_PASSWORD}
+    restart: unless-stopped
+  
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
+    

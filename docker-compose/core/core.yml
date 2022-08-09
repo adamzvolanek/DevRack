@@ -1,0 +1,78 @@
+---
+version: '3'
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    networks:
+      fixed_pi:
+        ipv4_address: ${PIHOLE_IP}
+    ports:
+      - :53:53
+      - :67:67 # Only required if you are using Pi-hole as your DHCP server
+      - :80:80
+    volumes:
+      - /mnt/user/appdata/core/pihole:/etc/pihole
+      - /mnt/user/appdata/core/pihole/dnsmasq.d:/etc/dnsmasq.d
+    environment:
+      TZ: 'America/Chicago' # US
+      WEBPASSWORD: ${PIHOLE_PASSWORD:-pihole}
+      DNS1: '1.1.1.1' # Cloudflare
+      DNS2: '8.8.8.8' # Google
+      INTERFACE: ${HARDWARE_CONNECTION}
+      ServerIP: ${PIHOLE_IP}
+      IPv6: False
+      DNSMASQ_LISTENING: all
+      PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
+      WEBUIBOXEDLAYOUT: boxed 
+    restart: always
+    
+  duckdns:
+    container_name: duckdns
+    image: lscr.io/linuxserver/duckdns:latest
+    networks:
+      - proxy
+    environment:
+      TZ: 'America/Chicago'
+      SUBDOMAINS: ${DUCKDNS_SUBDOMAIN}
+      TOKEN: ${DUCKDNS_TOKEN}
+    restart: unless-stopped
+
+  cloudflare:
+    container_name: CloudflareDDNS
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - proxy
+    environment:
+      EMAIL: ${CLOUDFLARE_EMAIL}
+      API_KEY: ${CLOUDFLARE_API_KEY}
+      ZONE: ${CLOUDFLARE_DOMAIN}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN}
+      PROXIED: true
+      RRTYPE: A #IPv6 is AAAA
+    restart: always
+
+  nginx:
+    container_name: nginx
+    image: jc21/nginx-proxy-manager:latest
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:${NGINX_HTTP_PORT}:${NGINX_HTTP_PORT} # HTTP Port
+      - ${SERVER_NAME}:${NGINX_HTTPS_PORT}:${NGINX_HTTPS_PORT} # HTTPS Port
+      - ${SERVER_NAME}:${NGINX_ADMIN_PORT}:${NGINX_ADMIN_PORT} # Admin Web Port
+    volumes:
+      - /mnt/user/appdata/core/nginx:/data
+      - /mnt/user/appdata/core/nginx:/etc/letsencrypt    
+    environment:
+      DISABLE_IPV6: 'true'
+    restart: always
+
+networks:
+  fixed_pi:
+    name: ${HARDWARE_CONNECTION}
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
+    

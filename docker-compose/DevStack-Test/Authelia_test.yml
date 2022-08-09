@@ -1,0 +1,22 @@
+version: '3'
+services:
+  auth:
+    container_name: authelia
+    image: authelia/authelia:latest
+    ports:
+      - ${SERVER_NAME}:9091:9091
+    volumes:
+      - /mnt/user/appdata/Authelia:/config
+    labels:
+      traefik.enable: false
+      traefik.http.routers.authelia.entryPoints: https
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
+    
