@@ -1,2 +1,9 @@
+[alexandria_vms]
 ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
+ansiblenode2 apache_package=httpd php_package=php
+
+[node1]
+ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
+
+[node2]
 ansiblenode2 apache_package=httpd php_package=php
