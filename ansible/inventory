@@ -2,8 +2,11 @@
 ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
 ansiblenode2 apache_package=httpd php_package=php
 
-[node1]
+[web_servers]
 ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
 
-[node2]
+[db_servers]
+ansiblenode2 apache_package=httpd php_package=php
+
+[file_servers]
 ansiblenode2 apache_package=httpd php_package=php
