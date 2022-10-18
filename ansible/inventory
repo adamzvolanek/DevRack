@@ -1,0 +1,12 @@
+[alexandria_vms]
+ansiblenode1
+ansiblenode2
+
+[web_servers]
+ansiblenode1
+
+[db_servers]
+ansiblenode2
+
+[file_servers]
+ansiblenode2

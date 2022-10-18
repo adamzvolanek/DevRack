@@ -1,0 +1,27 @@
+---
+- name: install web server packages
+  tags: apache,apache2,centos,httpd,ubuntu
+  package:
+    name:
+      - "Template:Apache package name"
+      - "Template:Php package name"
+    state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: change e-mail address for admin
+  tags: apache,centos,httpd
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^ServerAdmin'
+    line: ServerAdmin somebody@somewhere.com
+  when: ansible_distribution == "CentOS"
+  notify: restart_apache
+
+- name: copy html file for site
+  tags: apache,apache,apache2,httpd
+  copy:
+    src: default_site.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
