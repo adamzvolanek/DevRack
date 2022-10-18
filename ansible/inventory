@@ -1,12 +1,12 @@
 [alexandria_vms]
-ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
-ansiblenode2 apache_package=httpd php_package=php
+ansiblenode1
+ansiblenode2
 
 [web_servers]
-ansiblenode1 apache_package=apache2 php_package=libapache2-mod-php
+ansiblenode1
 
 [db_servers]
-ansiblenode2 apache_package=httpd php_package=php
+ansiblenode2
 
 [file_servers]
-ansiblenode2 apache_package=httpd php_package=php
+ansiblenode2
