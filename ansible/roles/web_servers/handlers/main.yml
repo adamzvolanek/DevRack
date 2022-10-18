@@ -1,3 +1,4 @@
+---
 - name: restart_apache
   service:
     name: "{{ apache_service }}"

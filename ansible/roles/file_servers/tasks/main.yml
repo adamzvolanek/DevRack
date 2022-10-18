@@ -1,3 +1,4 @@
+---
 - name: install samba package
   tags: samba
   package:

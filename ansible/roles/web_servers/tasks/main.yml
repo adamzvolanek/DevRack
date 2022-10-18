@@ -1,5 +1,4 @@
 ---
-
 - name: install web server packages
   tags: apache,apache2,centos,httpd,ubuntu
   package:

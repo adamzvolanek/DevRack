@@ -15,7 +15,7 @@ services:
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
-    
+
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
