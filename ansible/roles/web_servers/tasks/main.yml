@@ -9,13 +9,6 @@
     state: latest
   when: ansible_distribution == "CentOS"
 
-- name: start and enable apache
-  tags: apache,centos,httpd
-  service:
-    name: "Template:apache service"
-    state: started
-    enabled: yes
-
 - name: change e-mail address for admin
   tags: apache,centos,httpd
   lineinfile:
