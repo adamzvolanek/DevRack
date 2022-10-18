@@ -1,5 +1,4 @@
 ---
-
 - hosts: alexandria_vms
   become: true
   pre_tasks:
