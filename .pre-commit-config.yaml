@@ -13,4 +13,8 @@ repos:
     rev: v1.28.0
     hooks:
       - id: yamllint
-        args: [-c=yamllinter_config.yaml]
+        args: [-c=linter_config.yaml]
+- repo: https://github.com/ansible-community/ansible-lint.git
+  rev: v6.8.2
+  hooks:
+    - id: ansible-lint

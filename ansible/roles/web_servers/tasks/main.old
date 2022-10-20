@@ -1,4 +1,4 @@
- - name: install httpd package (CentOS)
+ - name: Install httpd package (CentOS)
    tags: apache,centos,httpd
    dnf:
      name:
@@ -7,7 +7,7 @@
      state: latest
    when: ansible_distribution == "CentOS"
  
- - name: start and enable httpd (CentOS)
+ - name: Start and enable httpd (CentOS)
    tags: apache,centos,httpd
    service:
      name: httpd
@@ -15,7 +15,7 @@
      enabled: yes
    when: ansible_distribution == "CentOS"
  
- - name: install apache2 package (Ubuntu)
+ - name: Install apache2 package (Ubuntu)
    tags: apache,apache2,ubuntu
    apt:
      name:
@@ -24,7 +24,7 @@
      state: latest
    when: ansible_distribution == "Ubuntu"
  
- - name: change e-mail address for admin
+ - name: Change e-mail address for admin
    tags: apache,centos,httpd
    lineinfile:
      path: /etc/httpd/conf/httpd.conf
@@ -33,14 +33,14 @@
    when: ansible_distribution == "CentOS"
    register: httpd
  
- - name: restart httpd (CentOS)
+ - name: Restart httpd (CentOS)
    tags: apache,centos,httpd
    service:
      name: httpd
      state: restarted
    when: httpd.changed    
  
- - name: copy html file for site
+ - name: Copy html file for site
    tags: apache,apache,apache2,httpd
    copy:
      src: default_site.html
