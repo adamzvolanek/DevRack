@@ -20,12 +20,11 @@ services:
       RCLONE_DESTINATION: 'local:/data'
       IGNORE_CAMERAS:
       VERBOSITY: v
-      RCLONE_ARGS: 
+      RCLONE_ARGS:
     restart: unless-stopped
-  
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

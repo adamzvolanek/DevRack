@@ -5,3 +5,5 @@ rules:
   line-length:
     level: warning
   comments: disable
+  new-lines:
+    type: platform

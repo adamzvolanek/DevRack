@@ -6,7 +6,7 @@
        - php
      state: latest
    when: ansible_distribution == "CentOS"
- 
+
  - name: Start and enable httpd (CentOS)
    tags: apache,centos,httpd
    service:
@@ -14,7 +14,7 @@
      state: started
      enabled: yes
    when: ansible_distribution == "CentOS"
- 
+
  - name: Install apache2 package (Ubuntu)
    tags: apache,apache2,ubuntu
    apt:
@@ -23,7 +23,7 @@
        - libapache2-mod-php
      state: latest
    when: ansible_distribution == "Ubuntu"
- 
+
  - name: Change e-mail address for admin
    tags: apache,centos,httpd
    lineinfile:
@@ -32,14 +32,14 @@
      line: ServerAdmin somebody@somewhere.net
    when: ansible_distribution == "CentOS"
    register: httpd
- 
+
  - name: Restart httpd (CentOS)
    tags: apache,centos,httpd
    service:
      name: httpd
      state: restarted
-   when: httpd.changed    
- 
+   when: httpd.changed
+
  - name: Copy html file for site
    tags: apache,apache,apache2,httpd
    copy:

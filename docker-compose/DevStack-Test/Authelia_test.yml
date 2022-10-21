@@ -20,4 +20,3 @@ networks:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

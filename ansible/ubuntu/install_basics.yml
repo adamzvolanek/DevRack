@@ -21,12 +21,12 @@
   - name: Check if ssh service is running
     command: systemctl status openssh
     ignore_errors: yes
-    
+
   - name: Check if ssh service is running again
     ansible.builtit.service:
       name: openssh
       state: started
-      
+
   - name: Install Git
     apt:
       name: git

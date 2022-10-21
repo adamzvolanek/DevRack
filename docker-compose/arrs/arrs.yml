@@ -44,10 +44,9 @@ services:
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
-  
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

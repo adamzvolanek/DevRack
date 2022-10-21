@@ -20,7 +20,7 @@ services:
       - TZ: 'America/Chicago'
       - NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
     restart: unless-stopped
-    
+
   jellyseerr:
     container_name: jellyseerr
     image: fallenbagel/jellyseerr:latest
@@ -34,7 +34,7 @@ services:
       - LOG_LEVEL: info
       - TZ: 'America/Chicago'
     restart: unless-stopped
-    
+
   photoprism:
     container_name: photoprism_external
     image: photoprism/photoprism:latest
@@ -60,10 +60,9 @@ services:
       PHOTOPRISM_DATABASE_USER: ${PHOTOPRISM_DB_USER}
       PHOTOPRISM_DATABASE_PASSWORD: ${PHOTOPRISM_DB_PASSWORD}
     restart: unless-stopped
-  
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    
