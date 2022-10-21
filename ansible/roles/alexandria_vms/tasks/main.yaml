@@ -1,9 +1,9 @@
 ---
-- name: install unzip
+- name: Install unzip
   package:
     name: unzip
 
-- name: install terraform
+- name: Install terraform
   unarchive:
     src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
     dest: /usr/local/bin

@@ -28,10 +28,9 @@ services:
       DELUGE_WEB_LOG_LEVEL: info
       DEBUG: false
     restart: unless-stopped
-  
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

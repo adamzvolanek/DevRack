@@ -17,7 +17,7 @@ services:
     # MYSQL_USER=MYSQL_USER #optional
     # MYSQL_PASSWORD=DATABASE_PASSWORD #optional
     restart: unless-stopped
-  
+
   nextcloud:
     container_name: nextcloud
     image: lscr.io/linuxserver/nextcloud:latest
@@ -33,10 +33,9 @@ services:
     environment:
       TZ: 'America/Chicago'
     restart: unless-stopped
-  
+
 networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

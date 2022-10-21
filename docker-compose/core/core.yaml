@@ -24,9 +24,9 @@ services:
       IPv6: False
       DNSMASQ_LISTENING: all
       PIHOLE_DNS_: '1.1.1.1;8.8.8.8'
-      WEBUIBOXEDLAYOUT: boxed 
+      WEBUIBOXEDLAYOUT: boxed
     restart: always
-    
+
   duckdns:
     container_name: duckdns
     image: lscr.io/linuxserver/duckdns:latest
@@ -63,7 +63,7 @@ services:
       - ${SERVER_NAME}:${NGINX_ADMIN_PORT}:${NGINX_ADMIN_PORT} # Admin Web Port
     volumes:
       - /mnt/user/appdata/core/nginx:/data
-      - /mnt/user/appdata/core/nginx:/etc/letsencrypt    
+      - /mnt/user/appdata/core/nginx:/etc/letsencrypt
     environment:
       DISABLE_IPV6: 'true'
     restart: always
@@ -75,4 +75,3 @@ networks:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
-    

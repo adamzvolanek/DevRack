@@ -19,6 +19,7 @@ Currently, I am testing these docker-compose stacks on my Unraid server, however
 
 * [Unraid](https://unraid.net/) - Server, test-bed, and host
 * [compose_plugin](https://github.com/dcflachs/compose_plugin) - Docker-Compose plugin for Unraid
+* [Pre-Commit](https://pre-commit.com/) - Keeping code tidy and stepping away from github actions (after the fact)
 * [Notepad++](https://notepad-plus-plus.org/) - Used to write yaml files.
 
 ## Contributing
