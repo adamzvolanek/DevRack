@@ -3,5 +3,5 @@ extends: default
 
 rules:
   line-length:
-	level: warning
+    level: warning
   comments: disable
