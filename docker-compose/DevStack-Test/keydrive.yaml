@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  keydrive:
+    image: ghcr.io/keydrive/keydrive:edge
+    restart: unless-stopped
+    networks:
+      - proxy
+    ports:
+      - ${SERVER_NAME}:5555:5555
+    volumes:
+      - /mnt/user/Scratch/KeyDrive:/user_data
+    environment:
+      POSTGRES_HOST: database
+      POSTGRES_DB: keydrive
+      POSTGRES_USER: keydrive
+      POSTGRES_PASSWORD: "ChangeMeToASecurePassword"
+  database:
+    image: library/postgres:13
+    restart: unless-stopped
+    networks:
+      - proxy
+    volumes:
+      - /mnt/user/appdata/KeyDrive_DB:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keydrive
+      POSTGRES_USER: keydrive
+      POSTGRES_PASSWORD: "ChangeMeToASecurePassword"
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
