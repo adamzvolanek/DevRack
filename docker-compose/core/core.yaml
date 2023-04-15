@@ -27,17 +27,6 @@ services:
       WEBUIBOXEDLAYOUT: boxed
     restart: always
 
-  duckdns:
-    container_name: duckdns
-    image: lscr.io/linuxserver/duckdns:latest
-    networks:
-      - proxy
-    environment:
-      TZ: 'America/Chicago'
-      SUBDOMAINS: ${DUCKDNS_SUBDOMAIN}
-      TOKEN: ${DUCKDNS_TOKEN}
-    restart: unless-stopped
-
   cloudflare:
     container_name: CloudflareDDNS
     image: oznu/cloudflare-ddns:latest
