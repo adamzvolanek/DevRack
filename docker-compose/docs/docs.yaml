@@ -3,6 +3,10 @@ services:
 
   db:
     image: postgres:11-alpine
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
     environment:
       POSTGRES_DB: wiki
       POSTGRES_PASSWORD: wikijsrocks
@@ -15,6 +19,10 @@ services:
 
   wiki:
     image: ghcr.io/requarks/wiki:2
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
     depends_on:
       - db
     environment:
@@ -30,3 +38,9 @@ services:
 
 volumes:
   db-data:
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

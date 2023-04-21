@@ -1,0 +1,24 @@
+---
+version: '3'
+services:
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:5055:5055" # webUI port
+    volumes:
+      - /mnt/user/appdata/external/jellyseerr:/app/config/
+    environment:
+      - LOG_LEVEL: info
+      - TZ: 'America/Chicago'
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

@@ -1,0 +1,25 @@
+---
+version: '3'
+services:
+  cloudflare:
+    container_name: cloudflareDDNS
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+      - ./cloudflare.env
+    environment:
+      EMAIL: ${CLOUDFLARE_EMAIL}
+      API_KEY: ${CLOUDFLARE_API_KEY}
+      ZONE: ${CLOUDFLARE_DOMAIN}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN}
+      PROXIED: true
+      RRTYPE: A #IPv6 is AAAA
+    restart: always
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

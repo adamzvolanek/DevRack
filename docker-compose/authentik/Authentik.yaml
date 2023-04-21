@@ -6,6 +6,9 @@ services:
     image: postgres:12.5-alpine
     networks:
       - proxy
+    env_file:
+      - ../server.env
+      - ./authentik.env
     ports:
       - "${SERVER_IP}:5432:5432"
     volumes:

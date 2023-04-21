@@ -1,0 +1,24 @@
+---
+version: '3'
+services:
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:1977:8080"
+    volumes:
+      - /run/udev:/run/udev:ro
+      - /dev/disk:/dev/disk:ro
+      - /mnt/user/appdata/tools/scrutiny/config:/opt/scrutiny/config
+      - /mnt/user/appdata/tools/scrutiny/influxdb:/opt/scrutiny/influxdb
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
