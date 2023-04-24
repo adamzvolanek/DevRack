@@ -43,4 +43,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Shameless Plug
 
-Blog Link
+Blog Link (pending)
