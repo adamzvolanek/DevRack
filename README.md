@@ -14,7 +14,6 @@ Please take a look at my [Dev Rack Project](https://github.com/users/adamzvolane
 
 Currently, I am testing these docker-compose stacks on my Unraid server, however theoretically any compute platform (EC2s for example) that is capable of running docker, 37.6 Gb for (my current) docker image, and 10 Gb of RAM with the dockers running.
 
-
 ## Built With
 
 * [Unraid](https://unraid.net/) - Server, test-bed, and host
