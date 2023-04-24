@@ -1,8 +1,6 @@
 # DevRack
 
-The title is still a work in progress. This is a project consisting of both self-learning and creating repeatable, deployable code that exists on my Unraid server: Alexandria. An effort to remove myself from the 'simplified' UI of dockers in Unraid, VMs, and other running tools.
-
-Likewise, creation of VMs, testing Ansible scripts, and in the future, configuration scripts for the docker containers themselves. An end goal of a 1-click deployment of my dockers and VMs, already configured to any platform that supports docker/docker-compose.
+This is my home-lab project consisting of both self-learning and creating repeatable, deployable code that exists on my Unraid server named, Alexandria. My end goal of a "1-click" deployment of dockers and VMs, already configured to deploy in Unraid.
 
 ## Getting Started
 
