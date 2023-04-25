@@ -12,7 +12,7 @@ services:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
       - /mnt/user/appdata/arrs/radarr:/config
-      - /mnt/user/Movies:/media
+      - /mnt/user/Movies:/movies
       - /mnt/user/Scratch/Downloads:/data
     environment:
       - TZ: 'America/Chicago'
@@ -30,7 +30,7 @@ services:
     volumes:
       - /dev/rtc:/dev/rtc:ro
       - /mnt/user/appdata/arrs/sonarr:/config
-      - /mnt/user/TV_Shows:/media
+      - /mnt/user/TV_Shows:/TV_Shows
       - /mnt/user/Scratch/Downloads:/data
     environment:
       - TZ: 'America/Chicago'
