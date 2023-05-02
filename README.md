@@ -10,14 +10,17 @@ Please take a look at my [Dev Rack Project](https://github.com/users/adamzvolane
 
 ### Prerequisites
 
-Currently, I am testing these docker-compose stacks on my Unraid server, however theoretically any compute platform (EC2s for example) that is capable of running docker, 37.6 Gb for (my current) docker image, and 10 Gb of RAM with the dockers running.
+Currently, I am testing these docker-compose stacks on my Unraid server, however theoretically any compute platform that is capable of running docker, 37.6 Gb for (my current) docker image, and 10 Gb of RAM with the dockers running.
 
-## Built With
+### Built Using
 
 * [Unraid](https://unraid.net/) - Server, test-bed, and host
 * [compose_plugin](https://github.com/dcflachs/compose_plugin) - Docker-Compose plugin for Unraid
 * [Pre-Commit](https://pre-commit.com/) - Keeping code tidy and stepping away from github actions (after the fact)
-* [Notepad++](https://notepad-plus-plus.org/) - Used to write yaml files.
+
+## Running this for yourself...
+
+If you are wanting to try this for yourself, please read the docker-compose [readme](/docker-compose/README.md) carefully. The instructions are written for use in Unraid and you **will** have to replace all the values in each respective `*.env` file to meet **YOUR** needs.
 
 ## Contributing
 
@@ -25,7 +28,7 @@ Please read [CONTRIBUTING.md](https://github.com/adamzvolanek/DevRack/blob/906fd
 
 ## Versioning
 
-One day I will implement better versioning, but happy to take suggestions. I haven't hit my 'first release' but this will be a continued personal project so not a high priority.
+Pending.
 
 ## Authors
 
@@ -37,9 +40,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* A special thanks for those that maintain the docker containers I use and reference. Without you, I would not have started on this journey. A special thanks to those that create wonderful installation documentation and at times include a docker-compose file already.
-* A thanks goes out to the YouTube channels I follow ot begin this NAS journey, and to those at work that encouraged me to simply try. My work has allowed me to enter the cloud space specifically, but without my foundational knowledge and continued interest, I would not have the job I currently have.
-* A last thanks to those that have supported me: my awesome group of friends from highschool, my girlfriend, and those that say I can't do something.
+* A special thanks for those that maintain the docker containers I use and reference: [linuxserver](https://www.linuxserver.io/), [binhex](https://github.com/binhex), [ich777](https://github.com/ich777) and many more.
+* All the YouTube channels that create tutorials and walk-throughs of all things Unraid and dockers.
+* A last thanks to those that have supported me: my awesome group of friends from highschool, my ~~girlfriend~~ fiance, and those that say I can't do something.
 
 ## Shameless Plug
 

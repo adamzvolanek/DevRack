@@ -11,15 +11,13 @@ services:
       - ../server.env
       - ./bookstack.env
     environment:
-      PUID: 1000
-      PGID: 1000
-      MYSQL_ROOT_PASSWORD: <yourdbpass>
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: 'America/Chicago'
-      MYSQL_DATABASE: bookstackapp
-      MYSQL_USER: bookstack
-      MYSQL_PASSWORD: <yourdbpass>
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
-      - /path/to/data:/config
+      - /mnt/user/appdata/docs/bookstack_db/config:/config
     restart: unless-stopped
 
   bookstack:
@@ -31,16 +29,24 @@ services:
       - ../server.env
       - ./bookstack.env
     environment:
-      PUID: 1000
-      PGID: 1000
       APP_URL: http://${SERVER_IP}:6875
       DB_HOST: bookstack_db
       DB_PORT: 3306
-      DB_USER: bookstack
-      DB_PASS: <yourdbpass>
-      DB_DATABASE: bookstackapp
+      DB_USER: ${MYSQL_USER}
+      DB_PASS: ${MYSQL_ROOT_PASSWORD}
+      DB_DATABASE: ${MYSQL_DATABASE}
+      # email
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_ENCRYPTION: tls
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      # The "from" email address for outgoing email
+      MAIL_FROM: ${MAIL_FROM}
+      # The "from" name used for outgoing email
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
     volumes:
-      - /path/to/data:/config
+      - /mnt/user/appdata/docs/bookstack/config:/config
     ports:
       - "${SERVER_IP}:6875:80"
     restart: unless-stopped
@@ -51,4 +57,4 @@ networks:
   proxy:
     name: ${DOCKER_NETWORK}
     driver: bridge
-    external: true
+    external: True
