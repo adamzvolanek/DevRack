@@ -2,7 +2,7 @@
 version: '3'
 services:
   mariadb:
-    container_name: mariadb
+    container_name: nextcloud_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
       - proxy
