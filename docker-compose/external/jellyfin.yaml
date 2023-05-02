@@ -1,0 +1,31 @@
+---
+version: '3'
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    runtime: nvidia
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+      - ./jellyfin.env
+    ports:
+      - "${SERVER_IP}:8096:8096"
+      - "${SERVER_IP}:8920:8920" # HTTPS
+      - "${SERVER_IP}:1900:1900/udp" # Service Discovery
+    volumes:
+      - /mnt/user/appdata/external/jellyfin:/config
+      - /mnt/user/TV_Shows/:/data/tv
+      - /mnt/user/Movies/:/data/movies
+      - /mnt/user/Music:/data/music
+    environment:
+      - TZ: 'America/Chicago'
+      - NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

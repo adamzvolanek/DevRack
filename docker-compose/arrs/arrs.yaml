@@ -1,32 +1,37 @@
 ---
 version: '3'
 services:
-  sonarr:
-    container_name: sonarr
-    image: lscr.io/linuxserver/sonarr:latest
-    networks:
-      - proxy
-    ports:
-      - ${SERVER_NAME}:8989:8989 # If port differs change in /config/config.xml
-    volumes:
-      - /mnt/user/appdata/arrs/sonarr:/config
-      - /mnt/user/TV_Shows:/tv
-      - /mnt/user/Scratch/Downloads:/downloads
-    environment:
-      - TZ: 'America/Chicago'
-    restart: unless-stopped
-
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
     networks:
       - proxy
+    env_file:
+      - ../server.env
     ports:
-      - ${SERVER_NAME}:7878:7878 # If port differs change in /config/config.xml
+      - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
       - /mnt/user/appdata/arrs/radarr:/config
       - /mnt/user/Movies:/movies
-      - /mnt/user/Scratch/Downloads:/downloads
+      - /mnt/user/Scratch/Downloads:/data
+    environment:
+      - TZ: 'America/Chicago'
+    restart: unless-stopped
+
+  sonarr:
+    container_name: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:8989:8989" # If port differs change in /config/config.xml
+    volumes:
+      - /dev/rtc:/dev/rtc:ro
+      - /mnt/user/appdata/arrs/sonarr:/config
+      - /mnt/user/TV_Shows:/TV_Shows
+      - /mnt/user/Scratch/Downloads:/data
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
@@ -36,8 +41,10 @@ services:
     image: lscr.io/linuxserver/jackett:latest
     networks:
       - proxy
+    env_file:
+      - ../server.env
     ports:
-      - ${SERVER_NAME}:9117:9117 # If port differs change in /config/ServerConfig.json
+      - "${SERVER_IP}:9117:9117" # If port differs change in /config/ServerConfig.json
     volumes:
       - /mnt/user/appdata/arrs/jackett:/config # Creates additional layer
       - /mnt/user/Scratch/Downloads:/downloads

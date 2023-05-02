@@ -6,11 +6,15 @@ services:
     image: binhex/arch-delugevpn:latest
     networks:
       - proxy
+    env_file:
+      - ../server.env
+      - ./delugevpn.env
     ports:
-      - ${SERVER_NAME}:8112:8112
-      - ${SERVER_NAME}:8118:8118
-      - ${SERVER_NAME}:58846:58846
-      - ${SERVER_NAME}:58946:58946
+      - "${SERVER_IP}:8112:8112"
+      - "${SERVER_IP}:8118:8118"
+      - "${SERVER_IP}:58846:58846"
+      - "${SERVER_IP}:58946:58946"
+      - "${SERVER_IP}:58946:58946/udp"
     volumes:
       - /mnt/user/appdata/sparrow/binhex-delugevpn:/config
       - /mnt/user/Scratch/Downloads/:/data
@@ -20,12 +24,15 @@ services:
       VPN_PASS: ${VPN_PASS}
       VPN_PROV: ${VPN_PROV}
       VPN_CLIENT: openvpn
+      VPN_OPTIONS:
       STRICT_PORT_FORWARD: 'yes'
       ENABLE_PRIVOXY: no
       LAN_NETWORK: ${LAN_NETWORK}
       NAME_SERVERS: ${NAME_SERVERS}
       DELUGE_DAEMON_LOG_LEVEL: info
       DELUGE_WEB_LOG_LEVEL: info
+      VPN_INPUT_PORTS:
+      VPN_OUTPUT_PORTS:
       DEBUG: false
     restart: unless-stopped
 

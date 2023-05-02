@@ -2,12 +2,15 @@
 version: '3'
 services:
   mariadb:
-    container_name: mariadb
+    container_name: nextcloud_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
       - proxy
+    env_file:
+      - ../server.env
+      - ./cloud.env
     ports:
-      - ${SERVER_NAME}:3306:${MARIADB_PORT}
+      - "${SERVER_IP}:3306:${MARIADB_PORT}"
     volumes:
       - /mnt/user/appdata/cloud/mariadb/config:/config
     environment:
@@ -26,10 +29,11 @@ services:
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:444:444 # Changing port causes issues.
+      - 444:444 # Changing port causes issues.
     volumes:
       - /mnt/user/NextCloud/:/data
       - /mnt/user/appdata/cloud/nextcloud/config:/config
+      - ${NEXTCLOUD_LOCAL_MOUNT}:/data/alexandria/Adam # local Adam mount
     environment:
       TZ: 'America/Chicago'
     restart: unless-stopped

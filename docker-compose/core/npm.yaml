@@ -1,0 +1,26 @@
+---
+version: '3'
+services:
+  nginx:
+    container_name: nginxproxymanager
+    image: jlesage/nginx-proxy-manager:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:8080:8080" # HTTP Port
+      - "${SERVER_IP}:8181:8181" # Admin Web Port
+      - "${SERVER_IP}:4443:4443" # HTTPS Port
+    volumes:
+      - /mnt/user/appdata/core/nginxproxymanager:/config:rw
+    environment:
+      APP_NICENESS: 0 # A niceness value of -20 is the highest priority and 19 is the lowest priority. NOTE: Setting a negative value requires additional permissions.
+      DISABLE_IPV6: 1 # disabled
+    restart: always
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

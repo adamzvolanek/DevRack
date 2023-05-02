@@ -1,0 +1,25 @@
+---
+version: '3'
+services:
+  czkawka:
+    container_name: czkawka
+    image: jlesage/czkawka:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:7821:5800"
+      - "${SERVER_IP}:7921:5900"
+    volumes:
+      - /mnt/user/appdata/tools/czkawka/:/config
+      - /mnt/user/:/storage
+    environment:
+      SECURE_CONNECTION: 0
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true

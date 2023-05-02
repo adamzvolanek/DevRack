@@ -2,12 +2,15 @@
 version: '3'
 services:
   postgresql:
-    container_name: postgres-authentik
-    image: postgres:12-alpine
+    container_name: postgres_authentik
+    image: postgres:12.5-alpine
     networks:
       - proxy
+    env_file:
+      - ../server.env
+      - ./authentik.env
     ports:
-      - ${SERVER_NAME}:5432:5432
+      - "${SERVER_IP}:5432:5432"
     volumes:
       - /mnt/user/appdata/authentik/postgres/data:/var/lib/postgresql/data
     environment:
@@ -28,12 +31,13 @@ services:
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:6379:6379
+      - "${SERVER_IP}:6379:6379"
     volumes:
       - /mnt/user/appdata/redis:/redis
     environment:
       - ALLOW_EMPTY_PASSWORD: yes
       - REDIS_PASSWORD: ${REDIS_PASSWORD}
+      - REDIS_EXTRA_FLAGS: --auto-aof-rewrite-percentage 100 --auto-aof-rewrite-min-size 64mb
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
       start_period: 20s
@@ -49,16 +53,16 @@ services:
     networks:
       - proxy
     ports:
-      - ${SERVER_NAME}:9000:9000
-      - ${SERVER_NAME}:9443:9443
+      - "${SERVER_IP}:9000:9000"
+      - "${SERVER_IP}:9443:9443"
     volumes:
       - /mnt/user/appdata/authentik/authentik/templates:/templates
       - /mnt/user/appdata/authentik/authentik/geoip:/geoip
       - /var/run/docker.sock:/var/run/docker.sock
-      - /mnt/user/appdata/authentik-stack/authentik/media:/media
+      - /mnt/user/appdata/authentik/authentik/media:/media
     environment:
       - AUTHENTIK_REDIS__HOST: redis
-      - AUTHENTIK_POSTGRESQL__HOST: postgres-authentik
+      - AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
       - AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
       - AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
       - AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
@@ -84,7 +88,7 @@ services:
       - /mnt/user/appdata/authentik/authentik/geoip:/geoip
     environment:
       - AUTHENTIK_REDIS__HOST: redis
-      - AUTHENTIK_POSTGRESQL__HOST: postgres-authentik
+      - AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
       - AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
       - AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
       - AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}

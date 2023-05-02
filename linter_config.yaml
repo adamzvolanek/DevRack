@@ -4,6 +4,6 @@ extends: default
 rules:
   line-length:
     level: warning
+    allow-non-breakable-inline-mappings: true
+  new-lines: disable
   comments: disable
-  new-lines:
-    type: platform
