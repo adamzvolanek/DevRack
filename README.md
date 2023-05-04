@@ -16,9 +16,9 @@ Currently, I am testing these docker-compose stacks on my Unraid server, however
 
 * [Unraid](https://unraid.net/) - Server, test-bed, and host
 * [compose_plugin](https://github.com/dcflachs/compose_plugin) - Docker-Compose plugin for Unraid
-* [Pre-Commit](https://pre-commit.com/) - Keeping code tidy and stepping away from github actions (after the fact)
+* [Pre-Commit](https://pre-commit.com/) - Keeping code tidy and stepping away from GitHub actions (after the fact)
 
-## Running this for yourself...
+## Running this for yourself
 
 If you are wanting to try this for yourself, please read the docker-compose [readme](/docker-compose/README.md) carefully. The instructions are written for use in Unraid and you **will** have to replace all the values in each respective `*.env` file to meet **YOUR** needs.
 

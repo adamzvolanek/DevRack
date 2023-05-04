@@ -28,7 +28,7 @@ Open the unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
     - Click 'Save Changes'
   - Select 'Env File' and paste **both** the [`server.env`](../docker-compose/server.env) file's contents and any respective local environment file.
 - Select the stack, click 'Edit Stack', and click 'UI Labels'
-  - In the front-end service, enter the WebUI and Port you expect to see the application in. e.g. `http://192.168.1.XX:Port` or (when filling in the values) `http://<SERVER_IP>:<PORT>`.
+  - In the frontend service, enter the WebUI and Port you expect to see the application in. e.g. `http://192.168.1.XX:Port` or (when filling in the values) `http://<SERVER_IP>:<PORT>`.
   - You may also choose to add an Icon in the same menu. Link to the *.image_extension itself.
 - Click 'Compose Up' to deploy the stack.
 - Allow the window to remain open during 'Compose Up/Down' commands.
