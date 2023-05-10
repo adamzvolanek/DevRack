@@ -32,3 +32,40 @@ Open the unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
   - You may also choose to add an Icon in the same menu. Link to the *.image_extension itself.
 - Click 'Compose Up' to deploy the stack.
 - Allow the window to remain open during 'Compose Up/Down' commands.
+
+## Port Configuration
+
+|Container Name              |Docker Network   |IP          |External Port                                        |
+|----------------------------|-----------------|------------|-----------------------------------------------------|
+|adguard                     |br0              |Custom IP   |53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853|
+|AllTheMods8                 |bridge           |${SERVER_IP}|25565                                                |
+|authentik                   |${DOCKER_NETWORK}|${SERVER_IP}|9000, 9443                                           |
+|authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
+|binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
+|bookstack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
+|bookstack_db                |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
+|Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
+|Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
+|delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
+|DiskSpeed                   |bridge           |${SERVER_IP}|18888                                                |
+|DockerWebUI                 |${DOCKER_NETWORK}|${SERVER_IP}|1111                                                 |
+|jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
+|Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
+|jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
+|Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
+|lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
+|luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |
+|mariadb                     |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
+|nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
+|Nginx-Proxy-Manager-Official|br0              |0.0.0.0     |80, 81, 443                                          |
+|NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
+|phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
+|postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
+|radarr                      |${DOCKER_NETWORK}|${SERVER_IP}|7878                                                 |
+|redis                       |${DOCKER_NETWORK}|${SERVER_IP}|6379                                                 |
+|scrutiny                    |bridge           |${SERVER_IP}|1977                                                 |
+|sonarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8989                                                 |
+|UniFi-Protect-Backup        |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
+|UptimeKuma                  |${DOCKER_NETWORK}|${SERVER_IP}|3001                                                 |
+|wikijs                      |${DOCKER_NETWORK}|${SERVER_IP}|3256                                                 |
+|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
