@@ -16,9 +16,7 @@ services:
       - "${SERVER_IP}:1900:1900/udp" # Service Discovery
     volumes:
       - /mnt/user/appdata/external/jellyfin:/config
-      - /mnt/user/TV_Shows/:/data/tv
-      - /mnt/user/Movies/:/data/movies
-      - /mnt/user/Music:/data/music
+      - /mnt/user/media:/media
     environment:
       - TZ: 'America/Chicago'
       - NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
