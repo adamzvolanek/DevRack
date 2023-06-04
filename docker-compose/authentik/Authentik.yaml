@@ -45,6 +45,8 @@ services:
       retries: 5
       timeout: 3s
     restart: unless-stopped
+    depends_on:
+      - postgresql
 
   server:
     container_name: authentik
@@ -72,6 +74,9 @@ services:
 #      - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
       - AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
     restart: unless-stopped
+    depends_on:
+      - postgresql
+      - redis
 
   worker:
     container_name: authentik-worker
@@ -105,6 +110,9 @@ services:
       - AUTHENTIK_EMAIL__FROM: ${AUTHENTIK_EMAIL__FROM}
       - AUTHENTIK_EMAIL__TIMEOUT: 10
     restart: unless-stopped
+    depends_on:
+      - postgresql
+      - redis
 
 networks:
   proxy:
