@@ -1,0 +1,21 @@
+---
+version: '3'
+services:
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - 3001:3001
+    volumes:
+      - /mnt/user/appdata/external/uptime-kuma:/app/data
+    restart: always
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
