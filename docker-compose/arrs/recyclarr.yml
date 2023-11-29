@@ -1,0 +1,156 @@
+radarr:
+  radarr:
+    base_url: !secret radarr_url
+    api_key: !secret radarr_apikey
+
+    quality_definition:
+      type: movie
+    # Set to 'true' to automatically remove custom formats from Radarr when they are removed from
+    # the guide or your configuration. This will NEVER delete custom formats you manually created!
+    delete_old_custom_formats: true
+    quality_profiles:
+      - name: Standard
+        reset_unmatched_scores:
+          enabled: false
+        score_set: Standard-1080p
+        min_format_score: 0
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+        qualities:
+          - name: Remux-2160p
+            enabled: false
+          - name: Bluray-2160p
+            enabled: false
+          - name: WEB 2160p
+            enabled: false
+            qualities:
+              - name: WEBRip-2160p
+                enabled: false
+              - name: WEBDL-2160p
+                enabled: false
+          - name: HDTV-2160p
+            enabled: false
+          - name: Remux-1080p
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - name: WEBRip-1080p
+              - name: WEBDL-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - name: WEBRip-720p
+              - name: WEBDL-720p
+          - name: HDTV-720p
+        quality_sort: top
+      - name: Czech
+        reset_unmatched_scores:
+          enabled: false
+        score_set: Standard-Czech-1080p
+        min_format_score: 0
+        upgrade:
+          allowed: true
+          until_quality: Remux-1080p
+        qualities:
+        qualities:
+          - name: Remux-2160p
+            enabled: false
+          - name: Bluray-2160p
+            enabled: false
+          - name: WEB 2160p
+            enabled: false
+            qualities:
+              - name: WEBRip-2160p
+                enabled: false
+              - name: WEBDL-2160p
+                enabled: false
+          - name: HDTV-2160p
+            enabled: false
+          - name: Remux-1080p
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            qualities:
+              - name: WEBRip-1080p
+              - name: WEBDL-1080p
+          - name: HDTV-1080p
+          - name: Bluray-720p
+          - name: WEB 720p
+            qualities:
+              - name: WEBRip-720p
+              - name: WEBDL-720p
+          - name: HDTV-720p
+          - name: Bluray-576p
+          - name: Bluray-480p
+          - name: WEB 480p
+            qualities:
+              - name: WEBDL-480p
+              - name: WEBRip-480p
+          - name: DVD-R
+          - name: DVD
+        quality_sort: top
+      - name: Ultra-HD
+        reset_unmatched_scores:
+          enabled: false
+        score_set: Standard-4K
+        min_format_score: 0
+        upgrade:
+          allowed: true
+          until_quality: Remux-2160p
+        qualities:
+          - name: Remux-2160p
+          - name: Bluray-2160p
+          - name: WEB 2160p
+            qualities:
+              - name: WEBRip-2160p
+              - name: WEBDL-2160p
+          - name: HDTV-2160p
+          - name: Remux-1080p
+          - name: Bluray-1080p
+          - name: WEB 1080p
+            enabled: false
+            qualities:
+              - name: WEBRip-1080p
+              - name: WEBDL-1080p
+          - name: HDTV-1080p
+            enabled: false
+          - name: Bluray-720p
+            enabled: false
+          - name: WEB 720p
+            enabled: false
+            qualities:
+              - name: WEBRip-720p
+              - name: WEBDL-720p
+          - name: HDTV-720p
+            enabled: false
+        quality_sort: top
+    custom_formats:
+      # A list of custom formats to sync to Radarr. Must use the trash_id in the importable JSON.
+      # Do NOT use the heading names here, those do not work! These are case-insensitive.
+      # Custom formats with negative scores
+      - trash_ids:
+          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+
+# Instance Definition: https://recyclarr.dev/wiki/yaml/config-reference/basic/
+sonarr:
+  sonarr:
+    base_url: !secret sonarr_url
+    api_key: !secret sonarr_apikey
+
+    # Quality definitions from the guide to sync to Sonarr. Choice: anime, series, hybrid
+    quality_definition: 
+      type: series
+
+    # Release profiles from the guide to sync to Sonarr. Types: anime, series
+    # You can optionally add tags and make negative scores strictly ignored
+    release_profiles:
+      - trash_ids:
+          - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
+          - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
+          - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
+      - trash_ids: [76e060895c5b8a765c310933da0a5357] # Optionals
+        filter:
+          include:
+            - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
+        tags: [tv]
