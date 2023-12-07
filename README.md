@@ -24,7 +24,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/adamzvolanek/DevRack/blob/906fd7d4a2b8d2abc9baf3908f005e6e2d9973b6/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/adamzvolanek/DevRack/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -42,8 +42,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * A special thanks for those that maintain the docker containers I use and reference: [linuxserver](https://www.linuxserver.io/), [binhex](https://github.com/binhex), [ich777](https://github.com/ich777) and many more.
 * All the YouTube channels that create tutorials and walk-throughs of all things Unraid and dockers.
-* A last thanks to those that have supported me: my awesome group of friends from highschool, my ~~girlfriend~~ fiance, and those that say I can't do something.
-
-## Shameless Plug
-
-Blog Link (pending)
+* A last thanks to those that have supported me: my awesome group of friends from highschool, my ~~girlfriend~~ ~~fiance~~ wife, and those that say I can't do something.

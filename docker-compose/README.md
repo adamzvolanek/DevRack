@@ -1,6 +1,6 @@
 # DevRack Docker-Compose
 
-This ReadMe will go over how to deploy the entire stack. Once a 'compose-up' is issued for each stack, please follow the documentation to continue following along. Link Pending however will be utilinzing of the services in the [docs](/docker-compose/docs/) directory.
+This covers how to deploy the entire stack via docker-compose. Once a 'compose-up' is issued for each stack, please follow the documentation to continue following along. Link Pending however will be utilizing of the services in the [docs](/docker-compose/docs/) directory.
 
 ## Using docker-compose plugin on Unraid
 
@@ -10,13 +10,13 @@ The plugin will appear at the bottom of your currently deployed docker container
 
 ### **Limitations**
 
-Include having to combine the [`server.env`](../docker-compose/server.env) and stack specific envirnonment files into a single file.
+Include having to combine the [`server.env`](../docker-compose/server.env) and stack specific environment files into a single file.
 
 Likewise, having to create the docker network ahead of time to prevent errors when issuing 'Compose Down' and during first container creation. Until an order or priority of docker containers is established, the creation of the network is necessary independently of the stack being deployed.
 
 ### Creation of Docker Network
 
-Open the unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
+Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 
 ### Setup of Docker-Compose Plugin
 
