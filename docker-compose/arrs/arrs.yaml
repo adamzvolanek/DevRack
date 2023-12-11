@@ -12,8 +12,8 @@ services:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
       - /mnt/user/appdata/arrs/radarr:/config
-      - /mnt/user/Movies:/movies
-      - /mnt/user/Scratch/Downloads:/data
+      - /mnt/user/media:/media
+      - /mnt/user/scratch/Downloads:/data
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
@@ -30,8 +30,8 @@ services:
     volumes:
       - /dev/rtc:/dev/rtc:ro
       - /mnt/user/appdata/arrs/sonarr:/config
-      - /mnt/user/TV_Shows:/TV_Shows
-      - /mnt/user/Scratch/Downloads:/data
+      - /mnt/user/media:/media
+      - /mnt/user/scratch/Downloads:/data
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
       - "${SERVER_IP}:9117:9117" # If port differs change in /config/ServerConfig.json
     volumes:
       - /mnt/user/appdata/arrs/jackett:/config # Creates additional layer
-      - /mnt/user/Scratch/Downloads:/downloads
+      - /mnt/user/scratch/Downloads:/downloads
     environment:
       - TZ: 'America/Chicago'
     restart: unless-stopped
