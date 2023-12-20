@@ -1,0 +1,41 @@
+---
+version: '3'
+services:
+  qbittorrentvpn:
+    container_name: qbittorrentvpn
+    image: binhex/arch-qbittorrentvpn:latest
+    privileged: true
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+      - ./qbittorrentvpn.env
+    ports:
+      - "${SERVER_IP}:6881:6881"
+      - "${SERVER_IP}:6881:6881/udp"
+      - "${SERVER_IP}:8080:8080"
+      - "${SERVER_IP}:8118:8118"
+    volumes:
+      - /mnt/user/appdata/sparrow/binhex-qbittorrentvpn:/config
+      - /mnt/user/scratch/Downloads/:/data
+    environment:
+      VPN_ENABLED: yes
+      VPN_USER: ${VPN_USER}
+      VPN_PASS: ${VPN_PASS}
+      VPN_PROV: ${VPN_PROV}
+      VPN_CLIENT: openvpn
+      VPN_OPTIONS:
+      STRICT_PORT_FORWARD: yes
+      ENABLE_PRIVOXY: no
+      WEBUI_PORT: 8080
+      LAN_NETWORK: ${LAN_NETWORK}
+      NAME_SERVERS: ${NAME_SERVERS}
+      VPN_INPUT_PORTS:
+      VPN_OUTPUT_PORTS:
+      DEBUG: false
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
