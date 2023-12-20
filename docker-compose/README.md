@@ -42,8 +42,6 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |authentik                   |${DOCKER_NETWORK}|${SERVER_IP}|9000, 9443                                           |
 |authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
-|bookstack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
-|bookstack_db                |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
@@ -52,7 +50,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
 |Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
-|jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
+|Jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
 |Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
 |lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
 |luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |

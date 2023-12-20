@@ -22,6 +22,10 @@ Currently, I am testing these docker-compose stacks on my Unraid server, however
 
 If you are wanting to try this for yourself, please read the docker-compose [readme](/docker-compose/README.md) carefully. The instructions are written for use in Unraid and you **will** have to replace all the values in each respective `*.env` file to meet **YOUR** needs.
 
+## Verified Working
+
+- Home Assitant on 12/19/2023
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/adamzvolanek/DevRack/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
