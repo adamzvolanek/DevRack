@@ -33,7 +33,8 @@ services:
     volumes:
       - /mnt/user/NextCloud/:/data
       - /mnt/user/appdata/cloud/nextcloud/config:/config
-      - ${NEXTCLOUD_LOCAL_MOUNT}:/data/alexandria/Adam # local Adam mount
+      - ${NEXTCLOUD_LOCAL_MOUNT_ADAM}:/data/alexandria/Adam # local Adam mount
+      - ${NEXTCLOUD_LOCAL_MOUNT_BACKUPS}:/data/alexandria/backups # local backups mount
     environment:
       TZ: 'America/Chicago'
     restart: unless-stopped
