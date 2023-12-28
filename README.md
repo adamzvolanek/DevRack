@@ -26,6 +26,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 
 - Home Assitant on 12/19/2023
 - qBittorrent on 12/21/2023
+- AdGuard on 12/28/2023
 
 ## Contributing
 
