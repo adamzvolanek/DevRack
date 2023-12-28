@@ -16,7 +16,7 @@ services:
       - /mnt/user/:/storage
     environment:
       SECURE_CONNECTION: 0
-    restart: unless-stopped
+    restart: no
 
 networks:
   proxy:

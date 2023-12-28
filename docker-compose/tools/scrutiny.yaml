@@ -4,12 +4,13 @@ services:
   scrutiny:
     container_name: scrutiny
     image: ghcr.io/analogj/scrutiny:master-omnibus
+    privileged: true
     networks:
       - proxy
     env_file:
       - ../server.env
     ports:
-      - "${SERVER_IP}:1977:8080"
+      - "${SERVER_IP}:1977:8080/tcp"
     volumes:
       - /run/udev:/run/udev:ro
       - /dev/disk:/dev/disk:ro

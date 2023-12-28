@@ -17,7 +17,7 @@ services:
       - "${SERVER_IP}:8118:8118"
     volumes:
       - /mnt/user/appdata/sparrow/binhex-qbittorrentvpn:/config
-      - /mnt/user/scratch/Downloads/:/data
+      - /mnt/user/scratch/Downloads/:/data/downloads
     environment:
       VPN_ENABLED: yes
       VPN_USER: ${VPN_USER}

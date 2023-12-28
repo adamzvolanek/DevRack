@@ -22,11 +22,17 @@ Currently, I am testing these docker-compose stacks on my Unraid server, however
 
 If you are wanting to try this for yourself, please read the docker-compose [readme](/docker-compose/README.md) carefully. The instructions are written for use in Unraid and you **will** have to replace all the values in each respective `*.env` file to meet **YOUR** needs.
 
-## Verified Working
+## Testing Status
 
-- Home Assitant on 12/19/2023
-- qBittorrent on 12/21/2023
-- AdGuard on 12/28/2023
+| Container Name | Date Tested | Working |
+| --------| -------- | -------- |
+| Home Assistant | 12/19/2023 | Yes |
+| qBittorrent | 12/21/2023 | Yes |
+| AdGuard | 12/28/2023 | Yes |
+| Scrutiny | 12/28/2023 | Yes |
+| Czkawka | 12/28/2023 | Yes |
+| Krusader | 12/28/2023 | No |
+| CloudflareDDNS | 12/28/2023 | Yes |
 
 ## Contributing
 
