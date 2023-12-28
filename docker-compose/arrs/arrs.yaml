@@ -15,7 +15,7 @@ services:
       - /mnt/user/media:/media
       - /mnt/user/scratch/Downloads:/data
     environment:
-      - TZ: 'America/Chicago'
+      - TZ=America/Chicago
     restart: unless-stopped
 
   sonarr:
@@ -33,7 +33,7 @@ services:
       - /mnt/user/media:/media
       - /mnt/user/scratch/Downloads:/data
     environment:
-      - TZ: 'America/Chicago'
+      - TZ=America/Chicago
     restart: unless-stopped
 
   jackett:
@@ -49,7 +49,7 @@ services:
       - /mnt/user/appdata/arrs/jackett:/config # Creates additional layer
       - /mnt/user/scratch/Downloads:/downloads
     environment:
-      - TZ: 'America/Chicago'
+      - TZ=America/Chicago
     restart: unless-stopped
 
   recyclarr:
@@ -62,7 +62,7 @@ services:
     volumes:
       - /mnt/user/appdata/arrs/recyclarr:/config
     environment:
-      - TZ: 'America/Chicago'
+      - TZ=America/Chicago
     restart: unless-stopped
 
 networks:

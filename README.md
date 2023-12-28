@@ -33,6 +33,9 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Czkawka | 12/28/2023 | Yes |
 | Krusader | 12/28/2023 | No |
 | CloudflareDDNS | 12/28/2023 | Yes |
+| Sonarr | 12/28/2023 | Yes |
+| Radarr | 12/28/2023 | Yes |
+| Jackett | 12/28/2023 | Yes |
 
 ## Contributing
 
