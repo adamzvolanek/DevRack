@@ -25,16 +25,16 @@ services:
     container_name: nextcloud
     image: lscr.io/linuxserver/nextcloud:latest
     depends_on:
-      - 'mariadb'
+      - mariadb
     networks:
       - proxy
     ports:
       - 444:444 # Changing port causes issues.
     volumes:
-      - /mnt/user/NextCloud/:/data
+      - /mnt/user/NextCloud/:/data # stores all NextCloud instance data (to array)
       - /mnt/user/appdata/cloud/nextcloud/config:/config
-      - ${NEXTCLOUD_LOCAL_MOUNT_ADAM}:/data/alexandria/Adam # local Adam mount
-      - ${NEXTCLOUD_LOCAL_MOUNT_BACKUPS}:/data/alexandria/backups # local backups mount
+      - /mnt/user/Adam:/data/alexandria/Adam # local Adam mount
+      - /mnt/user/backups:/data/alexandria/backups # local backups mount
     environment:
       TZ: 'America/Chicago'
     restart: unless-stopped

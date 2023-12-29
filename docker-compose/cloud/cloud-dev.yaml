@@ -2,7 +2,7 @@
 version: '3'
 services:
   mariadb:
-    container_name: mariadb
+    container_name: nextcloud_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
       - proxy
@@ -52,9 +52,10 @@ services:
     ports:
       - 444:444 # Changing port causes issues.
     volumes:
-      - /mnt/user/NextCloud/:/data
+      - /mnt/user/NextCloud/:/data # stores all NextCloud instance data (to array)
       - /mnt/user/appdata/cloud/nextcloud/config:/config
-      - ${NEXTCLOUD_LOCAL_MOUNT}:/data/alexandria/Adam # local Adam mount
+      - /mnt/user/Adam:/data/alexandria/Adam # local Adam mount
+      - /mnt/user/backups:/data/alexandria/backups # local backups mount
     environment:
       MYSQL_DATABASE: ${DB_NAME_NC}
       MYSQL_USER: ${DB_USER_NC}
