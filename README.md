@@ -36,6 +36,8 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Sonarr | 12/28/2023 | Yes |
 | Radarr | 12/28/2023 | Yes |
 | Jackett | 12/28/2023 | Yes |
+| MariaDB | 12/29/2023 | Yes |
+| Nextcloud | 12/29/2023 | Yes |
 
 ## Contributing
 
