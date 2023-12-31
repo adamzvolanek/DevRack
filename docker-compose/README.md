@@ -60,6 +60,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
 |phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
 |postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
+|prowlarr                    |${DOCKER_NETWORK}|${SERVER_IP}|9696                                                 |
 |qBittorrent                 |${DOCKER_NETWORK}|${SERVER_IP}|8089                                                 |
 |radarr                      |${DOCKER_NETWORK}|${SERVER_IP}|7878                                                 |
 |redis                       |${DOCKER_NETWORK}|${SERVER_IP}|6379                                                 |
