@@ -47,6 +47,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
 |DiskSpeed                   |bridge           |${SERVER_IP}|18888                                                |
 |DockerWebUI                 |${DOCKER_NETWORK}|${SERVER_IP}|1111                                                 |
+|Flaresolverr                |${DOCKER_NETWORK}|${SERVER_IP}|8191                                                 |
 |Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
 |Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |

@@ -51,6 +51,21 @@ services:
       - TZ=America/Chicago
     restart: unless-stopped
 
+  flaresolverr:
+    container_name: flaresolverr
+    image: lscr.io/linuxserver/flaresolverr:latest
+    depends_on:
+      - prowlarr
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:8191:8191"
+    environment:
+      - TZ=America/Chicago
+    restart: unless-stopped
+
 #  jackett:
 #    container_name: jackett
 #    image: lscr.io/linuxserver/jackett:latest
