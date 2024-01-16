@@ -16,6 +16,8 @@ services:
       - /mnt/user/scratch/Downloads/movie:/data/downloads/movie
     environment:
       - TZ=America/Chicago
+      - PUID=99
+      - PGID=100
     restart: unless-stopped
 
   sonarr:
@@ -34,6 +36,8 @@ services:
       - /mnt/user/scratch/Downloads/tv:/data/downloads/tv
     environment:
       - TZ=America/Chicago
+      - PUID=99
+      - PGID=100
     restart: unless-stopped
 
   prowlarr:
@@ -49,6 +53,8 @@ services:
       - /mnt/user/appdata/arrs/prowlarr:/config
     environment:
       - TZ=America/Chicago
+      - PUID=99
+      - PGID=100
     restart: unless-stopped
 
   flaresolverr:
