@@ -37,6 +37,8 @@ services:
       - /mnt/user/backups:/data/alexandria/backups # local backups mount
     environment:
       TZ: 'America/Chicago'
+      PUID: 99
+      PGID: 100
     restart: unless-stopped
 
 networks:
