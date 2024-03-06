@@ -26,8 +26,6 @@ if [ ! -d "$destination_dir" ]; then
     exit 1
 fi
 
-# normal script
-
 # Loop through files in source directory
 for file in "$source_dir"/*; do
     # Extract filename from path
