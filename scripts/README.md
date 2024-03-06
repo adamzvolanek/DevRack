@@ -1,3 +1,3 @@
 # DevRack Scripts
 
-The scripts directory includes scripts mentioned in the [tools section](https://wiki.adamzvolanek.com/en/tools#user-scripts) of the wiki.
+For additional information on how to use these scripts, please refer to the [picutre management section](https://wiki.adamzvolanek.com/en/picture_management) of the wiki.
