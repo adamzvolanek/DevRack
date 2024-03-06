@@ -2,14 +2,14 @@
 
 # Check if source directory is provided as argument, if not, prompt the user
 if [ -z "$1" ]; then
-    read -p "Enter source directory path: " source_dir
+    read -r -p "Enter source directory path: " source_dir
 else
     source_dir="$1"
 fi
 
 # Check if destination directory is provided as argument, if not, prompt the user
 if [ -z "$2" ]; then
-    read -p "Enter destination directory path: " destination_dir
+    read -r -p "Enter destination directory path: " destination_dir
 else
     destination_dir="$2"
 fi
@@ -25,8 +25,6 @@ if [ ! -d "$destination_dir" ]; then
     echo "Destination directory '$destination_dir' does not exist."
     exit 1
 fi
-
-# normal script
 
 # Loop through files in source directory
 for file in "$source_dir"/*; do
