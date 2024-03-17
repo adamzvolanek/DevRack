@@ -1,0 +1,32 @@
+---
+version: '3'
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    privilegded: true
+    networks:
+      fixed_homepage_ip:
+        ipv4_address: ${HOMEPAGE_IP}
+    environment:
+      - TZ=America/Chicago
+      - HOST_OS=Unraid
+      - HOST_HOSTNAME=Alexandria
+      - HOST_CONTAINERNAME=homepage
+      - PUID=99
+      - PGID=100
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:80]'
+      - net.unraid.docker.icon='https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-512x512.png'
+    ports:
+      - 80:3000
+    volumes:
+      - /mnt/user/appdata/internal/homepage/:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+networks:
+    fixed_homepage_ip:
+        external: true
+        name: ${UNRAID_BRIDGE_NAME}  # Specify the name of the existing bridge network in Unraid
