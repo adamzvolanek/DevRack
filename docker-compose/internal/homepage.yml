@@ -4,7 +4,6 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    privilegded: true
     networks:
       fixed_homepage_ip:
         ipv4_address: ${HOMEPAGE_IP}
@@ -13,6 +12,7 @@ services:
       - HOST_OS=Unraid
       - HOST_HOSTNAME=Alexandria
       - HOST_CONTAINERNAME=homepage
+      - PORT=80
       - PUID=99
       - PGID=100
     labels:
