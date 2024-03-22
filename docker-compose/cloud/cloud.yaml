@@ -5,7 +5,7 @@ services:
     container_name: nextcloud_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./cloud.env
@@ -27,7 +27,7 @@ services:
     depends_on:
       - mariadb
     networks:
-      - proxy
+      - devrack
     ports:
       - 444:444 # Changing port causes issues.
     volumes:
@@ -42,7 +42,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

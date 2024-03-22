@@ -51,8 +51,8 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
 |Homepage                    |br0              |${HOMEPAGE_IP}|80                                                 |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
-|Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
-|Jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
+|jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
+|jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
 |Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
 |lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
 |luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |

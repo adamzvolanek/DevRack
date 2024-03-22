@@ -6,7 +6,7 @@ services:
     image: binhex/arch-qbittorrentvpn:latest
     privileged: true
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./qbittorrentvpn.env
@@ -35,7 +35,6 @@ services:
       DEBUG: false
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

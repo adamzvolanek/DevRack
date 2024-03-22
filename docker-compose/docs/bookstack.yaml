@@ -6,7 +6,7 @@ services:
     image: lscr.io/linuxserver/mariadb
     container_name: bookstack_db
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./bookstack.env
@@ -54,7 +54,6 @@ services:
       - bookstack_db
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: True

@@ -5,7 +5,7 @@ services:
     image: postgres:11-alpine
     container_name: wikijs_db
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./wikijs.env
@@ -23,7 +23,7 @@ services:
     image: ghcr.io/requarks/wiki:2
     container_name: wikijs
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./wikijs.env
@@ -41,7 +41,6 @@ services:
       - "${SERVER_IP}:3256:3000"
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

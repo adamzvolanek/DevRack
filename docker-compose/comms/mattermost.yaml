@@ -5,7 +5,7 @@ services:
     container_name: mattermost_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./mattermost.env

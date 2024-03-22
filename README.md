@@ -40,6 +40,8 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Nextcloud | 12/29/2023 | Yes |
 | Flaresolverr | 1/7/2024 | Yes |
 | Homepage | 3/16/2024 | Yes |
+| Jellyfin | 3/21/2024 | Yes |
+| Jellyseer | 3/21/2024 | Yes |
 
 ## Contributing
 

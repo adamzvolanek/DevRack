@@ -5,7 +5,7 @@ services:
     container_name: uptime-kuma
     image: louislam/uptime-kuma:1
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -15,7 +15,6 @@ services:
     restart: always
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

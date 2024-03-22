@@ -5,7 +5,7 @@ services:
     container_name: jellyseerr
     image: fallenbagel/jellyseerr:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -13,12 +13,15 @@ services:
     volumes:
       - /mnt/user/appdata/external/jellyseerr:/app/config/
     environment:
-      - LOG_LEVEL: info
-      - TZ: 'America/Chicago'
+      - LOG_LEVEL='info'
+      - TZ='America/Chicago'
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:5055]'
+      - net.unraid.docker.icon='https://raw.githubusercontent.com/Fallenbagel/jellyseerr/develop/public/android-chrome-512x512_maskable.png'
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

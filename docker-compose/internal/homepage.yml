@@ -1,4 +1,3 @@
----
 version: '3'
 services:
   homepage:
@@ -7,6 +6,7 @@ services:
     networks:
       fixed_homepage_ip:
         ipv4_address: ${HOMEPAGE_IP}
+      proxy: {}
     environment:
       - TZ=America/Chicago
       - HOST_OS=Unraid
@@ -27,6 +27,16 @@ services:
     restart: unless-stopped
 
 networks:
-    fixed_homepage_ip:
-        external: true
-        name: ${UNRAID_BRIDGE_NAME}  # Specify the name of the existing bridge network in Unraid
+  fixed_homepage_ip:
+    name: fixed_homepage_ip
+    driver: ipvlan
+    driver_opts:
+      parent: ${UNRAID_BRIDGE_NAME}
+    ipam:
+      config:
+        - subnet: ${SUBNET_IP}/24
+          gateway: ${ROUTER_IP}
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
