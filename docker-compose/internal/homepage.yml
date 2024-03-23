@@ -4,15 +4,13 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     networks:
-      fixed_homepage_ip:
-        ipv4_address: ${HOMEPAGE_IP}
-      proxy: {}
+      - devrack
     environment:
       - TZ=America/Chicago
       - HOST_OS=Unraid
       - HOST_HOSTNAME=Alexandria
       - HOST_CONTAINERNAME=homepage
-      - PORT=80
+      - PORT=3000
       - PUID=99
       - PGID=100
     labels:
@@ -20,23 +18,14 @@ services:
       - net.unraid.docker.webui='http://[IP]:[PORT:80]'
       - net.unraid.docker.icon='https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-512x512.png'
     ports:
-      - 80:3000
+      - 3000:3000
     volumes:
       - /mnt/user/appdata/internal/homepage/:/app/config
+      - /mnt/user/DevRack/DevRackConfig/Assets:/images
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 
 networks:
-  fixed_homepage_ip:
-    name: fixed_homepage_ip
-    driver: ipvlan
-    driver_opts:
-      parent: ${UNRAID_BRIDGE_NAME}
-    ipam:
-      config:
-        - subnet: ${SUBNET_IP}/24
-          gateway: ${ROUTER_IP}
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true
