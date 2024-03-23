@@ -49,7 +49,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |DockerWebUI                 |${DOCKER_NETWORK}|${SERVER_IP}|1111                                                 |
 |Flaresolverr                |${DOCKER_NETWORK}|${SERVER_IP}|8191                                                 |
 |Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
-|Homepage                    |br0              |${HOMEPAGE_IP}|80                                                 |
+|Homepage                    |${DOCKER_NETWORK}|${SERVER_IP}|3000                                               |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
 |jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
 |jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
