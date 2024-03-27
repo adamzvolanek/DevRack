@@ -19,6 +19,8 @@ services:
       - /mnt/user/appdata/sparrow/binhex-qbittorrentvpn:/config
       - /mnt/user/scratch/Downloads/:/data/downloads
     environment:
+      PUID: 99
+      PGID: 100
       VPN_ENABLED: yes
       VPN_USER: ${VPN_USER}
       VPN_PASS: ${VPN_PASS}

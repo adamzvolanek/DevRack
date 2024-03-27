@@ -15,6 +15,8 @@ services:
     volumes:
       - /mnt/user/appdata/core/nginxproxymanager:/config:rw
     environment:
+      PUID: 99
+      PGID: 100
       APP_NICENESS: 0 # A niceness value of -20 is the highest priority and 19 is the lowest priority. NOTE: Setting a negative value requires additional permissions.
       DISABLE_IPV6: 1 # disabled
     restart: always

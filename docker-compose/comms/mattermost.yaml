@@ -14,6 +14,8 @@ services:
     volumes:
       - /mnt/user/appdata/comms/mariadb/config:/config
     environment:
+      PUID: 99
+      PGID: 100
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: 'America/Chicago'
       MYSQL_DATABASE: ${USER_DB_NAME}

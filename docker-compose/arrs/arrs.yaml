@@ -69,6 +69,8 @@ services:
     ports:
       - "${SERVER_IP}:8191:8191"
     environment:
+      - PUID=99
+      - PGID=100
       - TZ=America/Chicago
     restart: unless-stopped
 
@@ -98,6 +100,8 @@ services:
     volumes:
       - /mnt/user/appdata/arrs/recyclarr:/config
     environment:
+      - PUID=99
+      - PGID=100
       - TZ=America/Chicago
     restart: unless-stopped
 

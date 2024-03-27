@@ -11,6 +11,8 @@ services:
       - ../server.env
       - ./bookstack.env
     environment:
+      PUID: 99
+      PGID: 100
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: 'America/Chicago'
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -29,6 +31,8 @@ services:
       - ../server.env
       - ./bookstack.env
     environment:
+      PUID: 99
+      PGID: 100
       APP_URL: http://${SERVER_IP}:6875
       DB_HOST: bookstack_db
       DB_PORT: 3306

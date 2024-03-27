@@ -13,6 +13,8 @@ services:
     volumes:
       - /mnt/user/appdata/external/jellyseerr:/app/config/
     environment:
+      - PUID=99
+      - PGID=100
       - LOG_LEVEL='info'
       - TZ='America/Chicago'
     labels:

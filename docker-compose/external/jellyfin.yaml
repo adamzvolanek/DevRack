@@ -19,10 +19,10 @@ services:
       - /mnt/user/media/:/media
       - /mnt/user/media/metadata:/metadata
     environment:
-      - TZ='America/Chicago'
-      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
       - PUID=99
       - PGID=100
+      - TZ='America/Chicago'
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:8096]'
