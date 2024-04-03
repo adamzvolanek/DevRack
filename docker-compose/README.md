@@ -38,7 +38,6 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Container Name              |Docker Network   |IP          |External Port                                        |
 |----------------------------|-----------------|------------|-----------------------------------------------------|
 |adguard                     |br0              |Custom IP   |53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853|
-|AllTheMods8                 |bridge           |${SERVER_IP}|25565                                                |
 |authentik                   |${DOCKER_NETWORK}|${SERVER_IP}|9000, 9443                                           |
 |authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
@@ -50,6 +49,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Flaresolverr                |${DOCKER_NETWORK}|${SERVER_IP}|8191                                                 |
 |Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
 |Homepage                    |${DOCKER_NETWORK}|${SERVER_IP}|3000                                                 |
+|immich                      |${DOCKER_NETWORK}|${SERVER_IP}|6781                                                 |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
 |jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
 |jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
@@ -62,13 +62,15 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
 |phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
 |postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
+|postgres_immich             |${DOCKER_NETWORK}|${SERVER_IP}|5433                                                 |
 |prowlarr                    |${DOCKER_NETWORK}|${SERVER_IP}|9696                                                 |
 |qBittorrent                 |${DOCKER_NETWORK}|${SERVER_IP}|8089                                                 |
 |radarr                      |${DOCKER_NETWORK}|${SERVER_IP}|7878                                                 |
 |redis                       |${DOCKER_NETWORK}|${SERVER_IP}|6379                                                 |
+|redis_immich                |${DOCKER_NETWORK}|${SERVER_IP}|6380                                                 |
 |scrutiny                    |bridge           |${SERVER_IP}|1977                                                 |
 |sonarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8989                                                 |
 |UniFi-Protect-Backup        |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |UptimeKuma                  |${DOCKER_NETWORK}|${SERVER_IP}|3001                                                 |
 |wikijs                      |${DOCKER_NETWORK}|${SERVER_IP}|3256                                                 |
-|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
+|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |                                                     |

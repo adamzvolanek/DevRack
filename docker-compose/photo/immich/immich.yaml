@@ -1,0 +1,62 @@
+---
+version: '3'
+services:
+  immich:
+    image: ghcr.io/imagegenius/immich:latest
+    container_name: immich
+    networks:
+      - devrack
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DB_HOSTNAME=postgres14_immich
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE_NAME=${DB_DATABASE_NAME}
+      - REDIS_HOSTNAME=redis_immich
+      - DB_PORT=5433 # must differ from other postgres containers
+      - REDIS_PORT=6380 #optional
+      - REDIS_PASSWORD=${REDIS_PASSWORD} #optional
+      - MACHINE_LEARNING_GPU_ACCELERATION=cuda # NVIDIA
+      - MACHINE_LEARNING_WORKERS=1 #optional
+      - MACHINE_LEARNING_WORKER_TIMEOUT=120 #optional
+    volumes:
+      - /mnt/user/appdata/photo/immich/immich:/config # double nested to avoid postgres data inside of immich directory
+      - /mnt/user/pictures/Personal:/photos
+#      - path_to_imports:/import:ro #optional
+    ports:
+      - "${SERVER_IP}:6781:6871"
+    restart: unless-stopped
+    depends_on:
+      - postgres14_immich
+      - redis_immich
+
+# Redis:
+  redis:
+    image: redis
+    ports:
+      - "${SERVER_IP}:6380:6380" # must differ from other Redis containers
+    container_name: redis_immich
+    networks:
+      - devrack
+
+# PostgreSQL 14:
+  postgres14:
+    image: tensorchord/pgvecto-rs:pg14-v0.2.0
+    ports:
+      - "${SERVER_IP}:5433:5433"
+    container_name: postgres14_immich
+    networks:
+      - devrack
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: immich
+    volumes:
+      - /mnt/user/appdata/photo/immich/postgres14_immich:/var/lib/postgresql/data
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
