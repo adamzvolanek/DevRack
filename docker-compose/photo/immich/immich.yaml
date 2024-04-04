@@ -28,7 +28,7 @@ services:
       - /mnt/user/pictures/Personal:/photos
 #      - path_to_imports:/import:ro #optional
     ports:
-      - "${SERVER_IP}:6781:6781"
+      - "${SERVER_IP}:6781:8080"
     restart: unless-stopped
     depends_on:
       - postgres14
