@@ -7,6 +7,13 @@ services:
     runtime: nvidia
     networks:
       - devrack
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:6781]'
+      - net.unraid.docker.icon='https://raw.githubusercontent.com/immich-app/immich/main/web/static/favicon-144.png'
+    env_file:
+      - ../server.env
+      - ./immich.env
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -38,6 +45,8 @@ services:
   redis:
     image: redis
     command: --port 6380
+    env_file:
+      - ../server.env
     ports:
       - "${SERVER_IP}:6380:6380" # must differ from other Redis containers
     container_name: redis_immich
@@ -47,6 +56,8 @@ services:
 # PostgreSQL 14:
   postgres14:
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
+    env_file:
+      - ../server.env
     ports:
       - "${SERVER_IP}:${POSTGRES_PORT}:5432"
     container_name: postgres14_immich
