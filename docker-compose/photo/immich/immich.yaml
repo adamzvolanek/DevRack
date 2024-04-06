@@ -48,7 +48,7 @@ services:
   postgres14:
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
     ports:
-      - "${SERVER_IP}:${POSTGRES_PORT}:${POSTGRES_PORT}"
+      - "${SERVER_IP}:${POSTGRES_PORT}:5432"
     container_name: postgres14_immich
     networks:
       - devrack
