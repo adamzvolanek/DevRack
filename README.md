@@ -42,6 +42,8 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Homepage | 3/16/2024 | Yes |
 | Jellyfin | 3/21/2024 | Yes |
 | Jellyseer | 3/21/2024 | Yes |
+| Photoprism | 4/5/2024 | Yes |
+| Immich | 4/6/2024 | Yes |
 
 ## Contributing
 

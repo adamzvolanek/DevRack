@@ -60,6 +60,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
 |Nginx-Proxy-Manager-Official|br0              |0.0.0.0     |80, 81, 443                                          |
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
+|Photoprism                  |${DOCKER_NETWORK}|${SERVER_IP}|2342                                                 |
 |phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
 |postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
 |postgres_immich             |${DOCKER_NETWORK}|${SERVER_IP}|5433                                                 |
