@@ -35,7 +35,7 @@ services:
     ports:
       - "${SERVER_IP}:6379:6379"
     volumes:
-      - /mnt/user/appdata/redis:/redis
+      - /mnt/user/appdata/authentik/redis:/redis
     environment:
       - PUID: 99
       - PGID: 100
