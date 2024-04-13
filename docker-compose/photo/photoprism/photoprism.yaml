@@ -1,9 +1,5 @@
 version: '3'
 
-# Note:
-# - Running PhotoPrism on a server with less than 4 GB of swap space or setting a memory/swap limit can cause unexpected
-#   restarts ("crashes"), for example, when the indexer temporarily needs more memory to process large files.
-
 services:
   photoprism:
     image: photoprism/photoprism:latest
@@ -26,8 +22,6 @@ services:
       - net.unraid.docker.icon='https://raw.githubusercontent.com/photoprism/photoprism/develop/assets/static/icons/logo/192.png'
     ports:
       - "${SERVER_IP}:2342:2342"
-    ## Before you start the service, please check the following config options (and change them as needed):
-    ## https://docs.photoprism.app/getting-started/config-options/
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -63,24 +57,7 @@ services:
       PHOTOPRISM_SITE_CAPTION: "Zvolanek Portfolio"
       PHOTOPRISM_SITE_DESCRIPTION: "Self-hosted porfolio for Adam & Alex Zvolanek" # meta site description
       PHOTOPRISM_SITE_AUTHOR: "Adam Zvolanek" # meta site author
-      ## Video Transcoding (https://docs.photoprism.app/getting-started/advanced/transcoding/):
-      # PHOTOPRISM_FFMPEG_ENCODER: "software"        # H.264/AVC encoder (software, intel, nvidia, apple, raspberry, or vaapi)
-      # PHOTOPRISM_FFMPEG_SIZE: "1920"               # video size limit in pixels (720-7680) (default: 3840)
-      # PHOTOPRISM_FFMPEG_BITRATE: "32"              # video bitrate limit in Mbit/s (default: 50)
-      ## Run/install on first startup (options: update https gpu tensorflow davfs clitools clean):
-      # PHOTOPRISM_INIT: "https gpu tensorflow"
-    ## Start as non-root user before initialization (supported: 0, 33, 50-99, 500-600, and 900-1200):
-    # user: "1000:1000"
-    ## Share hardware devices with FFmpeg and TensorFlow (optional):
-    # devices:
-    #  - "/dev/dri:/dev/dri"                         # Intel QSV
-    #  - "/dev/nvidia0:/dev/nvidia0"                 # Nvidia CUDA
-    #  - "/dev/nvidiactl:/dev/nvidiactl"
-    #  - "/dev/nvidia-modeset:/dev/nvidia-modeset"
-    #  - "/dev/nvidia-nvswitchctl:/dev/nvidia-nvswitchctl"
-    #  - "/dev/nvidia-uvm:/dev/nvidia-uvm"
-    #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
-    #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
+      PHOTOPRISM_INIT: "https tensorflow"
     working_dir: "/photoprism" # do not change or remove
     volumes:
       - /mnt/user/appdata/photo/photoprism/photoprism/storage:/photoprism/storage # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
