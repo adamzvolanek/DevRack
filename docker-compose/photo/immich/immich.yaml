@@ -32,7 +32,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
     volumes:
       - /mnt/user/appdata/photo/immich/immich:/config # double nested to avoid postgres data inside of immich directory
-      - /mnt/user/pictures/Personal:/external_photos
+      - /mnt/user/pictures/Personal:/external_photos:ro
 #      - path_to_imports:/import:ro #optional
     ports:
       - "${SERVER_IP}:6781:8080"
