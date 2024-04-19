@@ -3,16 +3,18 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    env_file:
+      - ../server.env
     networks:
       - devrack
     environment:
-      - TZ=America/Chicago
       - HOST_OS=Unraid
       - HOST_HOSTNAME=Alexandria
       - HOST_CONTAINERNAME=homepage
       - PORT=3000
-      - PUID=99
-      - PGID=100
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:80]'
