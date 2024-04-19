@@ -25,5 +25,5 @@ services:
 networks:
   adguard_ip:
     driver: bridge
-    external:
-      name: ${UNRAID_BRIDGE_NAME}  # Specify the name of the existing bridge network in Unraid
+    name: ${UNRAID_BRIDGE_NAME} # Specify the name of the existing bridge network in Unraid
+    external: true
