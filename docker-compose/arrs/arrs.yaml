@@ -68,7 +68,11 @@ services:
       - ../server.env
     ports:
       - "${SERVER_IP}:8191:8191"
-    environment:
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui=http://[IP]:[PORT:8191]
+      - net.unraid.docker.icon=https://store.elfhosted.com/wp-content/uploads/2023/07/flaresolverr.png
+    environment:  
       - PUID=99
       - PGID=100
       - TZ=America/Chicago
