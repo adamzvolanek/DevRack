@@ -1,0 +1,26 @@
+---
+version: '3'
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:s6
+    networks:
+      - devrack
+    env_file:
+      - ../server.env
+    ports:
+      - ${SERVER_IP}:634:80
+    volumes:
+      - /mnt/user/appdata/cloud/filebrowser/database:/database/filebrowser.db
+      - /mnt/user/appdata/cloud/filebrowser/config:/config/settings.json
+      - /mnt/user/scratch:/scratch # local mounts
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
