@@ -24,26 +24,29 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 
 ## Testing Status
 
-| Container Name | Date Tested | Working |
-| --------| -------- | -------- |
-| Home Assistant | 12/19/2023 | Yes |
-| qBittorrent | 12/21/2023 | Yes |
-| AdGuard | 12/28/2023 | Yes |
-| Scrutiny | 12/28/2023 | Yes |
-| Czkawka | 12/28/2023 | Yes |
-| Krusader | 12/28/2023 | No |
-| CloudflareDDNS | 12/28/2023 | Yes |
-| Sonarr | 12/28/2023 | Yes |
-| Radarr | 12/28/2023 | Yes |
-| Jackett | 12/28/2023 | Yes |
-| MariaDB | 12/29/2023 | Yes |
-| Nextcloud | 12/29/2023 | Yes |
-| Flaresolverr | 1/7/2024 | Yes |
-| Homepage | 3/16/2024 | Yes |
-| Jellyfin | 3/21/2024 | Yes |
-| Jellyseer | 3/21/2024 | Yes |
-| Photoprism | 4/5/2024 | Yes |
-| Immich | 4/6/2024 | Yes |
+| Container Name | Date Tested | Working on Dev | Deployed |
+| --------| -------- | -------- | -------- |
+| Home Assistant | 12/19/2023 | Yes | Yes |
+| qBittorrent | 12/21/2023 | Yes | No |
+| AdGuard | 12/28/2023 | Yes | Yes |
+| Scrutiny | 12/28/2023 | Yes | Yes |
+| Czkawka | 12/28/2023 | Yes | Yes |
+| Krusader | 12/28/2023 | No | No |
+| CloudflareDDNS | 12/28/2023 | Yes | Yes |
+| Sonarr | 12/28/2023 | Yes | Yes |
+| Radarr | 12/28/2023 | Yes | Yes |
+| Jackett | 12/28/2023 | Yes | Yes |
+| MariaDB | 12/29/2023 | Yes | Yes |
+| Nextcloud | 12/29/2023 | Yes | Yes |
+| Flaresolverr | 1/7/2024 | Yes | Yes |
+| Homepage | 3/16/2024 | Yes | Yes |
+| Jellyfin | 3/21/2024 | Yes | Yes |
+| Jellyseer | 3/21/2024 | Yes | Yes |
+| Photoprism | 4/5/2024 | Yes | Yes |
+| Immich | 4/6/2024 | Yes* | No |
+| NextCloud AIO | 4/29/2024 | Yes | No |
+
+\* Immich crashed on Alexandria and Test Server when asked to load photo library.
 
 ## Contributing
 
