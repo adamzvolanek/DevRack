@@ -45,6 +45,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Photoprism | 4/5/2024 | Yes | Yes |
 | Immich | 4/6/2024 | Yes* | No |
 | NextCloud AIO | 4/29/2024 | Yes | No |
+| Filebrowser | 4/30/2024 | Yes | No |
 
 \* Immich crashed on Alexandria and Test Server when asked to load photo library.
 

@@ -1,0 +1,8 @@
+{
+  "port": 634,
+  "baseURL": "",
+  "address": "",
+  "log": "stdout",
+  "database": "/database/filebrowser.db",
+  "root": "/unraid"
+}
