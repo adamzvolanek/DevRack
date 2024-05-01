@@ -15,10 +15,9 @@ services:
       - net.unraid.docker.webui='http://[IP]/files/'
       - net.unraid.docker.icon='https://github.com/maschhoff/docker/raw/master/filebrowser/35781395.png'
     volumes:
-      - /mnt/user/appdata/cloud/filebrowser/database:/database
-      - /mnt/user/appdata/cloud/filebrowser/config:/config
-      - /mnt/user/scratch:/unraid/scratch # local mounts
-#      - /mnt/user/share:/unraid/share
+      - /mnt/user/appdata/cloud/filebrowser/database:/database # location of database
+      - /mnt/user/appdata/cloud/filebrowser/config:/config # location for pre-configured settings.json
+      - /mnt/user/share:/unraid/share
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
