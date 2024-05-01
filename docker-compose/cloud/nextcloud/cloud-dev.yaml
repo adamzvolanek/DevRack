@@ -1,0 +1,75 @@
+---
+version: '3'
+services:
+  mariadb:
+    container_name: nextcloud_db
+    image: lscr.io/linuxserver/mariadb:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+      - ./cloud.env
+    ports:
+      - "${SERVER_IP}:3306:${MARIADB_PORT}"
+    volumes:
+      - /mnt/user/appdata/cloud/mariadb/config:/config
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_PASSWORD}
+      TZ: 'America/Chicago'
+      MYSQL_DATABASE: ${DB_NAME_NC}
+      MYSQL_USER: ${DB_USER_NC}
+      MYSQL_PASSWORD: ${DB_PASSWORD_NC}
+    restart: always
+
+  redis:
+    container_name: redis_nc
+    image: bitnami/redis:latest
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+      - ./cloud.env
+    command: redis-server --requirepass nextcloud_redis_pass
+    ports:
+      - "${SERVER_IP}:6379:${REDIS_PORT_NC}"
+    environment:
+      ALLOW_EMPTY_PASSWWORD: no
+      REDIS_PASSWORD: ${REDIS_PASSWORD_NC}
+      REDIS_EXTRA_FLAGS: --auto-aof-rewrite-percentage 100 --auto-aof-rewrite-min-size 64mb
+    restart: always
+
+  nextcloud:
+    container_name: nextcloud
+    image: lscr.io/linuxserver/nextcloud:latest
+    depends_on:
+      - mariadb
+      - redis
+    links:
+      - mariadb
+      - redis
+    networks:
+      - proxy
+    ports:
+      - 444:444 # Changing port causes issues.
+    volumes:
+      - /mnt/user/NextCloud/:/data # stores all NextCloud instance data (to array)
+      - /mnt/user/appdata/cloud/nextcloud/config:/config
+      - /mnt/user/Adam:/data/alexandria/Adam # local Adam mount
+      - /mnt/user/backups:/data/alexandria/backups # local backups mount
+    environment:
+      MYSQL_DATABASE: ${DB_NAME_NC}
+      MYSQL_USER: ${DB_USER_NC}
+      MYSQL_PASSWORD: ${DB_PASSWORD_NC}
+      MYSQL_HOST: mariadb
+      NEXTCLOUD_ADMIN_USER: ${ADMIN_USER_NC}
+      REDIS_HOST: redis_nc
+      REDIS_PORT: ${REDIS_PORT_NC}
+      REDIS_HOST_PASSWORD: ${REDIS_PASSWORD_NC}
+      TZ: 'America/Chicago'
+    restart: always
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
