@@ -41,6 +41,8 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |authentik                   |${DOCKER_NETWORK}|${SERVER_IP}|9000, 9443                                           |
 |authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
+|BookStack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
+|bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
 |Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
@@ -57,7 +59,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
 |lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
 |luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |
-|mariadb                     |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
+|nextcloud_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
 |nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
 |Nginx-Proxy-Manager-Official|br0              |0.0.0.0     |80, 81, 443                                          |
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
@@ -75,4 +77,4 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |UniFi-Protect-Backup        |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |UptimeKuma                  |${DOCKER_NETWORK}|${SERVER_IP}|3001                                                 |
 |wikijs                      |${DOCKER_NETWORK}|${SERVER_IP}|3256                                                 |
-|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
+|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |5432                                                 |
