@@ -46,7 +46,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Immich | 4/6/2024 | Yes* | No |
 | NextCloud AIO | 4/29/2024 | Yes | No |
 | Filebrowser | 4/30/2024 | Yes | No |
-| BookStack | 5/4/2024 | Yes | No |
+| BookStack | 5/4/2024 | Yes | Yes |
 
 \* Immich crashed on Alexandria and Test Server when asked to load photo library.
 

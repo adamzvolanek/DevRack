@@ -49,4 +49,4 @@ services:
 networks:
   devrack:
     name: ${DOCKER_NETWORK}
-    external: true
+    external: True

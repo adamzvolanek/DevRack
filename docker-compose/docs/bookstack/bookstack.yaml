@@ -1,7 +1,6 @@
 ---
 version: '3'
 services:
-
   bookstack_db:
     image: lscr.io/linuxserver/mariadb
     container_name: bookstack_db
@@ -10,6 +9,8 @@ services:
     env_file:
       - ../server.env
       - ./bookstack.env
+    ports:
+      - "${SERVER_IP}:${BOOKSTACK_DB_PORT}:3306"
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -18,8 +19,9 @@ services:
       MYSQL_DATABASE: ${BOOKSTACK_DB_NAME}
       MYSQL_USER: ${BOOKSTACK_DB_USER}
       MYSQL_PASSWORD: ${BOOKSTACK_DB_PASSWORD}
+      MYSQL_TCP_PORT: ${BOOKSTACK_DB_PORT}
     volumes:
-      - /mnt/user/appdata/docs/bookstack_db/config:/config
+      - /mnt/user/appdata/docs/bookstack/bookstack_db/config:/config
     restart: unless-stopped
 
   bookstack:
@@ -35,10 +37,10 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      TZ: ${TZ}
+      APP_TIMEZONE: ${TZ}
       APP_URL: http://${SERVER_IP}:${BOOKSTACK_PORT}
       DB_HOST: bookstack_db
-      DB_PORT: 3306
+      DB_PORT: 3306 # Utilizes bookstack_db NOT cloud's mariadb.
       DB_USER: ${BOOKSTACK_DB_USER}
       DB_PASS: ${BOOKSTACK_DB_PASSWORD}
       DB_DATABASE: ${BOOKSTACK_DB_NAME}
@@ -53,7 +55,7 @@ services:
       # The "from" name used for outgoing email
       MAIL_FROM_NAME: ${MAIL_FROM_NAME}
     volumes:
-      - /mnt/user/appdata/docs/bookstack/config:/config
+      - /mnt/user/appdata/docs/bookstack/bookstack/config:/config
     restart: unless-stopped
     depends_on:
       - bookstack_db

@@ -42,7 +42,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
 |BookStack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
-|bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
+|bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3307                                                 |
 |Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
