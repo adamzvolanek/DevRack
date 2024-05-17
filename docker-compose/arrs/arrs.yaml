@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   radarr:
     container_name: radarr

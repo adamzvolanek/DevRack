@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   czkawka:
     container_name: czkawka

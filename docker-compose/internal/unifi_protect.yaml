@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   unifibackup:
     container_name: Unifi_Protect_Backup

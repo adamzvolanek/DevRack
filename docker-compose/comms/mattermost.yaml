@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   mariadb:
     container_name: mattermost_db

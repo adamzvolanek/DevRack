@@ -1,6 +1,5 @@
-version: "3"
+---
 services:
-
   wikijs_db:
     image: postgres:11-alpine
     container_name: wikijs_db

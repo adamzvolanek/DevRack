@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   krusader:
     container_name: krusader

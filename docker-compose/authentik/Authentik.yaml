@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   postgresql:
     container_name: postgres_authentik

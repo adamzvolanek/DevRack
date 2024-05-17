@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   delugevpn:
     container_name: delugevpn

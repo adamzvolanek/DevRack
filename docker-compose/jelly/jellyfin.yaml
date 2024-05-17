@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   jellyfin:
     container_name: jellyfin
