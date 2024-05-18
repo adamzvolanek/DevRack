@@ -43,6 +43,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
 |BookStack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
 |bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3307                                                 |
+|ClamAV (used wiht PingVin)  |${DOCKER_NETWORK}|${SERVER_IP}|N/A                                                  |
 |Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
@@ -63,6 +64,7 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
 |Nginx-Proxy-Manager-Official|br0              |0.0.0.0     |80, 81, 443                                          |
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
+|Pingvin-share               |${DOCKER_NETWORK}|${SERVER_IP}|4981                                                 |
 |Photoprism                  |${DOCKER_NETWORK}|${SERVER_IP}|2342                                                 |
 |phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
 |postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
