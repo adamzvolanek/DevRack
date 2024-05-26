@@ -4,7 +4,7 @@ services:
     container_name: adguardhome
     image: adguard/adguardhome
     networks:
-      adguard_ip:
+      fixed_ip:
         ipv4_address: ${ADGUARD_IP}  # Set static IP address
     env_file:
       - ../server.env
@@ -22,7 +22,7 @@ services:
     restart: always
 
 networks:
-  adguard_ip:
+  fixed_ip:
     driver: bridge
-    name: ${UNRAID_BRIDGE_NAME} # Specify the name of the existing bridge network in Unraid
-    external: true
+    external:
+      name: ${UNRAID_BRIDGE_NAME}  # Specify the name of the existing bridge network in Unraid

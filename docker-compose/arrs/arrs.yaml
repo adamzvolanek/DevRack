@@ -4,7 +4,7 @@ services:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
     ports:
@@ -23,7 +23,7 @@ services:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:develop # bump to version 4
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
     ports:
@@ -43,7 +43,7 @@ services:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
     ports:
@@ -59,29 +59,23 @@ services:
   flaresolverr:
     container_name: flaresolverr
     image: lscr.io/linuxserver/flaresolverr:latest
-    depends_on:
-      - prowlarr
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
     ports:
       - "${SERVER_IP}:8191:8191"
-    labels:
-      - net.unraid.docker.managed=dockerman
-      - net.unraid.docker.webui=http://[IP]:[PORT:8191]
-      - net.unraid.docker.icon=https://store.elfhosted.com/wp-content/uploads/2023/07/flaresolverr.png
-    environment:  
-      - PUID=99
-      - PGID=100
+    environment:
       - TZ=America/Chicago
+    depends_on:
+      - prowlarr
     restart: unless-stopped
 
 #  jackett:
 #    container_name: jackett
 #    image: lscr.io/linuxserver/jackett:latest
 #    networks:
-#      - devrack
+#      - proxy
 #    env_file:
 #      - ../server.env
 #    ports:
@@ -97,18 +91,17 @@ services:
     container_name: recyclarr
     image: ghcr.io/recyclarr/recyclarr:latest
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
     volumes:
       - /mnt/user/appdata/arrs/recyclarr:/config
     environment:
-      - PUID=99
-      - PGID=100
       - TZ=America/Chicago
     restart: unless-stopped
 
 networks:
-  devrack:
+  proxy:
     name: ${DOCKER_NETWORK}
+    driver: bridge
     external: true

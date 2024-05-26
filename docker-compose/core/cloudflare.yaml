@@ -4,13 +4,11 @@ services:
     container_name: cloudflareDDNS
     image: oznu/cloudflare-ddns:latest
     networks:
-      - devrack
+      - proxy
     env_file:
       - ../server.env
       - ./cloudflare.env
     environment:
-      PUID: 99
-      PGID: 100
       TZ: 'America/Chicago'
       HOST_OS: Unraid
       HOST_HOSTNAME: ${SERVER_NAME}
@@ -26,6 +24,7 @@ services:
     restart: always
 
 networks:
-  devrack:
+  proxy:
     name: ${DOCKER_NETWORK}
+    driver: bridge
     external: true

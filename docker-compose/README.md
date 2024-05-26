@@ -1,6 +1,6 @@
 # DevRack Docker-Compose
 
-This covers how to deploy the entire stack via docker-compose. Once a 'compose-up' is issued for each stack, please follow the documentation to continue following along. Link Pending however will be utilizing of the services in the [docs](/docker-compose/docs/) directory.
+This covers how to deploy the entire stack via docker-compose. Once a 'compose-up' is issued for each stack, please follow the respective dockers documentation by following my [BookStack Instance](https://docs.adamzvolanek.com) or [WikiJS Instance](https://wiki.adamzvolanek.com). Both will have identical content.
 
 ## Using docker-compose plugin on Unraid
 
@@ -14,20 +14,17 @@ Include having to combine the [`server.env`](../docker-compose/server.env) and s
 
 Likewise, having to create the docker network ahead of time to prevent errors when issuing 'Compose Down' and during first container creation. Until an order or priority of docker containers is established, the creation of the network is necessary independently of the stack being deployed.
 
-### Creation of Docker Network
-
-Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
-
 ### Setup of Docker-Compose Plugin
 
 - Select 'Add New Stack' and give it a name
+- (Optionally) Select 'Advanced' and provide the location of where to store the `yml` file on Unraid itself.
   - Select 'OK' once created
 - On the cog-wheel of the newly created stack and edit the Name and Description as desired.
 - Select 'Edit Stack' to enter a sub-menu.
   - Select 'Compose File' and copy/paste the respective compose file from the repository
-    - Click 'Save Changes'
+    - Click 'Save Changes'.
   - Select 'Env File' and paste **both** the [`server.env`](../docker-compose/server.env) file's contents and any respective local environment file.
-- Select the stack, click 'Edit Stack', and click 'UI Labels'
+- Select the stack, click 'Edit Stack', and click 'UI Labels'.
   - In the frontend service, enter the WebUI and Port you expect to see the application in. e.g. `http://192.168.1.XX:Port` or (when filling in the values) `http://<SERVER_IP>:<PORT>`.
   - You may also choose to add an Icon in the same menu. Link to the *.image_extension itself.
 - Click 'Compose Up' to deploy the stack.
@@ -55,14 +52,13 @@ Open the Unraid terminal and run, `docker network create <DOCKER_NETWORK>`.
 |Homepage                    |${DOCKER_NETWORK}|${SERVER_IP}|3000                                                 |
 |immich                      |${DOCKER_NETWORK}|${SERVER_IP}|6781                                                 |
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
-|jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
-|jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
+|Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
+|Jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
 |Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
 |lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
 |luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |
 |nextcloud_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
 |nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
-|Nginx-Proxy-Manager-Official|br0              |0.0.0.0     |80, 81, 443                                          |
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
 |Pingvin-share               |${DOCKER_NETWORK}|${SERVER_IP}|4981                                                 |
 |Photoprism                  |${DOCKER_NETWORK}|${SERVER_IP}|2342                                                 |

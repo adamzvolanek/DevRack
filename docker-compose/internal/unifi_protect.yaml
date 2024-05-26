@@ -14,8 +14,6 @@ services:
       - /mnt/user/appdata/internal/UniFi-Protect-Backup/config:/config/rclone # rclone config
       - /mnt/user/appdata/internal/UniFi-Protect-Backup/database/:/config/database
     environment:
-      PUID: 99
-      PGID: 100
       TZ: 'America/Chicago'
       UFP_USERNAME: ${UNIFI_USERNAME}
       UFP_PASSWORD: ${UNIFI_PASSWORD}
