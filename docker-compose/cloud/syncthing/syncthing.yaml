@@ -1,0 +1,28 @@
+---
+services:
+  syncthing:
+    container_name: syncthing
+    image: lscr.io/linuxserver/syncthing:latest
+    networks:
+      - devrack
+    env_file:
+      - ../server.env
+    hostname: syncthing #optional
+    ports:
+      - ${SERVER_IP}:8384:8384
+      - ${SERVER_IP}:22000:22000/tcp
+      - ${SERVER_IP}:22000:22000/udp
+      - ${SERVER_IP}:21027:21027/udp
+    volumes:
+      - /mnt/user/appdata/syncthing/config:/config
+      - /mnt/user/adam:/adam
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true

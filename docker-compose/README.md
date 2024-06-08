@@ -40,7 +40,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 |binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
 |BookStack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
 |bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3307                                                 |
-|ClamAV (used wiht PingVin)  |${DOCKER_NETWORK}|${SERVER_IP}|N/A                                                  |
+|ClamAV (used with PingVin)  |${DOCKER_NETWORK}|${SERVER_IP}|N/A                                                  |
 |Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
 |Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
 |delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
@@ -72,6 +72,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 |redis_immich                |${DOCKER_NETWORK}|${SERVER_IP}|6380                                                 |
 |scrutiny                    |bridge           |${SERVER_IP}|1977                                                 |
 |sonarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8989                                                 |
+|syncthing                   |${DOCKER_NETWORK}|${SERVER_IP}|8384, 22000, 21027                                   |
 |UniFi-Protect-Backup        |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
 |UptimeKuma                  |${DOCKER_NETWORK}|${SERVER_IP}|3001                                                 |
 |wikijs                      |${DOCKER_NETWORK}|${SERVER_IP}|3256                                                 |
