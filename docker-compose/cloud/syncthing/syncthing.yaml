@@ -15,7 +15,7 @@ services:
       - ${SERVER_IP}:21027:21027/udp
     volumes:
       - /mnt/user/appdata/syncthing/config:/config
-      - /mnt/user/adam:/adam
+      - /mnt/user/Adam:/storage/Adam
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
