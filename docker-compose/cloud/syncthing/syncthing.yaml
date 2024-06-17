@@ -16,6 +16,7 @@ services:
     volumes:
       - /mnt/user/appdata/syncthing/config:/config
       - /mnt/user/Adam:/storage/Adam
+#      - /mnt/user/...:/storage/...
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
