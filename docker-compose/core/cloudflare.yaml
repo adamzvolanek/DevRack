@@ -1,13 +1,10 @@
 ---
 services:
-  cloudflare:
-    container_name: cloudflareDDNS
+  cloudflare1:
+    container_name: CF-DDNS-domain1.tld
     image: oznu/cloudflare-ddns:latest
     networks:
       - proxy
-    env_file:
-      - ../server.env
-      - ./cloudflare.env
     environment:
       TZ: America/Chicago
       HOST_OS: Unraid
@@ -15,12 +12,27 @@ services:
       HOST_CONTAINERNAME: cloudflareDDNS
       #EMAIL: ${CLOUDFLARE_EMAIL}
       API_KEY: ${CLOUDFLARE_API_KEY}
-      ZONE: ${CLOUDFLARE_DOMAIN} # limited to single zone per deployment
-      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN}
+      ZONE: ${CLOUDFLARE_DOMAIN1}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN1}
       PROXIED: true
       RRTYPE: A
-    labels:
-      - 'net.unraid.docker.icon=https://i.imgur.com/PKa3Sm2. -l net.unraid.docker.managed=dockermanpng'
+    restart: always
+  cloudflare2:
+    container_name: CF-DDNS-domain2.tld
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - proxy
+    environment:
+      TZ: America/Chicago
+      HOST_OS: Unraid
+      HOST_HOSTNAME: ${SERVER_NAME}
+      HOST_CONTAINERNAME: cloudflareDDNS
+      #EMAIL: ${CLOUDFLARE_EMAIL}
+      API_KEY: ${CLOUDFLARE_API_KEY}
+      ZONE: ${CLOUDFLARE_DOMAIN2}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN2}
+      PROXIED: true
+      RRTYPE: A
     restart: always
 
 networks:
