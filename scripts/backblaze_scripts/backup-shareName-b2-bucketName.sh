@@ -1,13 +1,18 @@
 #!/bin/bash
+
 echo "Deleting previous log"
-rm {logLocation}/{shareName}_log.txt
+
+# Check if log file exists and delete if it does
+if [ -f "{logLocation}/{shareName}_log.txt" ]; then
+    echo "Deleting previous log"
+    rm "{logLocation}/{shareName}_log.txt"
+fi
 
 echo "Running RClone Sync of {shareName} Share to B2 {shareName} Bucket"
 rclone sync \
   --fast-list \
   --progress \
-  --stats-one-line-date \
-  --transfers 8 \
+  --transfers 12 \
   --verbose \
   --exclude .Recycle.Bin/** \
   --links \
