@@ -14,7 +14,7 @@ services:
       - ${SERVER_IP}:22000:22000/udp
       - ${SERVER_IP}:21027:21027/udp
     volumes:
-      - /mnt/user/appdata/syncthing/config:/config
+      - /mnt/user/appdata/cloud/syncthing/config:/config
       - /mnt/user/Adam:/storage/Adam
 #      - /mnt/user/...:/storage/...
     environment:
