@@ -16,7 +16,7 @@ services:
       - "${SERVER_IP}:58946:58946/udp"
     volumes:
       - /mnt/user/appdata/sparrow/binhex-delugevpn:/config
-      - /mnt/user/Scratch/Downloads/:/data
+      - /mnt/scratch-disk/Downloads:/data
     environment:
       VPN_ENABLED: yes
       VPN_USER: ${VPN_USER}

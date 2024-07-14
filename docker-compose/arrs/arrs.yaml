@@ -12,7 +12,7 @@ services:
     volumes:
       - /mnt/user/appdata/arrs/radarr:/config
       - /mnt/user/media:/media
-      - /mnt/user/scratch/Downloads/movie:/data/downloads/movie
+      - /mnt/scratch-disk/Downloads:/data/Downloads
     environment:
       - TZ=America/Chicago
       - PUID=99
@@ -32,7 +32,7 @@ services:
       - /dev/rtc:/dev/rtc:ro
       - /mnt/user/appdata/arrs/sonarr:/config
       - /mnt/user/media:/media
-      - /mnt/user/scratch/Downloads/tv:/data/downloads/tv
+      - /mnt/scratch-disk/Downloads:/data/Downloads
     environment:
       - TZ=America/Chicago
       - PUID=99
