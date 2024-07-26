@@ -11,8 +11,9 @@ services:
     ports:
       - "${SERVER_IP}:4981:3000"
     volumes:
-      - /mnt/user/appdata/cloud/pingvin/data:/opt/app/backend/data
+      - /mnt/user/appdata/cloud/pingvin/data/pingvin-share.db:/opt/app/backend/data/pingvin-share.db # make sure to create the file before starting the container
       - /mnt/user/appdata/cloud/pingvin/data/images:/opt/app/frontend/public/img
+      - /mnt/scratch-disk/Scratch/Uploads:/opt/app/backend/data/uploads
     environment:
       PUID: 99
       PGID: 100
