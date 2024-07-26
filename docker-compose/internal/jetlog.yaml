@@ -1,0 +1,24 @@
+---
+services:
+  jetlog:
+    container_name: jetlog
+    image: pbogre/jetlog
+    networks:
+      - proxy
+    env_file:
+      - ../server.env
+    ports:
+      - "${SERVER_IP}:8914:8914"
+    volumes:
+      - /mnt/user/appdata/internal/jetlog:/data
+    environment:
+      - TZ=America/Chicago
+      - PUID=99
+      - PGID=100
+    restart: unless-stopped
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
