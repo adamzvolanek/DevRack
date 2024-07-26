@@ -48,6 +48,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Filebrowser | 4/30/2024 | Yes | No |
 | BookStack | 5/4/2024 | Yes | Yes |
 | Pingvin-Share | 5/18/2024 | Yes | Yes |
+| Jetlog | 7/25/2024 | Yes | No |
 
 \* Immich crashed on Alexandria and Test Server when asked to load photo library.
 
