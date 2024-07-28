@@ -10,7 +10,7 @@ services:
     ports:
       - "${SERVER_IP}:8914:8914"
     volumes:
-      - /mnt/user/appdata/internal/jetlog:/data
+      - /mnt/user/appdata/internal/jetlog:/data # remember to add /data content from github repo
     environment:
       - TZ=America/Chicago
       - PUID=99
