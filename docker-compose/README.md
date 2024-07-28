@@ -54,6 +54,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 |jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
 |Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
 |Jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
+|Jetlog                      |${DOCKER_NETWORK}|${SERVER_IP}|8914                                                 |
 |Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
 |lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
 |luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |
