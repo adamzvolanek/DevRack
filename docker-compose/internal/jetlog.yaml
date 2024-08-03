@@ -12,9 +12,9 @@ services:
     volumes:
       - /mnt/user/appdata/internal/jetlog:/data # remember to add /data content from github repo (755)
     environment:
-      - TZ=America/Chicago
-      - PUID=99
-      - PGID=100
+      - TZ=${TZ}
+      - PUID=1000 # overwrites PUID from server.env
+      - PGID=1000 # overwrites PGID from server.env
       - JETLOG_PORT=8914
     restart: unless-stopped
 
