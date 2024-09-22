@@ -52,9 +52,9 @@ services:
     volumes:
       - /mnt/user/appdata/internal/paperless-ngx/pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: paperless
-      POSTGRES_USER: paperless_user
-      POSTGRES_PASSWORD: paperless_password
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     restart: unless-stopped
 
   webserver:
@@ -77,27 +77,41 @@ services:
       - /mnt/user/appdata/internal/paperless-ngx/media:/usr/src/paperless/media
       - /mnt/user/appdata/internal/paperless-ngx/export:/usr/src/paperless/export
       - /mnt/user/appdata/internal/paperless-ngx/consume:/usr/src/paperless/consume
+      - /mnt/user/backups/Adam/Documents/:/usr/src/paperless/consume/adam
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      PAPERLESS_DBNAME: ${DB_NAME}
+      PAPERLESS_DBUSER: ${DB_USER}
+      PAPERLESS_DBPASS: ${DB_PASSWORD}
+      PAPERLESS_ADMIN_USER: admin
+      PAPERLESS_ADMIN_PASSWORD: admin
+      PAPERLESS_CONSUMER_RECURSIVE: "true"
     restart: unless-stopped
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.7
-    restart: unless-stopped
-
+    networks:
+      - proxy
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
     command:
       - "gotenberg"
       - "--chromium-disable-javascript=true"
       - "--chromium-allow-list=file:///tmp/.*"
+    volumes:
+      - /mnt/user/appdata/internal/paperless-ngx/gotenberg:/gotenberg
+    restart: unless-stopped
 
   tika:
     image: docker.io/apache/tika:latest
+    networks:
+      - proxy
+    volumes:
+      - /mnt/user/appdata/internal/paperless-ngx/tika:/tika
     restart: unless-stopped
 
 networks:
