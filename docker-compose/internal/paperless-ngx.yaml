@@ -89,11 +89,13 @@ services:
       PAPERLESS_DBPASS: ${DB_PASSWORD}
       PAPERLESS_ADMIN_USER: admin
       PAPERLESS_ADMIN_PASSWORD: admin
-      PAPERLESS_CONSUMER_RECURSIVE: "true"
+      PAPERLESS_CONSUMER_RECURSIVE: true
+      PAPERLESS_OCR_LANGUAGE: eng+ces
     restart: unless-stopped
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.7
+    container_name: paperless_gotenberg
     networks:
       - proxy
     # The gotenberg chromium route is used to convert .eml files. We do not
@@ -108,6 +110,7 @@ services:
 
   tika:
     image: docker.io/apache/tika:latest
+    container_name: paperless_tika
     networks:
       - proxy
     volumes:
