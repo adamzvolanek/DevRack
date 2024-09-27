@@ -71,14 +71,16 @@ services:
       - gotenberg
       - tika
     ports:
-      - "${SERVER_IP}:8000:8000"
+      - "${SERVER_IP}:8138:8138"
     volumes:
       - /mnt/user/appdata/internal/paperless-ngx/data:/usr/src/paperless/data
       - /mnt/user/appdata/internal/paperless-ngx/media:/usr/src/paperless/media
       - /mnt/user/appdata/internal/paperless-ngx/export:/usr/src/paperless/export
-      - /mnt/user/appdata/internal/paperless-ngx/consume:/usr/src/paperless/consume
-      - /mnt/user/backups/Adam/Documents/:/usr/src/paperless/consume/adam
+      - /mnt/user/backups/Adam/Documents:/usr/src/paperless/consume
     environment:
+      USERMAP_UID: ${USERMAP_UID}
+      USERMAP_GID: ${USERMAP_GID}
+      PAPERLESS_TIME_ZONE: ${PAPERLESS_TIME_ZONE}
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
       PAPERLESS_TIKA_ENABLED: 1
@@ -87,10 +89,14 @@ services:
       PAPERLESS_DBNAME: ${DB_NAME}
       PAPERLESS_DBUSER: ${DB_USER}
       PAPERLESS_DBPASS: ${DB_PASSWORD}
+      PAPERLESS_PORT: 8138
       PAPERLESS_ADMIN_USER: admin
       PAPERLESS_ADMIN_PASSWORD: admin
       PAPERLESS_CONSUMER_RECURSIVE: true
-      PAPERLESS_OCR_LANGUAGE: eng+ces
+      PAPERLESS_OCR_LANGUAGES: ${PAPERLESS_OCR_LANGUAGES}
+      PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
+      PAPERLESS_TASK_WORKERS: 1 # 1 worker and 1 core
+      PAPERLESS_LOGROTATE_MAX_BACKUPS: 10 # reduce number of log backups
     restart: unless-stopped
 
   gotenberg:
