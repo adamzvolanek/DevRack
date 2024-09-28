@@ -63,7 +63,7 @@ services:
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_OCR_LANGUAGES: ${PAPERLESS_OCR_LANGUAGES}
       PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
-      PAPERLESS_TASK_WORKERS: 1 # 1 worker and 1 core
+      PAPERLESS_TASK_WORKERS: 2
       PAPERLESS_LOGROTATE_MAX_BACKUPS: 10 # reduce number of log backups
       PAPERLESS_FILENAME_FORMAT: "{document_type}/{correspondent}/{created_year}_{created_month}_{created_day}"
       PAPERLESS_CONSUMER_INOTIFY_DELAY: 30
