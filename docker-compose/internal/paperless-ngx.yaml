@@ -74,9 +74,9 @@ services:
       - "${SERVER_IP}:8138:8138"
     volumes:
       - /mnt/user/appdata/internal/paperless-ngx/data:/usr/src/paperless/data
-      - /mnt/user/appdata/internal/paperless-ngx/media:/usr/src/paperless/media
-      - /mnt/user/appdata/internal/paperless-ngx/export:/usr/src/paperless/export
-      - /mnt/user/backups/Adam/Documents:/usr/src/paperless/consume
+      - /mnt/user/adam_secure/:/usr/src/paperless/media # where documents are stored
+      - /mnt/user/backups/Adam/Documents:/usr/src/paperless/export # when exported, documents, thumbs, metadata, and dB
+      - /mnt/scratch-disk/Scratch/Uploads:/usr/src/paperless/consume # Drop location
     environment:
       USERMAP_UID: ${USERMAP_UID}
       USERMAP_GID: ${USERMAP_GID}
@@ -97,9 +97,10 @@ services:
       PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
       PAPERLESS_TASK_WORKERS: 1 # 1 worker and 1 core
       PAPERLESS_LOGROTATE_MAX_BACKUPS: 10 # reduce number of log backups
+      PAPERLESS_FILENAME_FORMAT: "{document_type}/{correspondent}/{created_year}_{created_month}_{created_day}"
       # OCR Settings
-      PAPERLESS_OCR_MODE: redo
-      PAPERLESS_OCR_SKIP_ARCHIVE_FILE: always
+      PAPERLESS_OCR_MODE: skip
+      PAPERLESS_OCR_SKIP_ARCHIVE_FILE: never
       PAPERLESS_OCR_CLEAN: clean
     restart: unless-stopped
 
