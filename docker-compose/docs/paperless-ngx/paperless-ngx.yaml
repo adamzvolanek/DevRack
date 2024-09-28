@@ -98,7 +98,8 @@ services:
       PAPERLESS_TASK_WORKERS: 1 # 1 worker and 1 core
       PAPERLESS_LOGROTATE_MAX_BACKUPS: 10 # reduce number of log backups
       PAPERLESS_FILENAME_FORMAT: "{document_type}/{correspondent}/{created_year}_{created_month}_{created_day}"
-      # OCR Settings
+      PAPERLESS_CONSUMER_INOTIFY_DELAY: 30
+      # OCR Settingss
       PAPERLESS_OCR_MODE: skip
       PAPERLESS_OCR_SKIP_ARCHIVE_FILE: never
       PAPERLESS_OCR_CLEAN: clean
