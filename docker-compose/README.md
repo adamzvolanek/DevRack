@@ -61,6 +61,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 |nextcloud_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
 |nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
 |NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
+|Paperless-ngx               |${DOCKER_NETWORK}|${SERVER_IP}|8138                                                 |
 |Pingvin-share               |${DOCKER_NETWORK}|${SERVER_IP}|4981                                                 |
 |Photoprism                  |${DOCKER_NETWORK}|${SERVER_IP}|2342                                                 |
 |phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
