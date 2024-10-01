@@ -63,11 +63,12 @@ services:
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_OCR_LANGUAGES: ${PAPERLESS_OCR_LANGUAGES}
       PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
-      PAPERLESS_TASK_WORKERS: 2
-      PAPERLESS_LOGROTATE_MAX_BACKUPS: 10 # reduce number of log backups
-      PAPERLESS_FILENAME_FORMAT: "{document_type}/{correspondent}/{created_year}_{created_month}_{created_day}"
+      PAPERLESS_TASK_WORKERS: 4
+      PAPERLESS_LOGROTATE_MAX_BACKUPS: 5
+      PAPERLESS_FILENAME_FORMAT: "{correspondent}/{document_type}/{created_year}_{created_month}_{created_day}"
       PAPERLESS_CONSUMER_INOTIFY_DELAY: 30
-      # OCR Settingss
+      PAPERLESS_CONSUMER_IGNORE_PATTERNS: "[\".DS_Store\", \".DS_STORE\", \"._*\", \".stfolder/*\", \".stversions/*\", \".localized/*\", \"desktop.ini\", \"@eaDir/*\", \"Thumbs.db\",\".Recycle.Bin\",\".Recycle.Bin/*\"]"
+      # OCR Settings
       PAPERLESS_OCR_MODE: skip
       PAPERLESS_OCR_SKIP_ARCHIVE_FILE: never
       PAPERLESS_OCR_CLEAN: clean
