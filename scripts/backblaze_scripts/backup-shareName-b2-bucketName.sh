@@ -10,9 +10,8 @@ fi
 
 echo "Running RClone Sync of {shareName} Share to B2 {shareName} Bucket"
 rclone sync \
-  --fast-list \
   --progress \
-  --transfers 12 \
+  --transfers 8 \
   --verbose \
   --exclude .Recycle.Bin/** \
   --links \
