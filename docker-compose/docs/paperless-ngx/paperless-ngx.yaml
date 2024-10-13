@@ -68,6 +68,7 @@ services:
       PAPERLESS_FILENAME_FORMAT: "{correspondent}/{document_type}/{created_year}_{created_month}_{created_day}"
       PAPERLESS_CONSUMER_INOTIFY_DELAY: 30
       PAPERLESS_CONSUMER_IGNORE_PATTERNS: "[\".DS_Store\", \".DS_STORE\", \"._*\", \".stfolder/*\", \".stversions/*\", \".localized/*\", \"desktop.ini\", \"@eaDir/*\", \"Thumbs.db\",\".Recycle.Bin\",\".Recycle.Bin/*\"]"
+      PAPERLESS_DATE_ORDER: "MDY"
       # OCR Settings
       PAPERLESS_OCR_MODE: skip
       PAPERLESS_OCR_SKIP_ARCHIVE_FILE: never
