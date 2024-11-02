@@ -32,50 +32,45 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 
 ## Port Configuration
 
-|Container Name              |Docker Network   |IP          |External Port                                        |
-|----------------------------|-----------------|------------|-----------------------------------------------------|
-|adguard                     |br0              |Custom IP   |53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853|
-|authentik                   |${DOCKER_NETWORK}|${SERVER_IP}|9000, 9443                                           |
-|authentik-worker            |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
-|binhex-readarr              |${DOCKER_NETWORK}|${SERVER_IP}|2194                                                 |
-|BookStack                   |${DOCKER_NETWORK}|${SERVER_IP}|6875                                                 |
-|bookstack_db                |${DOCKER_NETWORK}|${SERVER_IP}|3307                                                 |
-|ClamAV (used with PingVin)  |${DOCKER_NETWORK}|${SERVER_IP}|N/A                                                  |
-|Cloudflare_DDNS             |${DOCKER_NETWORK}|0.0.0.0     |???                                                  |
-|Czkawka                     |bridge           |${SERVER_IP}|7821, 7921                                           |
-|delugevpn                   |${DOCKER_NETWORK}|${SERVER_IP}|8112, 8118, 58846, 58946                             |
-|DiskSpeed                   |bridge           |${SERVER_IP}|18888                                                |
-|DockerWebUI                 |${DOCKER_NETWORK}|${SERVER_IP}|1111                                                 |
-|Filebrowser                 |${DOCKER_NETWORK}|${SERVER_IP}|634                                                  |
-|Flaresolverr                |${DOCKER_NETWORK}|${SERVER_IP}|8191                                                 |
-|Home Assistant              |${DOCKER_NETWORK}|${SERVER_IP}|8123                                                 |
-|Homepage                    |${DOCKER_NETWORK}|${SERVER_IP}|3000                                                 |
-|immich                      |${DOCKER_NETWORK}|${SERVER_IP}|6781                                                 |
-|jackett                     |${DOCKER_NETWORK}|${SERVER_IP}|9117                                                 |
-|Jellyfin                    |${DOCKER_NETWORK}|${SERVER_IP}|1900, 8096, 8920                                     |
-|Jellyseerr                  |${DOCKER_NETWORK}|${SERVER_IP}|5055                                                 |
-|Jetlog                      |${DOCKER_NETWORK}|${SERVER_IP}|8914                                                 |
-|Krusader                    |${DOCKER_NETWORK}|${SERVER_IP}|6481                                                 |
-|lidarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8686                                                 |
-|luckyBackup                 |bridge           |${SERVER_IP}|2385                                                 |
-|nextcloud_db                |${DOCKER_NETWORK}|${SERVER_IP}|3306                                                 |
-|nextcloud                   |${DOCKER_NETWORK}|${SERVER_IP}|444                                                  |
-|NginxProxyManager           |${DOCKER_NETWORK}|${SERVER_IP}|4443, 8080, 8181                                     |
-|Paperless-ngx               |${DOCKER_NETWORK}|${SERVER_IP}|8138                                                 |
-|Pingvin-share               |${DOCKER_NETWORK}|${SERVER_IP}|4981                                                 |
-|Photoprism                  |${DOCKER_NETWORK}|${SERVER_IP}|2342                                                 |
-|phpmyadmin                  |bridge           |${SERVER_IP}|8070                                                 |
-|postgres_authentik          |${DOCKER_NETWORK}|${SERVER_IP}|5432                                                 |
-|postgres_immich             |${DOCKER_NETWORK}|${SERVER_IP}|5433                                                 |
-|prowlarr                    |${DOCKER_NETWORK}|${SERVER_IP}|9696                                                 |
-|qBittorrent                 |${DOCKER_NETWORK}|${SERVER_IP}|8089                                                 |
-|radarr                      |${DOCKER_NETWORK}|${SERVER_IP}|7878                                                 |
-|redis                       |${DOCKER_NETWORK}|${SERVER_IP}|6379                                                 |
-|redis_immich                |${DOCKER_NETWORK}|${SERVER_IP}|6380                                                 |
-|scrutiny                    |bridge           |${SERVER_IP}|1977                                                 |
-|sonarr                      |${DOCKER_NETWORK}|${SERVER_IP}|8989                                                 |
-|syncthing                   |${DOCKER_NETWORK}|${SERVER_IP}|8384, 22000, 21027                                   |
-|UniFi-Protect-Backup        |${DOCKER_NETWORK}|0.0.0.0     |                                                     |
-|UptimeKuma                  |${DOCKER_NETWORK}|${SERVER_IP}|3001                                                 |
-|wikijs                      |${DOCKER_NETWORK}|${SERVER_IP}|3256                                                 |
-|wikijs_db                   |${DOCKER_NETWORK}|0.0.0.0     |5432                                                 |
+| Container Name               | Date Tested | Working on Dev | Deployed | Docker Network    | IP           | External Port                                         |
+|------------------------------|-------------|----------------|----------|-------------------|--------------|-------------------------------------------------------|
+| AdGuard                      | 12/28/2023  | Yes            | Yes      | br0               | Custom IP    | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
+| authentik                    | 5/1/2023         | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9000, 9443                                       |
+| authentik-worker             | 5/1/2023         | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                              |
+| BookStack                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6875                                                  |
+| bookstack_db                 | 5/4/2024        | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3307                                              |
+| Czkawka                      | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 7821, 7921                                            |
+| ClamAV (used with PingVin)   | 5/18/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                             |
+| CloudflareDDNS               | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | ???                                                   |
+| delugevpn                    | 11/20/2022         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                       |
+| DiskSpeed                    | N/A         | Yes            | Yes      | bridge            | ${SERVER_IP} | 18888                                                 |
+| Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 634                                                   |
+| Flaresolverr                 | 1/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8191                                                  |
+| Homepage                     | 3/16/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3000                                                  |
+| Home Assistant               | 12/19/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8123                                                  |
+| Immich                       | 4/6/2024    | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6781                                                  |
+| Jellyfin                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 1900, 8096, 8920                                      |
+| Jellyseer                    | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 5055                                                  |
+| Jetlog                       | 7/25/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8914                                                  |
+| Jackett                      | 12/28/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9117                                                  |
+| Krusader                     | 12/28/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6481                                                  |
+| Memos                        | 11/02/2024  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 5230                                                  |
+| MariaDB                      | 12/29/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3306                                                  |
+| Nextcloud                    | 12/29/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 444                                                   |
+| nextcloud_db                 | N/A         | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 3306                                                  |
+| NextCloud AIO                | 4/29/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                                   |
+| NginxProxyManager            | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4443, 8080, 8181                                      |
+| Paperless-ngx                | 10/26/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8138                                           |
+| Photoprism                   | 4/5/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 2342                                                  |
+| Pingvin-Share                | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4981                                                  |
+| prowlarr                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9696                                                  |
+| qBittorrent                  | 12/21/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8089                                                  |
+| radarr                       | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7878                                                  |
+| redis                        | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6379                                                  |
+| redis_immich                 | N/A         | No             | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6380                                                  |
+| scrutiny                     | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 1977                                                  |
+| syncthing                    | 6/7/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                               |
+| UniFi-Protect-Backup         | 5/1/2023        | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                               |
+| UptimeKuma                   | 7/5/2023         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                             |
+| wikijs                       | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                             |
+| wikijs_db                    | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                             |

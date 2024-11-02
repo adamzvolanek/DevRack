@@ -24,33 +24,37 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 
 ## Testing Status
 
-| Container Name | Date Tested | Working on Dev | Deployed |
-| --------| -------- | -------- | -------- |
-| Home Assistant | 12/19/2023 | Yes | Yes |
-| qBittorrent | 12/21/2023 | Yes | No |
-| AdGuard | 12/28/2023 | Yes | Yes |
-| Scrutiny | 12/28/2023 | Yes | Yes |
-| Czkawka | 12/28/2023 | Yes | Yes |
-| Krusader | 12/28/2023 | No | No |
-| CloudflareDDNS | 12/28/2023 | Yes | Yes |
-| Sonarr | 12/28/2023 | Yes | Yes |
-| Radarr | 12/28/2023 | Yes | Yes |
-| Jackett | 12/28/2023 | Yes | Yes |
-| MariaDB | 12/29/2023 | Yes | Yes |
-| Nextcloud | 12/29/2023 | Yes | Yes |
-| Flaresolverr | 1/7/2024 | Yes | Yes |
-| Homepage | 3/16/2024 | Yes | Yes |
-| Jellyfin | 3/21/2024 | Yes | Yes |
-| Jellyseer | 3/21/2024 | Yes | Yes |
-| Photoprism | 4/5/2024 | Yes | Yes |
-| Immich | 4/6/2024 | Yes* | No |
-| NextCloud AIO | 4/29/2024 | Yes | No |
-| Filebrowser | 4/30/2024 | Yes | No |
-| BookStack | 5/4/2024 | Yes | Yes |
-| Pingvin-Share | 5/18/2024 | Yes | Yes |
-| Jetlog | 7/25/2024 | Yes | No |
-
-\* Immich crashed on Alexandria and Test Server when asked to load photo library.
+| Container Name               | External Port                                         |
+|------------------------------|-------------------------------------------------------|
+| AdGuard                      | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
+| BookStack                    | 6875                                                  |
+| bookstack_db                 | 3307                                                  |
+| Czkawka                      | 7821, 7921                                            |
+| ClamAV (used with Pingvin)   | N/A                                                   |
+| CloudflareDDNS               | N/A                                                   |
+| delugevpn                    | 8112, 8118, 58846, 58946                              |
+| DiskSpeed                    | 18888                                                 |
+| Flaresolverr                 | 8191                                                  |
+| Homepage                     | 3000                                                  |
+| Home Assistant               | 8123                                                  |
+| Jellyfin                     | 1900, 8096, 8920                                      |
+| Jellyseer                    | 5055                                                  |
+| Jetlog                       | 8914                                                  |
+| Memos                        | 5230                                                  |
+| MariaDB                      | 3306                                                  |
+| NginxProxyManager            | 4443, 8080, 8181                                      |
+| Paperless-ngx                | 8138                                                  |
+| Photoprism                   | 2342                                                  |
+| Pingvin-Share                | 4981                                                  |
+| prowlarr                     | 9696                                                  |
+| radarr                       | 7878                                                  |
+| redis                        | 6379                                                  |
+| scrutiny                     | 1977                                                  |
+| syncthing                    | 8384, 22000, 21027                                    |
+| UniFi-Protect-Backup         | N/A                                                   |
+| UptimeKuma                   | 3001                                                  |
+| wikijs                       | 3256                                                  |
+| wikijs_db                    | 5432                                                  |
 
 ## Contributing
 

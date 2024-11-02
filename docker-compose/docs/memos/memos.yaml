@@ -1,0 +1,16 @@
+services:
+  memos:
+    image: neosmemo/memos:stable
+    container_name: memos
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:5230:5230"
+    volumes:
+      - /mnt/user/appdata/docs/memos/:/var/opt/memos
+
+networks:
+  proxy:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
