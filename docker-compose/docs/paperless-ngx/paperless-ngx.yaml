@@ -42,7 +42,7 @@ services:
       - "${SERVER_IP}:8138:8138"
     volumes:
       - /mnt/user/appdata/docs/paperless-ngx/data:/usr/src/paperless/data
-      - /mnt/user/adam_secure:/usr/src/paperless/media # where documents are stored
+      - /mnt/user/userShare/paperless:/usr/src/paperless/media # where documents are stored
       - /mnt/user/backups/paperless-ngx:/usr/src/paperless/export # when exported, documents, thumbs, metadata, and dB
       - /mnt/user/Scratch/Uploads:/usr/src/paperless/consume # Drop location
     environment:
