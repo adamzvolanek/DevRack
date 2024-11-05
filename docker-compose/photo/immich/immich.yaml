@@ -17,11 +17,11 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - DB_HOSTNAME=postgres14_immich
+      - DB_HOSTNAME=immich_postgres14
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_DATABASE_NAME=${DB_DATABASE_NAME}
-      - REDIS_HOSTNAME=redis_immich
+      - REDIS_HOSTNAME=immich_redis
       - DB_PORT=${POSTGRES_PORT} # must differ from other postgres containers
       - REDIS_PORT=6380 #optional
       - REDIS_PASSWORD=${REDIS_PASSWORD} #optional
@@ -32,7 +32,6 @@ services:
     volumes:
       - /mnt/user/appdata/photo/immich/immich:/config # double nested to avoid postgres data inside of immich directory
       - /mnt/user/pictures/Personal:/external_photos:ro
-#      - path_to_imports:/import:ro #optional
     ports:
       - "${SERVER_IP}:6781:8080"
     restart: unless-stopped
@@ -43,23 +42,23 @@ services:
 # Redis:
   redis:
     image: redis
+    container_name: immich_redis
     command: --port 6380
     env_file:
       - ../server.env
     ports:
       - "${SERVER_IP}:6380:6380" # must differ from other Redis containers
-    container_name: redis_immich
     networks:
       - devrack
 
 # PostgreSQL 14:
   postgres14:
     image: tensorchord/pgvecto-rs:pg14-v0.2.0
+    container_name: immich_postgres14
     env_file:
       - ../server.env
     ports:
       - "${SERVER_IP}:${POSTGRES_PORT}:5432"
-    container_name: postgres14_immich
     networks:
       - devrack
     environment:
@@ -68,7 +67,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE_NAME}
     volumes:
-      - /mnt/user/appdata/photo/immich/postgres14_immich:/var/lib/postgresql/data
+      - /mnt/user/appdata/photo/immich/immich_postgres14:/var/lib/postgresql/data
 
 networks:
   devrack:
