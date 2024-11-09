@@ -8,7 +8,7 @@ services:
     env_file:
       - ../server.env
     ports:
-      - ${SERVER_IP}:634:634
+      - ${SERVER_IP}:1987:1987
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]/files/'
