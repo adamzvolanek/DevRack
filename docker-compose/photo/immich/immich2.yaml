@@ -26,11 +26,13 @@ services:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
+      - /mnt/user/scratch/immich/immich-config.json:/immich-config.json
     environment:
       TZ: ${TZ}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      IMMICH_CONFIG_FILE: /immich-config.json
     depends_on:
       - redis
       - database
