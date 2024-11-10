@@ -67,6 +67,8 @@ services:
       AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
       AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__GEOIP: /tmp/non-existent-file
       AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__ASN: /tmp/non-existent-file
+      AUTHENTIK_BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+      AUTHENTIK_BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
     restart: unless-stopped
     depends_on:
       - postgresql
@@ -104,6 +106,8 @@ services:
       AUTHENTIK_EMAIL__FROM: ${AUTHENTIK_EMAIL__FROM}
       AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__GEOIP: /tmp/non-existent-file
       AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__ASN: /tmp/non-existent-file
+      AUTHENTIK_BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+      AUTHENTIK_BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
     restart: unless-stopped
     depends_on:
       - postgresql
