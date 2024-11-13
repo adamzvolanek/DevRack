@@ -1,17 +1,15 @@
 services:
-  nginx:
+  npm:
     image: 'lepresidente/nginxproxymanager:latest'
     restart: unless-stopped
     networks:
-      - proxy
+      - devrack
     ports:
-      - "${SERVER_IP}:8080:80" # HTTP Port
-      - "${SERVER_IP}:8181:81" # Admin Web Port
-      - "${SERVER_IP}:4443:443" # HTTPS Port
+      # These ports are in format :
+      - '9191:80' # Public HTTP Port
+      - '9443:443' # Public HTTPS Port
+      - '8811:81' # Admin Web Port
     environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
@@ -24,11 +22,11 @@ services:
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
     volumes:
-      - /mnt/user/appdata/security/nginx/data:/data
-      - /mnt/user/appdata/security/nginx/letsencrypt:/etc/letsencrypt
+      - /mnt/user/appdata/security/crowdsec/data:/data
+      - /mnt/user/appdata/security/crowdsec/letsencrypt:/etc/letsencrypt
     depends_on:
-      - db
-#        condition: service_healthy
+      db:
+        condition: service_healthy
     security_opt:
       - no-new-privileges=true
 
@@ -36,47 +34,41 @@ services:
     image: 'mariadb:lts'
     restart: unless-stopped
     networks:
-      - proxy
+      - devrack
     environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ROOT_DATABASE_PASSWORD}
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - /mnt/user/appdata/security/mariadb-data:/var/lib/mysql
+      - /mnt/user/appdata/security/crowdsec/mariadb-data:/var/lib/mysql
     security_opt:
       - no-new-privileges=true
-#    healthcheck:
-#      test: ['CMD', '/usr/local/bin/healthcheck.sh', '--innodb_initialized']
-#      start_period: 5s
-#      timeout: 5s
-#      interval: 5s
-#      retries: 5
+    healthcheck:
+      test: ['CMD', '/usr/local/bin/healthcheck.sh', '--innodb_initialized']
+      start_period: 5s
+      timeout: 5s
+      interval: 5s
+      retries: 5
 
   crowdsec:
     image: docker.io/crowdsecurity/crowdsec:latest
     container_name: crowdsec
-    networks:
-      - proxy
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
       - COLLECTIONS=crowdsecurity/nginx-proxy-manager
     volumes:
       - /mnt/user/appdata/security/crowdsec/crowdsec-db:/var/lib/crowdsec/data/
       - /mnt/user/appdata/security/crowdsec/crowdsec-config:/etc/crowdsec/
-      - /mnt/user/appdata/security/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
+      - /mnt/user/appdata/security/crowdsec/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
       - /mnt/user/appdata/security/crowdsec/data/logs/:/var/log/npm:ro
+    networks:
+      - devrack
     restart: unless-stopped
     security_opt:
       - no-new-privileges=true
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
     driver: bridge
     external: true
