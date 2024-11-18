@@ -1,4 +1,3 @@
-name: sftpgo
 services:
   sftpgo:
     container_name: SFTPGo
@@ -24,11 +23,16 @@ services:
       - HOST_CONTAINERNAME=SFTPGo
       - SFTPGO_FTPD__BINDINGS__0__FORCE_PASSIVE_IP=192.168.1.93
       - SFTPGO_COMMON__DEFENDER__ENABLED=true
-      - SFTPGO_FTPD__PASSIVE_PORT_RANGE__START=50000
-      - SFTPGO_FTPD__PASSIVE_PORT_RANGE__END=50100
-      - SFTPGO_FTPD__BINDINGS__0__PORT=2121
+      - SFTPGO_FTPD__PASSIVE_PORT_RANGE__START=0 # off
+      - SFTPGO_FTPD__PASSIVE_PORT_RANGE__END=0 # off
+      - SFTPGO_FTPD__BINDINGS__0__PORT=0 # off
       - SFTPGO_WEBDAVD__BINDINGS__0__PORT=10080 
       - SFTPGO_FTPD__BINDINGS__0__DEBUG=0
+      # Branding
+      - SFTPGO_HTTPD__BINDINGS__0__BRANDING__WEB_CLIENT__NAME=Alexandria Cloud
+      - SFTPGO_HTTPD__BINDINGS__0__BRANDING__WEB_CLIENT__SHORT_NAME=Alexandria Cloud
+      - SFTPGO_HTTPD__BINDINGS__0__BRANDING__WEB_ADMIN__NAME=Alexandria Admin Cloud
+      - SFTPGO_HTTPD__BINDINGS__0__BRANDING__WEB_ADMIN__SHORT_NAME=Alexandria Admin Cloud
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:2221]'
@@ -37,7 +41,7 @@ services:
       - /mnt/user/appdata/cloud/sftpgo/data:/srv/sftpgo/data:rw
       - /mnt/user/appdata/cloud/sftpgo/backups:/srv/sftpgo/backups:rw
       - /mnt/user/appdata/cloud/sftpgo/config:/var/lib/sftpgo:rw
-      - /mnt/user/cloud/:/unraid:rw
+      - /mnt/user/cloud/:/cloud:rw
 
 networks:
   devrack:
