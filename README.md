@@ -37,6 +37,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Flaresolverr                 | 8191                                                  |
 | Homepage                     | 3000                                                  |
 | Home Assistant               | 8123                                                  |
+| Immich                       | 6781                                                  |
 | Jellyfin                     | 1900, 8096, 8920                                      |
 | Jellyseer                    | 5055                                                  |
 | Jetlog                       | 8914                                                  |

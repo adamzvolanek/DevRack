@@ -44,11 +44,11 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | CloudflareDDNS               | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | ???                                                   |
 | delugevpn                    | 11/20/2022         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                       |
 | DiskSpeed                    | N/A         | Yes            | Yes      | bridge            | ${SERVER_IP} | 18888                                                 |
-| Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 1987                                                   |
+| Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 1987                                                  |
 | Flaresolverr                 | 1/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8191                                                  |
 | Homepage                     | 3/16/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3000                                                  |
 | Home Assistant               | 12/19/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8123                                                  |
-| Immich                       | 4/6/2024    | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6781                                                  |
+| Immich                       | 4/6/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6781                                                  |
 | Jellyfin                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 1900, 8096, 8920                                      |
 | Jellyseer                    | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 5055                                                  |
 | Jetlog                       | 7/25/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8914                                                  |
@@ -69,6 +69,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | redis                        | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6379                                                  |
 | redis_immich                 | N/A         | No             | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6380                                                  |
 | scrutiny                     | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 1977                                                  |
+| SFTPGO                       | 11/17/2024  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 2221                                                  |
 | syncthing                    | 6/7/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                               |
 | UniFi-Protect-Backup         | 5/1/2023        | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                               |
 | UptimeKuma                   | 7/5/2023         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                             |
