@@ -1,5 +1,9 @@
 #
+# WARNING: Make sure to use the docker-compose.yml of the current release:
+#
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
+#
+# The compose file on main may not be compatible with the latest release.
 #
 
 name: immich
@@ -15,20 +19,29 @@ services:
     env_file:
       - ../server.env
       - ./immich2.env
-    # extends:
-    #   file: hwaccel.transcoding.yml
-    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+                - compute
+                - video
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/user/scratch/immich/immich-config.json:/immich-config.json
+      - /path/to/immich-config.json:/immich-config.json
     environment:
       TZ: ${TZ}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
       IMMICH_CONFIG_FILE: /immich-config.json
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_GPUID}
+      NVIDIA_DRIVER_CAPABILITIES: 'all'
     depends_on:
       - redis
       - database
@@ -40,7 +53,7 @@ services:
     container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, openvino] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-cuda
     networks:
       - devrack
     env_file:
@@ -49,8 +62,16 @@ services:
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, openvino, openvino-wsl] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
     volumes:
-      - /mnt/user/scratch:/cache
+      - /mnt/user/Scratch/immich:/cache
     restart: always
 #    healthcheck:
 #      disable: false
