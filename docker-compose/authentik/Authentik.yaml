@@ -2,9 +2,9 @@
 services:
   postgresql:
     container_name: postgres_authentik
-    image: postgres:12.5-alpine
+    image: docker.io/library/postgres:16-alpine
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./authentik.env
@@ -13,9 +13,9 @@ services:
     volumes:
       - /mnt/user/appdata/authentik/postgres/data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      - POSTGRES_USER: ${POSTGRES_USER:-authentik}
-      - POSTGRES_DB: ${POSTGRES_DB:-authentik}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER:-authentik}
+      POSTGRES_DB: ${POSTGRES_DB:-authentik}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       start_period: 20s
@@ -26,17 +26,13 @@ services:
 
   redis:
     container_name: redis
-    image: redis:alpine
+    image: docker.io/library/redis:alpine
     networks:
-      - proxy
+      - devrack
     ports:
       - "${SERVER_IP}:6379:6379"
     volumes:
       - /mnt/user/appdata/redis:/redis
-    environment:
-      - ALLOW_EMPTY_PASSWORD: yes
-      - REDIS_PASSWORD: ${REDIS_PASSWORD}
-      - REDIS_EXTRA_FLAGS: --auto-aof-rewrite-percentage 100 --auto-aof-rewrite-min-size 64mb
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
       start_period: 20s
@@ -52,7 +48,7 @@ services:
     image: beryju/authentik:latest
     command: server
     networks:
-      - proxy
+      - devrack
     ports:
       - "${SERVER_IP}:9000:9000"
       - "${SERVER_IP}:9443:9443"
@@ -62,16 +58,17 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/user/appdata/authentik/authentik/media:/media
     environment:
-      - AUTHENTIK_REDIS__HOST: redis
-      - AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
-      - AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
-      - AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
-      - AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
-      - AUTHENTIK_ERROR_REPORTING__ENABLED: true
-#      - GEOIPUPDATE_ACCOUNT_ID=null
-#      - GEOIPUPDATE_LICENSE_KEY=null
-#      - AUTHENTIK_AUTHENTIK__GEOIP=/geoip/GeoLite2-City.mmdb
-      - AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: true
+      AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
+      AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__GEOIP: /tmp/non-existent-file
+      AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__ASN: /tmp/non-existent-file
+      AUTHENTIK_BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+      AUTHENTIK_BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
     restart: unless-stopped
     depends_on:
       - postgresql
@@ -82,7 +79,7 @@ services:
     image: beryju/authentik:latest
     command: worker
     networks:
-      - proxy
+      - devrack
     volumes:
       - /mnt/user/appdata/authentik/authentik/backups:/backups
       - /mnt/user/appdata/authentik/authentik/media:/media
@@ -91,30 +88,32 @@ services:
       - /mnt/user/appdata/authentik/authentik/templates:/templates
       - /mnt/user/appdata/authentik/authentik/geoip:/geoip
     environment:
-      - AUTHENTIK_REDIS__HOST: redis
-      - AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
-      - AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
-      - AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
-      - AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
-      - AUTHENTIK_ERROR_REPORTING__ENABLED: true
-      - AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
+      AUTHENTIK_REDIS__HOST: redis
+      AUTHENTIK_POSTGRESQL__HOST: postgres_authentik
+      AUTHENTIK_POSTGRESQL__USER: ${POSTGRES_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: ${POSTGRES_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${POSTGRES_PASSWORD}
+      AUTHENTIK_ERROR_REPORTING__ENABLED: true
+      AUTHENTIK_SECRET_KEY: ${SECRET_KEY}
       # Authentik Email Settings
-      - AUTHENTIK_EMAIL__HOST: ${AUTHENTIK_EMAIL__HOST}
-      - AUTHENTIL_EMAIL__PORT: ${AUTHENTIK_EMAIL__PORT}
-      - AUTHENTIK_EMAIL__USERNAME: ${AUTHENTIK_EMAIL__USERNAME}
-      - AUTHENTIK_EMAIL__PASSWORD: ${AUTHENTIK_EMAIL_PASSWORD}
-      - AUTHENTIK_EMAIL__USE_TLS: ${AUTHENTIK_EMAIL__USE_TLS}
-      - AUTHENTIK_EMAIL__USE_SSL: ${AUTHENTIK_EMAIL__USE_SSL}
-      - AUTHENTIK_EMAIL__TIMEOUT: ${AUTHENTIK_EMAIL__TIMEOUT}
-      - AUTHENTIK_EMAIL__FROM: ${AUTHENTIK_EMAIL__FROM}
-      - AUTHENTIK_EMAIL__TIMEOUT: 10
+      AUTHENTIK_EMAIL__HOST: ${AUTHENTIK_EMAIL__HOST}
+      AUTHENTIK_EMAIL__PORT: ${AUTHENTIK_EMAIL__PORT}
+      AUTHENTIK_EMAIL__USERNAME: ${AUTHENTIK_EMAIL__USERNAME}
+      AUTHENTIK_EMAIL__PASSWORD: ${AUTHENTIK_EMAIL__PASSWORD}
+      AUTHENTIK_EMAIL__USE_TLS: ${AUTHENTIK_EMAIL__USE_TLS}
+      AUTHENTIK_EMAIL__USE_SSL: ${AUTHENTIK_EMAIL__USE_SSL}
+      AUTHENTIK_EMAIL__TIMEOUT: ${AUTHENTIK_EMAIL__TIMEOUT}
+      AUTHENTIK_EMAIL__FROM: ${AUTHENTIK_EMAIL__FROM}
+      AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__GEOIP: /tmp/non-existent-file
+      AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__ASN: /tmp/non-existent-file
+      AUTHENTIK_BOOTSTRAP_PASSWORD: ${BOOTSTRAP_PASSWORD}
+      AUTHENTIK_BOOTSTRAP_EMAIL: ${BOOTSTRAP_EMAIL}
     restart: unless-stopped
     depends_on:
       - postgresql
       - redis
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

@@ -1,0 +1,74 @@
+services:
+  npm:
+    image: 'lepresidente/nginxproxymanager:latest'
+    restart: unless-stopped
+    networks:
+      - devrack
+    ports:
+      # These ports are in format :
+      - '9191:80' # Public HTTP Port
+      - '9443:443' # Public HTTPS Port
+      - '8811:81' # Admin Web Port
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      DB_MYSQL_NAME: "npm"
+      CROWDSEC_OPENRESTY_BOUNCER: |
+        ENABLED=true
+        API_URL=http://crowdsec:8080
+        API_KEY=${CROWDSEC_BOUNCER_APIKEY}
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - /mnt/user/appdata/security/crowdsec/data:/data
+      - /mnt/user/appdata/security/crowdsec/letsencrypt:/etc/letsencrypt
+    depends_on:
+      db:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges=true
+
+  db:
+    image: 'mariadb:lts'
+    restart: unless-stopped
+    networks:
+      - devrack
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_DATABASE_PASSWORD}
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - /mnt/user/appdata/security/crowdsec/mariadb-data:/var/lib/mysql
+    security_opt:
+      - no-new-privileges=true
+    healthcheck:
+      test: ['CMD', '/usr/local/bin/healthcheck.sh', '--innodb_initialized']
+      start_period: 5s
+      timeout: 5s
+      interval: 5s
+      retries: 5
+
+  crowdsec:
+    image: docker.io/crowdsecurity/crowdsec:latest
+    container_name: crowdsec
+    environment:
+      - COLLECTIONS=crowdsecurity/nginx-proxy-manager
+    volumes:
+      - /mnt/user/appdata/security/crowdsec/crowdsec-db:/var/lib/crowdsec/data/
+      - /mnt/user/appdata/security/crowdsec/crowdsec-config:/etc/crowdsec/
+      - /mnt/user/appdata/security/crowdsec/crowdsec/acquis.yaml:/etc/crowdsec/acquis.yaml
+      - /mnt/user/appdata/security/crowdsec/data/logs/:/var/log/npm:ro
+    networks:
+      - devrack
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
