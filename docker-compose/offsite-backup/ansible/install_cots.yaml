@@ -1,0 +1,40 @@
+---
+- name: Install WireGuard, NFS-Server, and Docker on Fedora
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Update all packages to the latest version
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Install WireGuard
+      dnf:
+        name: wireguard-tools
+        state: present
+
+    - name: Install NFS-Server
+      dnf:
+        name: nfs-utils
+        state: present
+
+    - name: Setup NFS mounts
+      include_tasks: setup_nfs.yaml
+
+    - name: Install Docker
+      dnf:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Start and enable NFS-server service
+      systemd:
+        name: nfs-server
+        state: started
+        enabled: true

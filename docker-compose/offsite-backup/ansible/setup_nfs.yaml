@@ -1,0 +1,41 @@
+---
+- name: Create mount directory for the NFS share
+  file:
+    path: "/alexandria_backup"  # Local directory to mount
+    state: directory
+
+- name: Ensure the local disk is mounted at /alexandria_backup (using UUID)
+  mount:
+    path: "/alexandria_backup"
+    src: "UUID=532f49f8-f702-4ba4-a064-f5b0b01168fd"  # Your drive's UUID
+    fstype: xfs
+    opts: defaults
+    state: mounted
+
+- name: Ensure fstab entry for local disk is correct (only update if necessary)
+  lineinfile:
+    path: /etc/fstab
+    regexp: '^UUID=532f49f8-f702-4ba4-a064-f5b0b01168fd'  # Match the line by UUID
+    line: "UUID=532f49f8-f702-4ba4-a064-f5b0b01168fd /alexandria_backup xfs defaults 0 2"
+    create: yes
+    state: present
+
+- name: Ensure the /etc/exports file is present and has correct permissions
+  file:
+    path: /etc/exports
+    state: touch
+    mode: '0644'
+
+- name: Configure NFS exports for the shared directory
+  copy:
+    dest: /etc/exports
+    content: |
+      /alexandria_backup *(rw,sync,no_subtree_check,no_root_squash)
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Restart NFS server to apply export configuration
+  systemd:
+    name: nfs-server
+    state: restarted
