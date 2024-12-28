@@ -73,5 +73,5 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | syncthing                    | 6/7/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                               |
 | UniFi-Protect-Backup         | 5/1/2023        | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                               |
 | UptimeKuma                   | 7/5/2023         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                             |
-| wikijs                       | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                             |
-| wikijs_db                    | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                             |
+| wikijs                       | 5/4/2024         | Yes            | No      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                             |
+| wikijs_db                    | 5/4/2024         | Yes            | No      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                             |

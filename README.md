@@ -54,8 +54,6 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | syncthing                    | 8384, 22000, 21027                                    |
 | UniFi-Protect-Backup         | N/A                                                   |
 | UptimeKuma                   | 3001                                                  |
-| wikijs                       | 3256                                                  |
-| wikijs_db                    | 5432                                                  |
 
 ## Contributing
 
