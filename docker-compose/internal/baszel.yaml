@@ -1,0 +1,33 @@
+services:
+  beszel:
+    image: 'henrygd/beszel'
+    container_name: 'beszel'
+    restart: unless-stopped
+    networks:
+      - devrack
+    ports:
+      - '8090:8090'
+    volumes:
+      - /mnt/user/appdata/internal/beszel_data:/beszel_data
+    environment:
+      DISABLE_PASSWORD_AUTH: 'true'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+  beszel-agent:
+    image: 'henrygd/beszel-agent'
+    container_name: 'beszel-agent'
+    restart: unless-stopped
+    networks:
+      - devrack
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      PORT: 45876
+      KEY: '...'
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    driver: bridge
+    external: true
