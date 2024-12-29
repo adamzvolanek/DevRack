@@ -1,0 +1,42 @@
+# This is an old image of CLoudFlare-DDNS
+---
+services:
+  cloudflare1:
+    container_name: CF-DDNS-domain1.tld
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - devrack
+    environment:
+      TZ: America/Chicago
+      HOST_OS: Unraid
+      HOST_HOSTNAME: ${SERVER_NAME}
+      HOST_CONTAINERNAME: cloudflareDDNS
+      #EMAIL: ${CLOUDFLARE_EMAIL}
+      API_KEY: ${CLOUDFLARE_API_KEY}
+      ZONE: ${CLOUDFLARE_DOMAIN1}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN1}
+      PROXIED: true
+      RRTYPE: A
+    restart: always
+  cloudflare2:
+    container_name: CF-DDNS-domain2.tld
+    image: oznu/cloudflare-ddns:latest
+    networks:
+      - devrack
+    environment:
+      TZ: America/Chicago
+      HOST_OS: Unraid
+      HOST_HOSTNAME: ${SERVER_NAME}
+      HOST_CONTAINERNAME: cloudflareDDNS
+      #EMAIL: ${CLOUDFLARE_EMAIL}
+      API_KEY: ${CLOUDFLARE_API_KEY}
+      ZONE: ${CLOUDFLARE_DOMAIN2}
+      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN2}
+      PROXIED: true
+      RRTYPE: A
+    restart: always
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
