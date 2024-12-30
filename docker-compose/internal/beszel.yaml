@@ -5,11 +5,16 @@ services:
     restart: unless-stopped
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: http://[IP]:[PORT:8090]
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel-light.webp'
     ports:
-      - '8090:8090'
+      - '${SERVER_IP}:8090:8090'
     volumes:
       - /mnt/user/appdata/internal/beszel_data:/beszel_data
     environment:
+      TZ: ${TZ}
       DISABLE_PASSWORD_AUTH: 'true'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
@@ -20,9 +25,13 @@ services:
     restart: unless-stopped
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel.webp'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
+      TZ: ${TZ}
       PORT: 45876
       KEY: '...'
 

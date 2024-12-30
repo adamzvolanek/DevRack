@@ -27,6 +27,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Container Name               | External Port                                         |
 |------------------------------|-------------------------------------------------------|
 | AdGuard                      | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
+| Beszel                       | 8090                                                  |
 | BookStack                    | 6875                                                  |
 | bookstack_db                 | 3307                                                  |
 | Czkawka                      | 7821, 7921                                            |

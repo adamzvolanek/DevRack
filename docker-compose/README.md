@@ -37,7 +37,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | AdGuard                      | 12/28/2023  | Yes            | Yes      | br0               | Custom IP    | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
 | authentik                    | 5/1/2023    | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9000, 9443                                       |
 | authentik-worker             | 5/1/2023    | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                              |
-| baszel                       | 12/28/2024  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8090                                                  |
+| beszel                       | 12/28/2024  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8090                                                  |
 | BookStack                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6875                                                  |
 | bookstack_db                 | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3307                                              |
 | Czkawka                      | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 7821, 7921                                            |
