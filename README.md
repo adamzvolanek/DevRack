@@ -33,7 +33,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Czkawka                      | 7821, 7921                                            |
 | ClamAV (used with Pingvin)   | N/A                                                   |
 | CloudflareDDNS               | N/A                                                   |
-| delugevpn                    | 8112, 8118, 58846, 58946                              |
+| QBitTorrentVPN               | 7984, 8118, 58846, 58946                              |
 | DiskSpeed                    | 18888                                                 |
 | Flaresolverr                 | 8191                                                  |
 | Homepage                     | 3000                                                  |

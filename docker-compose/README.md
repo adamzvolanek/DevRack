@@ -43,7 +43,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | Czkawka                      | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 7821, 7921                                            |
 | ClamAV (used with PingVin)   | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                             |
 | CloudflareDDNS               | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | ???                                                   |
-| delugevpn                    | 11/20/2022  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                       |
+| QBitTorrentVPN               | 1/4/2025    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7984, 8118, 58846, 58946                              |
 | DiskSpeed                    | N/A         | Yes            | Yes      | bridge            | ${SERVER_IP} | 18888                                                 |
 | Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 1987                                                  |
 | Flaresolverr                 | 1/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8191                                                  |
