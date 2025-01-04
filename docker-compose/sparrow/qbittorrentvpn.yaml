@@ -1,40 +1,44 @@
----
 services:
-  qbittorrentvpn:
+  arch-qbittorrentvpn:
+    image: binhex/arch-qbittorrentvpn
     container_name: qbittorrentvpn
-    image: binhex/arch-qbittorrentvpn:latest
-    privileged: true
+    cap_add: # adds network admin privileges
+        - NET_ADMIN
     networks:
-      - proxy
-    env_file:
-      - ../server.env
-      - ./qbittorrentvpn.env
+      - devrack
     ports:
-      - "${SERVER_IP}:6881:6881"
-      - "${SERVER_IP}:6881:6881/udp"
-      - "${SERVER_IP}:8089:8089"
-      - "${SERVER_IP}:8118:8118"
+        - ${SERVER_IP}:7984:7984
+        - 8118:8118
+        - 9118:9118
+        - 58946:58946
+        - 58946:58946/udp
     volumes:
-      - /mnt/user/appdata/sparrow/binhex-qbittorrentvpn:/config
-      - /mnt/user/scratch/Downloads/:/data/downloads
+        - /mnt/user/appdata/sparrow/qbittorrentvpn/data:/data
+        - /mnt/user/appdata/sparrow/qbittorrentvpn/config:/config
+        - /etc/localtime:/etc/localtime:ro
     environment:
-      VPN_ENABLED: yes
-      VPN_USER: ${VPN_USER}
-      VPN_PASS: ${VPN_PASS}
-      VPN_PROV: ${VPN_PROV}
-      VPN_CLIENT: openvpn
-      VPN_OPTIONS:
-      STRICT_PORT_FORWARD: yes
-      ENABLE_PRIVOXY: no
-      WEBUI_PORT: 8089
-      LAN_NETWORK: ${LAN_NETWORK}
-      NAME_SERVERS: ${NAME_SERVERS}
-      VPN_INPUT_PORTS:
-      VPN_OUTPUT_PORTS:
-      DEBUG: false
-
+        - VPN_ENABLED=yes
+        - VPN_USER=${VPN_USER}
+        - VPN_PASS=${VPN_PASS}
+        - VPN_PROV=${VPN_PROV}
+        - VPN_CLIENT=openvpn
+        - ENABLE_STARTUP_SCRIPTS=no
+        - ENABLE_PRIVOXY=yes
+        - STRICT_PORT_FORWARD=yes
+        - USERSPACE_WIREGUARD=no
+        - ENABLE_SOCKS=no
+        - SOCKS_USER=
+        - SOCKS_PASS=
+        - LAN_NETWORK=192.168.1.0/24
+        - NAME_SERVERS=${NAME_SERVERS}
+        - VPN_INPUT_PORTS=
+        - VPN_OUTPUT_PORTS=
+        - DEBUG=false
+        - WEBUI_PORT=7984
+        - UMASK=000
+        - PUID=${PUID}
+        - PGID=${PGID}
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true
