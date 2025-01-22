@@ -7,6 +7,9 @@ services:
       - devrack
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_shared:/data
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/redis.webp'
     restart: always
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
@@ -24,6 +27,9 @@ services:
       - /mnt/user/appdata/dawarich/dawarich_shared:/var/shared
     networks:
       - devrack
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/postgresql.webp'
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -45,6 +51,10 @@ services:
       - devrack
     ports:
       - "${SERVER_IP}:7654:3000"
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:7654]'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/dawarich.webp'
     stdin_open: true
     tty: true
     entrypoint: web-entrypoint.sh
@@ -85,7 +95,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '1.0'
           memory: '4G'
 
   dawarich_sidekiq:
@@ -137,7 +147,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: '1.0'
           memory: '4G'
 
 networks:
