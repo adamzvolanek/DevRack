@@ -4,7 +4,7 @@ services:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -14,16 +14,16 @@ services:
       - /mnt/user/media:/media
       - /mnt/scratch-disk/Downloads:/data/Downloads
     environment:
-      - TZ=America/Chicago
-      - PUID=99
-      - PGID=100
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
     restart: unless-stopped
 
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:develop # bump to version 4
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -34,16 +34,16 @@ services:
       - /mnt/user/media:/media
       - /mnt/scratch-disk/Downloads:/data/Downloads
     environment:
-      - TZ=America/Chicago
-      - PUID=99
-      - PGID=100
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
     restart: unless-stopped
 
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -51,16 +51,16 @@ services:
     volumes:
       - /mnt/user/appdata/arrs/prowlarr:/config
     environment:
-      - TZ=America/Chicago
-      - PUID=99
-      - PGID=100
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
     restart: unless-stopped
 
   flaresolverr:
     container_name: flaresolverr
     image: lscr.io/linuxserver/flaresolverr:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -91,7 +91,7 @@ services:
     container_name: recyclarr
     image: ghcr.io/recyclarr/recyclarr:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     volumes:
@@ -101,7 +101,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

@@ -32,7 +32,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Czkawka                      | 7821, 7921                                            |
 | ClamAV (used with Pingvin)   | N/A                                                   |
 | CloudflareDDNS               | N/A                                                   |
-| delugevpn                    | 8112, 8118, 58846, 58946                              |
+| QbitTorreent                 | 6881, 9519, 8118                                      |
 | DiskSpeed                    | 18888                                                 |
 | Flaresolverr                 | 8191                                                  |
 | Homepage                     | 3000                                                  |
@@ -54,8 +54,6 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | syncthing                    | 8384, 22000, 21027                                    |
 | UniFi-Protect-Backup         | N/A                                                   |
 | UptimeKuma                   | 3001                                                  |
-| wikijs                       | 3256                                                  |
-| wikijs_db                    | 5432                                                  |
 
 ## Contributing
 

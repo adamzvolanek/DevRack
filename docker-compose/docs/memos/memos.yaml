@@ -10,7 +10,6 @@ services:
       - /mnt/user/appdata/docs/memos/:/var/opt/memos
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

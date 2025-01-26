@@ -65,7 +65,7 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | Photoprism                   | 4/5/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 2342                                                  |
 | Pingvin-Share                | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4981                                                  |
 | prowlarr                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9696                                                  |
-| qBittorrent                  | 12/21/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8089                                                  |
+| qBittorrent                  | 12/21/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9519                                                  |
 | radarr                       | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7878                                                  |
 | redis                        | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6379                                                  |
 | redis_immich                 | N/A         | No             | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6380                                                  |
