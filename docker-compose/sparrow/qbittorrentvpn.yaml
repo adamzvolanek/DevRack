@@ -34,7 +34,6 @@ services:
       DEBUG: false
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true
