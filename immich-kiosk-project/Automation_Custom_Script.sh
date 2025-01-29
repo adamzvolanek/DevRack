@@ -13,7 +13,7 @@ wget https://raw.githubusercontent.com/adamzvolanek/DevRack/refs/heads/main/immi
 
 # Download and extract immich-kiosk
 wget https://github.com/damongolding/immich-kiosk/releases/download/v0.15.1/immich-kiosk_Linux_arm64.tar.gz -O /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz
-tar -zxvf /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz
+tar -zxvf /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz -C /home/dietpi/immichkiosk/
 
 # Update the keys in the config file
 sed -i "s|api_key:.*|api_key: \"$immich_api_key\"|" /home/dietpi/immichkiosk/config.yaml

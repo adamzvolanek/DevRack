@@ -23,7 +23,7 @@ person:
 
 ## ID(s) of album or albums to display
 album:
-  - "7168c5ae-f4fa-490e-94dc-7d1cfe64d079"
+  - ""
 ## Album IDs to exclude from being shown. Albums in this list will be filtered from
 ## appearing in the frame even if they are included in the 'album' list.
 album_order: random # random | newest | oldest
