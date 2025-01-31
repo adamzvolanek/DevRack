@@ -4,7 +4,7 @@ services:
     container_name: nextcloud_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./cloud.env
@@ -14,7 +14,7 @@ services:
       - /mnt/user/appdata/cloud/mariadb/config:/config
     environment:
       MYSQL_ROOT_PASSWORD: ${MARIADB_PASSWORD}
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
       MYSQL_DATABASE: ${DB_NAME_NC}
       MYSQL_USER: ${DB_USER_NC}
       MYSQL_PASSWORD: ${DB_PASSWORD_NC}
@@ -24,7 +24,7 @@ services:
     container_name: redis_nc
     image: bitnami/redis:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./cloud.env
@@ -47,7 +47,7 @@ services:
       - mariadb
       - redis
     networks:
-      - proxy
+      - devrack
     ports:
       - 444:444 # Changing port causes issues.
     volumes:
@@ -64,11 +64,10 @@ services:
       REDIS_HOST: redis_nc
       REDIS_PORT: ${REDIS_PORT_NC}
       REDIS_HOST_PASSWORD: ${REDIS_PASSWORD_NC}
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
     restart: always
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

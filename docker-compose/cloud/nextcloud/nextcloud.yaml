@@ -16,7 +16,7 @@ services:
       PUID: 99
       PGID: 100
       MYSQL_ROOT_PASSWORD: ${MARIADB_PASSWORD}
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
     # MYSQL_DATABASE=USER_DB_NAME #optional
     # MYSQL_USER=MYSQL_USER #optional
     # MYSQL_PASSWORD=DATABASE_PASSWORD #optional
@@ -37,7 +37,7 @@ services:
       - /mnt/user/Adam:/data/alexandria/Adam # local Adam mount
       - /mnt/user/backups:/data/alexandria/backups # local backups mount
     environment:
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
       PUID: 99
       PGID: 100
     restart: unless-stopped

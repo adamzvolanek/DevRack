@@ -4,7 +4,7 @@ services:
     container_name: delugevpn
     image: binhex/arch-delugevpn:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./delugevpn.env
@@ -36,7 +36,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

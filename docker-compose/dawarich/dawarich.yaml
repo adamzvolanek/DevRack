@@ -1,0 +1,156 @@
+services:
+  dawarich_redis:
+    image: redis:7.0-alpine
+    container_name: dawarich_redis
+    command: redis-server
+    networks:
+      - devrack
+    volumes:
+      - /mnt/user/appdata/dawarich/dawarich_shared:/data
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/redis.webp'
+    restart: always
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  dawarich_db:
+    image: postgres:14.2-alpine
+    shm_size: 1G
+    container_name: dawarich_db
+    volumes:
+      - /mnt/user/appdata/dawarich/dawarich_db_data:/var/lib/postgresql/data
+      - /mnt/user/appdata/dawarich/dawarich_shared:/var/shared
+    networks:
+      - devrack
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/postgresql.webp'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich_development" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  dawarich_app:
+    image: freikin/dawarich:latest
+    container_name: dawarich_app
+    volumes:
+      - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
+      - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+    networks:
+      - devrack
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:7654]'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/dawarich.webp'
+    ports:
+      - "${SERVER_IP}:7654:3000"
+    stdin_open: true
+    tty: true
+    entrypoint: web-entrypoint.sh
+    command: ['bin/rails', 'server', '-p', '3000', '-b', '::']
+    restart: on-failure
+    environment:
+      RAILS_ENV: development
+      REDIS_URL: redis://dawarich_redis:6379/0
+      DATABASE_HOST: dawarich_db
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: dawarich_development
+      MIN_MINUTES_SPENT_IN_CITY: 60
+      APPLICATION_HOSTS: localhost
+      TIME_ZONE: ${TZ}
+      APPLICATION_PROTOCOL: http
+      DISTANCE_UNIT: mi
+      PROMETHEUS_EXPORTER_ENABLED: false
+      PROMETHEUS_EXPORTER_HOST: 0.0.0.0
+      PROMETHEUS_EXPORTER_PORT: 9394
+      ENABLE_TELEMETRY: false
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO - http://127.0.0.1:3000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'" ]
+      interval: 10s
+      retries: 30
+      start_period: 30s
+      timeout: 10s
+    depends_on:
+      dawarich_db:
+        condition: service_healthy
+      dawarich_redis:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: '4G'
+
+  dawarich_sidekiq:
+    image: freikin/dawarich:latest
+    container_name: dawarich_sidekiq
+    volumes:
+      - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
+      - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+    networks:
+      - devrack
+    stdin_open: true
+    tty: true
+    entrypoint: sidekiq-entrypoint.sh
+    command: ['sidekiq']
+    restart: on-failure
+    environment:
+      RAILS_ENV: development
+      REDIS_URL: redis://dawarich_redis:6379/0
+      DATABASE_HOST: dawarich_db
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_NAME: dawarich_development
+      APPLICATION_HOSTS: localhost
+      BACKGROUND_PROCESSING_CONCURRENCY: 10
+      APPLICATION_PROTOCOL: http
+      DISTANCE_UNIT: mi
+      PROMETHEUS_EXPORTER_ENABLED: false
+      PROMETHEUS_EXPORTER_HOST: dawarich_app
+      PROMETHEUS_EXPORTER_PORT: 9394
+      ENABLE_TELEMETRY: false
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    healthcheck:
+      test: [ "CMD-SHELL", "bundle exec sidekiqmon processes | grep $${HOSTNAME}" ]
+      interval: 10s
+      retries: 30
+      start_period: 30s
+      timeout: 10s
+    depends_on:
+      dawarich_db:
+        condition: service_healthy
+      dawarich_redis:
+        condition: service_healthy
+      dawarich_app:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: '4G'
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
