@@ -32,6 +32,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Czkawka                      | 7821, 7921                                            |
 | ClamAV (used with Pingvin)   | N/A                                                   |
 | CloudflareDDNS               | N/A                                                   |
+| Dawarich                     | 7654                                                  |
 | QbitTorreent                 | 6881, 9519, 8118                                      |
 | DiskSpeed                    | 18888                                                 |
 | Flaresolverr                 | 8191                                                  |
