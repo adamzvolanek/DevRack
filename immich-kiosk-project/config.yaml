@@ -1,6 +1,6 @@
 ## Required settings - move these to ENV if you want to check in this file
 immich_api_key: ""
-immich_url: ""
+immich_url: "" # Use http://{URL}?album=shared for shared albums
 
 ## Clock
 show_time: true
