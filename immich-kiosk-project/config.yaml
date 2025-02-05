@@ -24,6 +24,7 @@ person:
 ## ID(s) of album or albums to display
 album:
   - ""
+
 ## Album IDs to exclude from being shown. Albums in this list will be filtered from
 ## appearing in the frame even if they are included in the 'album' list.
 album_order: random # random | newest | oldest
@@ -46,9 +47,9 @@ theme: fade # which theme to use. fade or solid
 layout: single # which layout to use. single | splitview | splitview-landscape | portrait | landscape
 
 ## Sleep mode
-# sleep_start: 22 # sleep mode start time
-# sleep_end: 7 # sleep mode end time
-sleep_icon: true
+sleep_start: 1800 # sleep mode start time
+sleep_end: 0700 # sleep mode end time
+sleep_icon: false
 
 ## Transition options
 transition: fade # cross-fade, fade or none
@@ -70,14 +71,14 @@ image_time_format: 24 # 12 or 24
 show_image_date: true
 image_date_format: YYYY-MM-DD
 show_image_description: false
-show_image_exif: false
+show_image_exif: true
 show_image_location: true
 hide_countries:
   - "country to hide"
 show_image_id: false
-show_more_info: true
-show_more_info_image_link: true
-show_more_info_qr_code: true
+show_more_info: false
+show_more_info_image_link: false
+show_more_info_qr_code: false
 
 ## Weather feature - you’ll need an API key from OpenWeatherMap
 # weather:
@@ -91,7 +92,7 @@ show_more_info_qr_code: true
 ## Options that can NOT be changed via url params
 kiosk:
   port: 3000
-  watch_config: false
+  watch_config: true
   fetched_assets_size: 1000
   http_timeout: 20
   password: ""
