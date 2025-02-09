@@ -35,14 +35,15 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | Container Name               | Date Tested | Working on Dev | Deployed | Docker Network    | IP           | External Port                                         |
 |------------------------------|-------------|----------------|----------|-------------------|--------------|-------------------------------------------------------|
 | AdGuard                      | 12/28/2023  | Yes            | Yes      | br0               | Custom IP    | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
-| authentik                    | 5/1/2023         | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9000, 9443                                       |
-| authentik-worker             | 5/1/2023         | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                              |
+| authentik                    | 5/1/2023    | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9000, 9443                                            |
+| authentik-worker             | 5/1/2023    | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                                   |
 | BookStack                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6875                                                  |
-| bookstack_db                 | 5/4/2024        | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3307                                              |
+| bookstack_db                 | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3307                                                  |
 | Czkawka                      | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 7821, 7921                                            |
-| ClamAV (used with PingVin)   | 5/18/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                             |
+| ClamAV (used with PingVin)   | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                                   |
 | CloudflareDDNS               | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | ???                                                   |
-| delugevpn                    | 11/20/2022         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                       |
+| dawarich                     | 1/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7654                                                  |
+| delugevpn                    | 11/20/2022  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                              |
 | DiskSpeed                    | N/A         | Yes            | Yes      | bridge            | ${SERVER_IP} | 18888                                                 |
 | Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 1987                                                  |
 | Flaresolverr                 | 1/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8191                                                  |
@@ -60,18 +61,18 @@ Likewise, having to create the docker network ahead of time to prevent errors wh
 | nextcloud_db                 | N/A         | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 3306                                                  |
 | NextCloud AIO                | 4/29/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                                   |
 | NginxProxyManager            | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4443, 8080, 8181                                      |
-| Paperless-ngx                | 10/26/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8138                                           |
+| Paperless-ngx                | 10/26/2024  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8138                                                  |
 | Photoprism                   | 4/5/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 2342                                                  |
 | Pingvin-Share                | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4981                                                  |
 | prowlarr                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9696                                                  |
-| qBittorrent                  | 12/21/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8089                                                  |
+| qBittorrent                  | 12/21/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9519                                                  |
 | radarr                       | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7878                                                  |
 | redis                        | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6379                                                  |
 | redis_immich                 | N/A         | No             | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6380                                                  |
 | scrutiny                     | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 1977                                                  |
 | SFTPGO                       | 11/17/2024  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 2221                                                  |
-| syncthing                    | 6/7/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                               |
-| UniFi-Protect-Backup         | 5/1/2023        | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                               |
-| UptimeKuma                   | 7/5/2023         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                             |
-| wikijs                       | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                             |
-| wikijs_db                    | 5/4/2024         | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                             |
+| syncthing                    | 6/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                                    |
+| UniFi-Protect-Backup         | 5/1/2023    | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                                   |
+| UptimeKuma                   | 7/5/2023    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                                  |
+| wikijs                       | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                                  |
+| wikijs_db                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                                  |

@@ -15,9 +15,9 @@ services:
       - /mnt/user/appdata/cloud/pingvin/data/images:/opt/app/frontend/public/img
       - /mnt/scratch-disk/Scratch/Uploads:/opt/app/backend/data/uploads
     environment:
-      PUID: 99
-      PGID: 100
-      TZ: 'America/Chicago'
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
     depends_on:
       clamav:
         condition: service_healthy

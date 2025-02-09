@@ -4,9 +4,9 @@ services:
     container_name: CF-DDNS-domain1.tld
     image: oznu/cloudflare-ddns:latest
     networks:
-      - proxy
+      - devrack
     environment:
-      TZ: America/Chicago
+      TZ: ${TZ}
       HOST_OS: Unraid
       HOST_HOSTNAME: ${SERVER_NAME}
       HOST_CONTAINERNAME: cloudflareDDNS
@@ -21,9 +21,9 @@ services:
     container_name: CF-DDNS-domain2.tld
     image: oznu/cloudflare-ddns:latest
     networks:
-      - proxy
+      - devrack
     environment:
-      TZ: America/Chicago
+      TZ: ${TZ}
       HOST_OS: Unraid
       HOST_HOSTNAME: ${SERVER_NAME}
       HOST_CONTAINERNAME: cloudflareDDNS
@@ -36,7 +36,6 @@ services:
     restart: always
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

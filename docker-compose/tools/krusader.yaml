@@ -4,7 +4,7 @@ services:
     container_name: krusader
     image: ich777/krusader:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -21,7 +21,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

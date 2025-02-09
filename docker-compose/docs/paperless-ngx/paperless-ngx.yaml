@@ -3,7 +3,7 @@ services:
     container_name: paperless_redis
     image: docker.io/library/redis:7
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     volumes:
@@ -14,7 +14,7 @@ services:
     container_name: paperless_postgres
     image: docker.io/library/postgres:16
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     volumes:
@@ -29,7 +29,7 @@ services:
     container_name: paperless_ngx
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
       - ./paperless-ngx.env
@@ -80,7 +80,7 @@ services:
     image: docker.io/gotenberg/gotenberg:8.7
     container_name: paperless_gotenberg
     networks:
-      - proxy
+      - devrack
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
     command:
@@ -95,13 +95,12 @@ services:
     image: docker.io/apache/tika:latest
     container_name: paperless_tika
     networks:
-      - proxy
+      - devrack
     volumes:
       - /mnt/user/appdata/docs/paperless-ngx/tika:/tika
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

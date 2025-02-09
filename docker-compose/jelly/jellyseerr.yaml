@@ -10,16 +10,16 @@ services:
     ports:
       - "${SERVER_IP}:5055:5055" # webUI port
     volumes:
-      - /mnt/user/appdata/external/jellyseerr:/app/config/
+      - /mnt/user/appdata/jelly/jellyseerr:/app/config/
     environment:
-      - PUID=99
-      - PGID=100
+      - PUID=${PUID}
+      - PGID=${PGID}
       - LOG_LEVEL='info'
-      - TZ='America/Chicago'
+      - TZ=${TZ}
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:5055]'
-      - net.unraid.docker.icon='https://raw.githubusercontent.com/Fallenbagel/jellyseerr/develop/public/android-chrome-512x512_maskable.png'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/jellyseerr.webp'
     restart: unless-stopped
 
 networks:
