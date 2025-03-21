@@ -4,7 +4,7 @@ services:
     container_name: nginxproxymanager
     image: jlesage/nginx-proxy-manager:latest
     networks:
-      - proxy
+      - devrack
     env_file:
       - ../server.env
     ports:
@@ -19,7 +19,6 @@ services:
     restart: always
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true
