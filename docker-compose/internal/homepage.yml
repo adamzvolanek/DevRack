@@ -15,6 +15,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - HOMEPAGE_ALLOWED_HOSTS=${SERVER_IP}:3000
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:80]'
