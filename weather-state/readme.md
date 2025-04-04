@@ -1,57 +1,65 @@
 # Directory for Weather Alert Script
 
-This is supposed to cover creating a query script for Alexandria (server) to enter a 'precautionary' critical-services only state in the event of severe weather.
+This script is designed for Alexandria (server) to enter a 'precautionary' critical-services-only state in the event of severe weather by monitoring NOAA alerts and responding accordingly.
 
 ## Description
 
-Script monitors NOAA weather alerts for tornado warnings, tornado emergencies, and severe weather watches. It performs the following tasks:
+This script continuously monitors NOAA weather alerts for tornado warnings, emergencies, and severe weather watches. Based on alert types, it manages Docker Compose stacks and logs weather events with timestamps. Key behavior includes:
 
-1. **Polls NOAA every hour** for active weather alerts at a specified location (latitude and longitude).
-2. If a **Tornado Watch** or **Severe Thunderstorm Watch** is detected:
+1. Polls NOAA every hour for active weather alerts at a specified location (latitude and longitude).
+2. If a Tornado Watch or Severe Thunderstorm Watch is detected:
    - **Polls every minute** for updates on the watch status.
-3. If a **Tornado Warning or Emergency** is detected:
-   - **Shuts down specified Docker Compose stacks**.
-   - **Polls every minute** until the warning is cleared.
-4. Once the **Tornado Warning or Emergency** clears and 15 minutes have passed:
-   - **Brings Docker stacks back online**.
-   - **Resumes polling every minute** for further weather alerts.
-5. If the **Tornado Watch** or **Severe Thunderstorm Watch** is cleared, the script:
+3. If a Tornado Warning or Tornado Emergency is detected:
+   - Logs the alert and shuts down specified Docker Compose stacks.
+   - **Polls every minute** until the warning clears.
+4. Once the Tornado Warning or Emergency clears **and 15 minutes have passed**:
+   - Brings Docker stacks back online.
+   - **Continues polling every minute** to catch possible reoccurrences.
+5. If the Tornado Watch or Severe Thunderstorm Watch is cleared:
    - **Resumes polling every hour**.
-6. **Logs all actions** (stack shutdown, startup, weather alerts) in a log directory under `/mnt/user/logs/weather_events/`, including automatic cleanup of logs older than 30 days.
+6. A heartbeat message is logged every minute during 1-minute polling intervals, including a timestamp and inline list of current alerts.
+7. Logs all actions (e.g. stack shutdowns, startups, and NOAA alerts) in a date-based directory under `/mnt/user/logs/weather_events/`.
+8. Automatically removes logs older than 30 days to maintain a clean log directory.
+9. All logs and folders are created with `777` permissions to ensure full accessibility.
 
-### Variables and Their Roles
+## Variables and Their Roles
 
-- **`lat`**  
-  The **latitude** of the server or location to monitor weather alerts for. This is used in the NOAA API query.
+| Variable         | Description |
+|------------------|-------------|
+| `lat`            | Latitude of the monitored location. Used in NOAA API queries. |
+| `long`           | Longitude of the monitored location. |
+| `email`          | Email used as User-Agent for NOAA API requests. Required by NOAA for contact purposes. |
+| `stack_base_path`| Base directory for Docker Compose stack folders. Each subfolder contains its own `docker-compose.yml`. |
+| `stack_names`    | An array of Docker Compose stack names to be controlled during alerts. |
+| `poll_interval`  | Current polling frequency in seconds. Adjusted dynamically (default: 3600 seconds / 1 hour). |
+| `tornado_active` | Boolean flag tracking whether a Tornado Warning or Emergency is active. |
+| `log_dir_base`   | Base path for all log files. Logs are stored by date in this directory. |
 
-- **`long`**  
-  The **longitude** of the server or location to monitor weather alerts for. This is used in the NOAA API query.
+## Functions
 
-- **`email`**  
-  The email address used as a **User-Agent** in the NOAA API request. This helps identify the requester when accessing the weather alerts.
+- **`log_event()`**
+  - Appends messages with timestamps to a daily log file.
+  - Ensures the log directory and file exist with full `777` permissions.
+  
+- **`cleanup_old_logs()`**
+  - Deletes any weather event logs older than 30 days.
 
-- **`stack_base_path`**  
-  The base directory where the **Docker Compose stacks** are stored. Each stack's directory contains its own `docker-compose.yml` file. This path is used when bringing stacks down or up.
+- **`check_alerts()`**
+  - Queries NOAA for current weather alerts at the specified location.
+  - Stores and formats the results for decision-making and logging.
 
-- **`stack_names`**  
-  An array of **Docker Compose stack names**. The script will loop through these names and bring the corresponding stacks down or up based on weather alerts.
+- **`format_message_inline()`**
+  - Converts multi-line weather alert messages into a comma-separated, single-line format for cleaner logs and heartbeat messages.
+  - Handles single or multiple alerts cleanly without breaking log formatting.
 
-- **`poll_interval`**  
-  The **polling interval** in seconds. The script will check NOAA for weather alerts at this interval (default is 1 hour). This can be dynamically changed to 1 minute or 15 minutes based on the weather conditions.
+## Logging Behavior
 
-- **`tornado_active`**  
-  A boolean flag that tracks whether a **tornado warning** or **emergency** is active. This controls whether the script takes actions such as shutting down or bringing up Docker stacks.
+- Logs are saved under `/mnt/user/logs/weather_events/YYYY-MM-DD/`.
+- Each day gets its own folder and log files, including:
+  - General weather log: `weather_log.txt`
+  - Stack-specific logs for shutdown/startup (e.g., `stack1_shutdown.log`, `stack1_startup.log`)
+- Log folders and files have `777` permissions.
+- Every minute (if in a high-alert state), a heartbeat is logged:
 
-- **`log_dir_base`**  
-  The **base directory** where the script will store logs. The logs include weather event details, stack shutdowns, and startups, all organized by date.
-
-### Functions
-
-- **`log_event()`**  
-  A function that logs messages with timestamps to a log file located in the appropriate date-based directory under `/mnt/user/logs/weather_events/`.
-
-- **`cleanup_old_logs()`**  
-  A function that **removes logs** older than 30 days from the `/mnt/user/logs/weather_events/` directory to keep storage clean.
-
-- **`check_alerts()`**  
-  A function that **fetches active weather alerts** from the NOAA API based on the given latitude and longitude, storing the alerts in the `message` variable.
+  ```text
+  2025-04-03 21:34:16 - Heartbeat: Polling every 60 seconds - Current alerts: Severe Thunderstorm Warning, Flash Flood Warning
