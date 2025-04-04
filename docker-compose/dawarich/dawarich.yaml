@@ -47,6 +47,7 @@ services:
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+      - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
     networks:
       - devrack
     ports:
@@ -104,6 +105,7 @@ services:
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+      - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
     networks:
       - devrack
     stdin_open: true
