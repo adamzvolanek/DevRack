@@ -43,12 +43,12 @@ while true; do
             log_event "${message_inline:-No alerts} detected! Shutting down stacks: ${stack_names[*]}"
 
             for stack_name in "${stack_names[@]}"; do
-                log_event "Checking if $stack_name is running..."
+                log_event "[$(date '+%Y-%m-%d %H:%M:%S')] Checking if $stack_name is running..."
                 if docker compose -f "$stack_base_path/${stack_name}/docker-compose.yml" ps | grep -q 'Up'; then
-                    log_event "Shutting down stack: $stack_name"
+                    log_event "[$(date '+%Y-%m-%d %H:%M:%S')] Shutting down stack: $stack_name"
                     docker compose -f "$stack_base_path/${stack_name}/docker-compose.yml" down --remove-orphans >> "$log_dir/${stack_name}_shutdown.log" 2>&1
                 else
-                    log_event "Stack $stack_name is not running, skipping shutdown."
+                    log_event "[$(date '+%Y-%m-%d %H:%M:%S')] Stack $stack_name is not running, skipping shutdown."
                 fi
             done
 
@@ -66,7 +66,7 @@ while true; do
                 log_event "Tornado warning has cleared and 15 minutes have passed. Bringing stacks back up."
 
                 for stack_name in "${stack_names[@]}"; do
-                    log_event "Starting stack: $stack_name"
+                    log_event "[$(date '+%Y-%m-%d %H:%M:%S')] Starting stack: $stack_name"
                     docker compose -f "$stack_base_path/${stack_name}/docker-compose.yml" up -d >> "$log_dir/${stack_name}_startup.log" 2>&1
                 done
 
@@ -82,7 +82,7 @@ while true; do
     # Heartbeat
     if [ "$poll_interval" -eq 60 ]; then
         message_inline=$(format_message_inline "$message")
-        log_event "Heartbeat: Polling every 60 seconds - Current alerts: ${message_inline:-None}"
+        log_event "Polling every 60 seconds - Current alerts: ${message_inline:-None}"
     fi
 
     sleep "$poll_interval"
