@@ -28,16 +28,35 @@ cleanup_old_logs() {
 }
 
 check_alerts() {
-    message=$(curl -s "https://api.weather.gov/alerts/active?point=$lat,$long" \
-        -H "Accept: application/json" \
-        -H "User-Agent: Alexandria ($email)" | jq -r '.features[].properties.event // empty')
+    local retries=3
+    local delay=5
+    local attempt=1
+    local response=""
+
+    while [ $attempt -le $retries ]; do
+        response=$(curl -s "https://api.weather.gov/alerts/active?point=$lat,$long" \
+            -H "Accept: application/json" \
+            -H "User-Agent: Alexandria ($email)")
+        
+        if [ -n "$response" ]; then
+            message=$(echo "$response" | jq -r '.features[].properties.event // empty')
+            return
+        else
+            log_event "Attempt $attempt: Failed to fetch weather alerts. Retrying in $delay seconds..."
+            sleep $delay
+            attempt=$((attempt + 1))
+        fi
+    done
+
+    log_event "All attempts to fetch NOAA alerts failed. Using empty message."
+    message=""
 }
 
 while true; do
     cleanup_old_logs
     check_alerts
 
-    if echo "$message" | grep -Eq "Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
+    if echo "$message" | grep -Eiq "Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
         if [ "$tornado_active" = false ]; then
             message_inline=$(format_message_inline "$message")
             log_event "${message_inline:-No alerts} detected! Shutting down stacks: ${stack_names[*]}"
@@ -62,7 +81,7 @@ while true; do
             log_event "No Tornado Warning detected, waiting 15 minutes before checking again..."
             sleep 900
             check_alerts
-            if ! echo "$message" | grep -Eq "Tornado Warning|Tornado Emergency"; then
+            if ! echo "$message" | grep -Eiq "Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
                 log_event "Tornado warning has cleared and 15 minutes have passed. Bringing stacks back up."
 
                 for stack_name in "${stack_names[@]}"; do
@@ -73,7 +92,7 @@ while true; do
                 tornado_active=false
                 poll_interval=60
             fi
-        elif ! echo "$message" | grep -Eq "Tornado Watch|Severe Thunderstorm Watch"; then
+        elif ! echo "$message" | grep -Eiq "Tornado Watch|Severe Thunderstorm Watch"; then
             log_event "No active severe weather watches. Resuming 1-hour polling."
             poll_interval=3600
         fi
