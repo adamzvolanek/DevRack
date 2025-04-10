@@ -4,7 +4,7 @@ lat=12.3456 # Enter latitude
 long=-12.3456 # Enter longitude
 email="email@domain.tld" # Enter email for NOAA User-Agent
 stack_base_path="/path/to/docker-compose-backups/alexandria" # Base path for Docker Compose stacks
-stack_names=(stack1 stack2 stack3) # Docker compose stack names
+stack_names=(stack1 stack2) # Docker compose stack names
 
 poll_interval=3600 # Default polling interval (1 hour)
 tornado_active=false
