@@ -47,6 +47,7 @@ services:
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+      - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
     networks:
       - devrack
     ports:
@@ -76,6 +77,7 @@ services:
       PROMETHEUS_EXPORTER_HOST: 0.0.0.0
       PROMETHEUS_EXPORTER_PORT: 9394
       ENABLE_TELEMETRY: false
+      SELF_HOSTED: true
     logging:
       driver: "json-file"
       options:
@@ -104,6 +106,7 @@ services:
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
+      - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
     networks:
       - devrack
     stdin_open: true
@@ -126,6 +129,7 @@ services:
       PROMETHEUS_EXPORTER_HOST: dawarich_app
       PROMETHEUS_EXPORTER_PORT: 9394
       ENABLE_TELEMETRY: false
+      SELF_HOSTED: true
     logging:
       driver: "json-file"
       options:

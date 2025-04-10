@@ -3,6 +3,17 @@
 # Get all share names dynamically from /mnt/user and store them in the ShareNames array
 ShareNames=($(ls -d /mnt/user/*/ | xargs -n 1 basename))
 
+# Get existing shares on the destination (remote)
+RemoteShares=($(ls -d /mnt/remotes/alexandria_backup/*/ 2>/dev/null | xargs -n 1 basename))
+
+# Delete remote shares that are no longer present on the local server
+for RemoteShare in "${RemoteShares[@]}"; do
+    if [[ ! " ${ShareNames[@]} " =~ " ${RemoteShare} " ]]; then
+        echo "Deleting stale remote share: ${RemoteShare}"
+        rm -rf "/mnt/remotes/alexandria_backup/${RemoteShare}"
+    fi
+done
+
 # Loop through each share name in the array
 for ShareName in "${ShareNames[@]}"
 do
@@ -16,11 +27,10 @@ do
         rm "/mnt/user/logs/offsite_logs/${ShareName}_log.txt"
     fi
 
-    echo "Running Rsync Sync of ${ShareName} Share to Offsite Server via NFS Share"
+    echo "Running Rsync Sync of ${ShareName} Share to Offsite Server via SMB Share"
 
     # Rsync sync command with additional verbosity and options
-    rsync -a --exclude='.Recycle.Bin/' --log-file="/mnt/user/logs/offsite_logs/${ShareName}_log.txt" \
-      --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+    rsync -aqh -P --exclude='.Recycle.Bin/' --log-file="/mnt/user/logs/offsite_logs/${ShareName}_log.txt" \
       --stats \
       --delete \
       /mnt/user/${ShareName}/ /mnt/remotes/alexandria_backup/${ShareName}
