@@ -78,11 +78,11 @@ while true; do
         poll_interval=60
     else
         if [ "$tornado_active" = true ]; then
-            log_event "No Tornado Warning detected, waiting 15 minutes before checking again..."
+            log_event "No severe weather detected, waiting 15 minutes before checking again..."
             sleep 900
             check_alerts
             if ! echo "$message" | grep -Eiq "Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
-                log_event "Tornado warning has cleared and 15 minutes have passed. Bringing stacks back up."
+                log_event "Severe weather has cleared and 15 minutes have passed. Bringing stacks back up."
 
                 for stack_name in "${stack_names[@]}"; do
                     log_event "[$(date '+%Y-%m-%d %H:%M:%S')] Starting stack: $stack_name"
