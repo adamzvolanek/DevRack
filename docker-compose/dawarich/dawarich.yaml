@@ -10,7 +10,7 @@ services:
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/redis.webp'
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 10s
@@ -33,7 +33,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich_development" ]
       interval: 10s
