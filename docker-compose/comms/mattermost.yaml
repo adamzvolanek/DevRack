@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./mattermost.env
     ports:
       - "${SERVER_IP}:3306:${MARIADB_PORT}"

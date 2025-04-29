@@ -5,7 +5,7 @@ services:
     image: stonith404/pingvin-share
     restart: unless-stopped
     env_file:
-      - ../server.env
+      - ./env
     networks:
       - devrack
     ports:

@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     hostname: syncthing #optional
     ports:
       - ${SERVER_IP}:8384:8384

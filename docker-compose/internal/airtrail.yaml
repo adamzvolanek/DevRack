@@ -3,7 +3,7 @@ services:
     container_name: airtrail_db
     image: postgres:16-alpine
     env_file:
-      - ../server.env
+      - ./env
       - ./airtrail.env
     networks:
       - devrack

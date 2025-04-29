@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:5055:5055" # webUI port
     volumes:
