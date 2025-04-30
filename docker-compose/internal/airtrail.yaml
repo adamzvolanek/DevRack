@@ -31,8 +31,6 @@ services:
       - "${SERVER_IP}:8468:3000"
     environment:
       DB_URL: ${DB_URL}
-    volumes:
-      - /mnt/user/appdata/airtrail/config:/config
     depends_on:
       airtrail_db:
         condition: service_healthy
