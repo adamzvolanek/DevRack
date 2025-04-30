@@ -5,7 +5,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - ${SERVER_IP}:7070:8080
     volumes:

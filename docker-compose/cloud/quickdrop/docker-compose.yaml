@@ -5,7 +5,7 @@ services:
     image: roastslav/quickdrop:latest
     restart: unless-stopped
     env_file:
-      - ../../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:7848:8080"
     networks:

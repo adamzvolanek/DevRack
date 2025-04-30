@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./cloud.env
     ports:
       - "${SERVER_IP}:3306:${MARIADB_PORT}"
@@ -18,7 +18,7 @@ services:
       MYSQL_DATABASE: ${DB_NAME_NC}
       MYSQL_USER: ${DB_USER_NC}
       MYSQL_PASSWORD: ${DB_PASSWORD_NC}
-    restart: always
+    restart: unless-stopped
 
   redis:
     container_name: redis_nc
@@ -26,7 +26,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./cloud.env
     command: redis-server --requirepass nextcloud_redis_pass
     ports:
@@ -35,7 +35,7 @@ services:
       ALLOW_EMPTY_PASSWWORD: no
       REDIS_PASSWORD: ${REDIS_PASSWORD_NC}
       REDIS_EXTRA_FLAGS: --auto-aof-rewrite-percentage 100 --auto-aof-rewrite-min-size 64mb
-    restart: always
+    restart: unless-stopped
 
   nextcloud:
     container_name: nextcloud
@@ -65,7 +65,7 @@ services:
       REDIS_PORT: ${REDIS_PORT_NC}
       REDIS_HOST_PASSWORD: ${REDIS_PASSWORD_NC}
       TZ: ${TZ}
-    restart: always
+    restart: unless-stopped
 
 networks:
   devrack:

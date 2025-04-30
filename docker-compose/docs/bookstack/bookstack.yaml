@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./bookstack.env
     ports:
       - "${SERVER_IP}:${BOOKSTACK_DB_PORT}:3306"
@@ -29,7 +29,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./bookstack.env
     ports:
       - "${SERVER_IP}:${BOOKSTACK_PORT}:80"
