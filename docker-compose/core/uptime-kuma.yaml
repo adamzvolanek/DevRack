@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:3001]'
@@ -15,7 +15,7 @@ services:
       - 3001:3001
     volumes:
       - /mnt/user/appdata/external/uptime-kuma:/app/data
-    restart: always
+    restart: unless-stopped
 
 networks:
   devrack:

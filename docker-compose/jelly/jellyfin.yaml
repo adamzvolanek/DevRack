@@ -7,10 +7,10 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
       - ./jellyfin.env
     ports:
-      - "${SERVER_IP}:8096:8096"
+      - "${SERVER_IP}:8096:8096" # HTTP
       - "${SERVER_IP}:8920:8920" # HTTPS
       - "${SERVER_IP}:1900:1900/udp" # Service Discovery
     volumes:

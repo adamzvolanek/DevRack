@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
@@ -25,7 +25,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:8989:8989" # If port differs change in /config/config.xml
     volumes:
@@ -45,7 +45,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:9696:9696" # If port differs change in /config/config.xml
     volumes:
@@ -62,7 +62,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
+      - ./env
     ports:
       - "${SERVER_IP}:8191:8191"
     environment:
@@ -71,18 +71,15 @@ services:
       - prowlarr
     restart: unless-stopped
 
-#  jackett:
-#    container_name: jackett
-#    image: lscr.io/linuxserver/jackett:latest
+#  recyclarr:
+#    container_name: recyclarr
+#    image: ghcr.io/recyclarr/recyclarr:latest
 #    networks:
-#      - proxy
+#      - devrack
 #    env_file:
-#      - ../server.env
-#    ports:
-#      - "${SERVER_IP}:9117:9117" # If port differs change in /config/ServerConfig.json
+#      - ./env
 #    volumes:
-#      - /mnt/user/appdata/arrs/jackett:/config # Creates additional layer
-#      - /mnt/user/scratch/Downloads:/downloads
+#      - /mnt/user/appdata/arrs/recyclarr:/config
 #    environment:
 #      - TZ=America/Chicago
 #    restart: unless-stopped
