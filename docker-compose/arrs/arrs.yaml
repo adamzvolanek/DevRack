@@ -87,18 +87,18 @@ services:
 #      - TZ=America/Chicago
 #    restart: unless-stopped
 
-  recyclarr:
-    container_name: recyclarr
-    image: ghcr.io/recyclarr/recyclarr:latest
-    networks:
-      - devrack
-    env_file:
-      - ../server.env
-    volumes:
-      - /mnt/user/appdata/arrs/recyclarr:/config
-    environment:
-      - TZ=America/Chicago
-    restart: unless-stopped
+#  recyclarr:
+#    container_name: recyclarr
+#    image: ghcr.io/recyclarr/recyclarr:latest
+#    networks:
+#      - devrack
+#    env_file:
+#      - ../server.env
+#    volumes:
+#      - /mnt/user/appdata/arrs/recyclarr:/config
+#    environment:
+#      - TZ=America/Chicago
+#    restart: unless-stopped
 
 networks:
   devrack:
