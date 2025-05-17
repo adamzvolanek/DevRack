@@ -19,7 +19,7 @@ services:
       timeout: 10s
 
   dawarich_db:
-    image: postgres:14.2-alpine
+    image: postgis/postgis:17-3.5-alpine
     shm_size: 1G
     container_name: dawarich_db
     volumes:
