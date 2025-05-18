@@ -12,7 +12,7 @@ services:
     volumes:
       - /mnt/user/appdata/arrs/radarr:/config
       - /mnt/user/media:/media
-      - /mnt/scratch-disk/Downloads:/data/Downloads
+      - /mnt/user/scratch/downloads/movie:/data/movie
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
@@ -32,7 +32,7 @@ services:
       - /dev/rtc:/dev/rtc:ro
       - /mnt/user/appdata/arrs/sonarr:/config
       - /mnt/user/media:/media
-      - /mnt/scratch-disk/Downloads:/data/Downloads
+      - /mnt/user/scratch/downloads/tv:/data/tv
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
