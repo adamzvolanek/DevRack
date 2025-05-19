@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
     ports:
       - "${SERVER_IP}:8123:8123" # Application WebUI, only use this if you are not using host mode.
     volumes:

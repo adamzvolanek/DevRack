@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - ./phpmyadmin.env
     ports:
       - "${SERVER_IP}:8070:80/tcp"

@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
     ports:
       - "${SERVER_IP}:6481:8080"
     volumes:

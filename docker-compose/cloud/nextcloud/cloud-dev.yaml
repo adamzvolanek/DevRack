@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - ./cloud.env
     ports:
       - "${SERVER_IP}:3306:${MARIADB_PORT}"
@@ -26,7 +26,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - ./cloud.env
     command: redis-server --requirepass nextcloud_redis_pass
     ports:

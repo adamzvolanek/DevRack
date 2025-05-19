@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
     ports:
       - "${SERVER_IP}:8080:8080" # HTTP Port
       - "${SERVER_IP}:8181:8181" # Admin Web Port

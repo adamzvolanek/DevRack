@@ -4,7 +4,7 @@ services:
     container_name: pingvin-share
     image: stonith404/pingvin-share
     env_file:
-      - ./env
+      - ./.env
     networks:
       - devrack
     ports:

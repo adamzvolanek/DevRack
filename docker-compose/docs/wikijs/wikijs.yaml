@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - .wikijs.env
     environment:
       PUID: ${PUID}
@@ -27,7 +27,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - .wikijs.env
     depends_on:
       - wikijs_db

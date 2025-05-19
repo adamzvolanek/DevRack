@@ -8,7 +8,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - ./photoprism.env
     depends_on:
       - mariadb_photoprism
@@ -70,7 +70,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.icon='https://static-00.iconduck.com/assets.00/mariadb-icon-512x340-txozryr2.png'

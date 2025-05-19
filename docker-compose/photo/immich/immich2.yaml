@@ -17,7 +17,7 @@ services:
     ports:
       - "${SERVER_IP}:2283:2283"
     env_file:
-      - ./env
+      - ./.env
       - .immich2.env
     deploy:
       resources:
@@ -57,7 +57,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - .immich2.env
     # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
     #   file: hwaccel.ml.yml
@@ -91,7 +91,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
       - ./immich2.env
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}

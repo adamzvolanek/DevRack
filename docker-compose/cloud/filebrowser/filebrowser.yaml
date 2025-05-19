@@ -6,7 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ./env
+      - ./.env
     ports:
       - ${SERVER_IP}:1987:1987
     labels:

@@ -7,7 +7,7 @@ services:
       fixed_ip:
         ipv4_address: ${ADGUARD_IP}  # Set static IP address
     env_file:
-      - ./env
+      - ./.env
       - ./adguard.env
     ports:
       - "${SERVER_IP}:53:53/tcp"
