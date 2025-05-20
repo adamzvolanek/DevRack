@@ -12,9 +12,9 @@ services:
       - net.unraid.docker.webui='http://[IP]:[PORT:3001]'
       - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/uptime-kuma.webp'
     ports:
-      - 3001:3001
+      - ${SERVER_IP}:3001:3001
     volumes:
-      - /mnt/user/appdata/external/uptime-kuma:/app/data
+      - /mnt/user/appdata/uptime-kuma:/app/data
     restart: unless-stopped
 
 networks:

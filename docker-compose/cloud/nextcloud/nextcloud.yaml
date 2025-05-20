@@ -7,7 +7,6 @@ services:
       - devrack
     env_file:
       - ./.env
-      - ./nextcloud.env
     ports:
       - "${SERVER_IP}:3306:${MARIADB_PORT}"
     volumes:

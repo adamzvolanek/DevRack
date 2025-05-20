@@ -9,7 +9,6 @@ services:
       - devrack
     env_file:
       - ./.env
-      - ./photoprism.env
     depends_on:
       - mariadb_photoprism
     security_opt:

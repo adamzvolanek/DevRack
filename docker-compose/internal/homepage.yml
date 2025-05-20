@@ -3,10 +3,10 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    env_file:
-      - ./.env
     networks:
       - devrack
+    env_file:
+      - ./.env
     environment:
       - HOST_OS=Unraid
       - HOST_HOSTNAME=Alexandria
@@ -23,9 +23,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /mnt/user/appdata/internal/homepage/:/app/config # configuration mount
+      - /mnt/user/appdata/homepage/:/app/config # configuration mount
       - /mnt/user/<share_location>/Assets:/images # images mount
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      #- /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 
 networks:

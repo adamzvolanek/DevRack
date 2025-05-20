@@ -22,14 +22,16 @@ services:
     image: postgis/postgis:17-3.5-alpine
     shm_size: 1G
     container_name: dawarich_db
-    volumes:
-      - /mnt/user/appdata/dawarich/dawarich_db_data:/var/lib/postgresql/data
-      - /mnt/user/appdata/dawarich/dawarich_shared:/var/shared
     networks:
       - devrack
+    env_file:
+      - ./.env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/postgresql.webp'
+    volumes:
+      - /mnt/user/appdata/dawarich/dawarich_db_data:/var/lib/postgresql/data
+      - /mnt/user/appdata/dawarich/dawarich_shared:/var/shared
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -44,14 +46,16 @@ services:
   dawarich_app:
     image: freikin/dawarich:latest
     container_name: dawarich_app
+    networks:
+      - devrack
+    env_file:
+      - ./.env
+    ports:
+      - "${SERVER_IP}:7654:3000"
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
       - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
-    networks:
-      - devrack
-    ports:
-      - "${SERVER_IP}:7654:3000"
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:7654]'
@@ -103,12 +107,12 @@ services:
   dawarich_sidekiq:
     image: freikin/dawarich:latest
     container_name: dawarich_sidekiq
+    networks:
+      - devrack
     volumes:
       - /mnt/user/appdata/dawarich/dawarich_public:/var/app/public
       - /mnt/user/appdata/dawarich/dawarich_watched:/var/app/tmp/imports/watched
       - /mnt/user/appdata/dawarich/dawarich_storage:/var/app/storage
-    networks:
-      - devrack
     stdin_open: true
     tty: true
     entrypoint: sidekiq-entrypoint.sh

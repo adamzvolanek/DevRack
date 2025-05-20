@@ -17,8 +17,8 @@ services:
       - "${SERVER_IP}:3000:3000/tcp"
       - "${SERVER_IP}:80-443:80/tcp"
     volumes:
-      - /mnt/user/appdata/core/adguard/workingdir:/opt/adguardhome/work
-      - /mnt/user/appdata/core/adguard/config:/opt/adguardhome/conf
+      - /mnt/user/appdata/adguard/workingdir:/opt/adguardhome/work
+      - /mnt/user/appdata/adguard/config:/opt/adguardhome/conf
     restart: always
 
 networks:

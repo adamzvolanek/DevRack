@@ -32,7 +32,6 @@ services:
       - devrack
     env_file:
       - ./.env
-      - .paperless-ngx.env
     depends_on:
       - db
       - broker

@@ -15,7 +15,7 @@ services:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-     restart: unless-stopped
+    restart: unless-stopped
 
 networks:
   devrack:

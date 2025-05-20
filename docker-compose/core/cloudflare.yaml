@@ -1,38 +1,26 @@
----
 services:
-  cloudflare1:
-    container_name: CF-DDNS-domain1.tld
-    image: oznu/cloudflare-ddns:latest
+  cloudflare-ddns:
+    container_name: CF-DDNS-Domains
+    image: favonia/cloudflare-ddns:latest
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/cloudflare.webp'
+    user: "${PUID}:${PGID}"
+    read_only: true
+    # Make the container filesystem read-only (optional but recommended)
+    cap_drop: [all]
+    # Drop all Linux capabilities (optional but recommended)
+    security_opt: [no-new-privileges:true]
+    # Another protection to restrict superuser privileges (optional but recommended)
     environment:
-      TZ: ${TZ}
-      HOST_OS: Unraid
-      HOST_HOSTNAME: ${SERVER_NAME}
-      HOST_CONTAINERNAME: cloudflareDDNS
-      #EMAIL: ${CLOUDFLARE_EMAIL}
-      API_KEY: ${CLOUDFLARE_API_KEY}
-      ZONE: ${CLOUDFLARE_DOMAIN1}
-      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN1}
-      PROXIED: true
-      RRTYPE: A
-    restart: always
-  cloudflare2:
-    container_name: CF-DDNS-domain2.tld
-    image: oznu/cloudflare-ddns:latest
-    networks:
-      - devrack
-    environment:
-      TZ: ${TZ}
-      HOST_OS: Unraid
-      HOST_HOSTNAME: ${SERVER_NAME}
-      HOST_CONTAINERNAME: cloudflareDDNS
-      #EMAIL: ${CLOUDFLARE_EMAIL}
-      API_KEY: ${CLOUDFLARE_API_KEY}
-      ZONE: ${CLOUDFLARE_DOMAIN2}
-      SUBDOMAIN: ${CLOUDFLARE_SUBDOMAIN2}
-      PROXIED: true
-      RRTYPE: A
+      - TZ=${TZ}
+      - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_KEY}
+      - DOMAINS=${CLOUDFLARE_SUBDOMAIN_WWW}.${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_SUBDOMAIN_WWW}.${CLOUDFLARE_DOMAIN2},${CLOUDFLARE_DOMAIN2}
+      - PROXIED=true
+      - IP6_PROVIDER=none
+      - DELETE_ON_STOP=false
     restart: always
 
 networks:

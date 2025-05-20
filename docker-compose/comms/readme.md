@@ -1,7 +1,9 @@
 # Mattermost Compose
 
-Creates mariadb and mattermost docker compose instance. (BROKEN)
+**BROKEN!**
 
-Remember to combine with [server environment](../.env) variables!
+Creates mariadb and mattermost docker compose instance.
+
+Remember to combine stack specific environment variables with [server environment](../.env) variables!
 
 [Source](https://docs.mattermost.com/guides/deployment.html)

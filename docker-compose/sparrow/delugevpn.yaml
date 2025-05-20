@@ -7,7 +7,6 @@ services:
       - devrack
     env_file:
       - ./.env
-      - ./delugevpn.env
     ports:
       - "${SERVER_IP}:8112:8112"
       - "${SERVER_IP}:8118:8118"
