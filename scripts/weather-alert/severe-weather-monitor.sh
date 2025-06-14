@@ -56,7 +56,7 @@ while true; do
     cleanup_old_logs
     check_alerts
 
-    if echo "$message" | grep -Eiq "Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
+    if echo "$message" | grep -Eiq "Tornado Watch|Tornado Warning|Tornado Emergency|Severe Thunderstorm Warning"; then
         if [ "$tornado_active" = false ]; then
             message_inline=$(format_message_inline "$message")
             log_event "${message_inline:-No alerts} detected! Shutting down stacks: ${stack_names[*]}"
