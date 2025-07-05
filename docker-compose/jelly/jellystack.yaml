@@ -19,6 +19,7 @@ services:
     environment:
       - TZ=${TZ}
       - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
+      - NVIDIA_DRIVER_CAPABILITIES=all
       - PUID=${PUID}
       - PGID=${PGID}
     labels:
