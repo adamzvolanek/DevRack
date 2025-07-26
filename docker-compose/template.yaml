@@ -4,21 +4,20 @@ services:
     container_name: <docker_container_name>
     image: <docker_container_image_location>
     networks:
-      - proxy
+      - devrack
     env_file:
-      - ../server.env
+      - ./.env
     ports:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
       - /mnt/user/appdata/<service_directory>/<docker_container_name>:/...
     environment:
-      - TZ=America/Chicago
-      - PUID=99
-      - PGID=100
-     restart: unless-stopped
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

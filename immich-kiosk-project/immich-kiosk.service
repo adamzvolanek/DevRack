@@ -1,0 +1,15 @@
+[Unit]
+Description=Immich Kiosk
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=dietpi
+WorkingDirectory=/home/dietpi/immichkiosk/
+ExecStart=/home/dietpi/immichkiosk/immich-kiosk
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,56 @@
+---
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: lscr.io/linuxserver/jellyfin:latest
+    runtime: nvidia
+    networks:
+      - devrack
+    env_file:
+      - ./.env
+    ports:
+      - "${SERVER_IP}:8096:8096"
+      - "${SERVER_IP}:8920:8920" # HTTPS
+      - "${SERVER_IP}:1900:1900/udp" # Service Discovery
+    volumes:
+      - /mnt/user/appdata/jelly/jellyfin:/config
+      - /mnt/user/media/:/media
+      - /mnt/user/media/metadata:/metadata
+    environment:
+      - TZ=${TZ}
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_GPUID}
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - PUID=${PUID}
+      - PGID=${PGID}
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:8096]'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/jellyfin.webp'
+    restart: unless-stopped
+
+  jellyseerr:
+    container_name: jellyseerr
+    image: fallenbagel/jellyseerr:latest
+    depends_on:
+      - 'jellyfin'
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:5055:5055" # webUI port
+    volumes:
+      - /mnt/user/appdata/jelly/jellyseerr:/app/config/
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - LOG_LEVEL='info'
+      - TZ=${TZ}
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:5055]'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/jellyseerr.webp'
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true

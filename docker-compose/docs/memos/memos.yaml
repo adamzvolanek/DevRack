@@ -4,13 +4,14 @@ services:
     container_name: memos
     networks:
       - devrack
+    env_file:
+      - ./.env
     ports:
       - "${SERVER_IP}:5230:5230"
     volumes:
       - /mnt/user/appdata/docs/memos/:/var/opt/memos
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

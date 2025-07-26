@@ -96,7 +96,7 @@ foreach ($drive in $commonShares.GetEnumerator()) {
 
 # User-specific mounts
 if ($user -eq "Adam") {
-    $adamShares = @{"A"="\\$server\Adam"; "B"="\\$server\DevRack"; "Z"="\\$server\backups"}
+    $adamShares = @{"A"="\\$server\cloud\Adam"; "B"="\\$server\DevRack"; "Z"="\\$server\backups"}
 
     foreach ($drive in $adamShares.GetEnumerator()) {
         if (-not (Check-DriveInUse -driveLetter $drive.Key)) {

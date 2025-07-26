@@ -4,17 +4,16 @@ services:
     container_name: home_assistant
     image: lscr.io/linuxserver/homeassistant:latest
     networks:
-      - proxy
+      - devrack
     env_file:
-      - ../server.env
+      - ./.env
     ports:
       - "${SERVER_IP}:8123:8123" # Application WebUI, only use this if you are not using host mode.
     volumes:
-      - /mnt/user/appdata/internal/Home_Assistant/:/config
+      - /mnt/user/appdata/Home_Assistant/:/config
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

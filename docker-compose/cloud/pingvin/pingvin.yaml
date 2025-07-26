@@ -3,9 +3,8 @@ services:
   pingvin-share:
     container_name: pingvin-share
     image: stonith404/pingvin-share
-    restart: unless-stopped
     env_file:
-      - ../server.env
+      - ./.env
     networks:
       - devrack
     ports:
@@ -15,9 +14,10 @@ services:
       - /mnt/user/appdata/cloud/pingvin/data/images:/opt/app/frontend/public/img
       - /mnt/scratch-disk/Scratch/Uploads:/opt/app/backend/data/uploads
     environment:
-      PUID: 99
-      PGID: 100
-      TZ: 'America/Chicago'
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    restart: unless-stopped
     depends_on:
       clamav:
         condition: service_healthy
@@ -26,10 +26,10 @@ services:
 # ClamAV is currently only available for AMD64 see https://github.com/Cisco-Talos/clamav/issues/482
   clamav:
     container_name: clamav-pingvin
-    restart: unless-stopped
     image: clamav/clamav
     networks:
       - devrack
+    restart: unless-stopped
 
 networks:
   devrack:

@@ -1,0 +1,42 @@
+services:
+  airtrail_db:
+    container_name: airtrail_db
+    image: postgres:16-alpine
+    env_file:
+      - ./.env
+      - ./airtrail.env
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /mnt/user/appdata/airtrail/db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  airtrail:
+    container_name: airtrail
+    image: johly/airtrail:latest
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:8468:3000"
+    environment:
+      DB_URL: ${DB_URL}
+    depends_on:
+      airtrail_db:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true

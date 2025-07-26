@@ -4,9 +4,9 @@ services:
     container_name: Unifi_Protect_Backup
     image: ghcr.io/ep1cman/unifi-protect-backup:latest
     networks:
-      - proxy
+      - devrack
     env_file:
-      - ../server.env
+      - ./.env
       - ./unifi.env
     volumes:
       - /mnt/user/appdata/internal/Unifi_Protect_Backup/:/config
@@ -14,7 +14,7 @@ services:
       - /mnt/user/appdata/internal/UniFi-Protect-Backup/config:/config/rclone # rclone config
       - /mnt/user/appdata/internal/UniFi-Protect-Backup/database/:/config/database
     environment:
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
       UFP_USERNAME: ${UNIFI_USERNAME}
       UFP_PASSWORD: ${UNIFI_PASSWORD}
       UFP_ADDRESS: ${UNIFI_ADDRESS}
@@ -28,7 +28,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

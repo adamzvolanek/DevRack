@@ -6,8 +6,7 @@ services:
     networks:
       - devrack
     env_file:
-      - ../server.env
-      - ./authentik.env
+      - ./.env
     ports:
       - "${SERVER_IP}:5432:5432"
     volumes:

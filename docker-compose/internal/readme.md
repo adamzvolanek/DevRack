@@ -1,11 +1,10 @@
-# internal (tools)
+# internal (miscellaneous)
 
-Comprised of various docker tools used on my server:
+Comprised of various hobby and passion containers used on my server:
 
-- [Baszel](https://github.com/henrygd/beszel)
+- [AirTrail](https://github.com/johanohly/AirTrail)
 - [Home Assistant](https://www.home-assistant.io/)
 - [HomePage](https://gethomepage.dev/latest/)
-- [Cloudflare DDNS](https://github.com/oznu/docker-cloudflare-ddns)
-  - Requires replacing
 - [JetLog](https://github.com/pbogre/jetlog)
-- [Unifi Protect](https://github.com/ep1cman/unifi-protect-backup)
+- ~~[Unifi Protect](https://github.com/ep1cman/unifi-protect-backup)~~
+  - Deprecated in favor for Unifi's own implementation.

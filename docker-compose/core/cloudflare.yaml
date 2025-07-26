@@ -1,9 +1,12 @@
 services:
   cloudflare-ddns:
-    container_name: CF-DDNS-domain1.tld
+    container_name: CF-DDNS-Domains
     image: favonia/cloudflare-ddns:latest
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/cloudflare.webp'
     user: "${PUID}:${PGID}"
     read_only: true
     # Make the container filesystem read-only (optional but recommended)
@@ -14,7 +17,7 @@ services:
     environment:
       - TZ=${TZ}
       - CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_KEY}
-      - DOMAINS=${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_SUBDOMAIN1}.${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_DOMAIN2},${CLOUDFLARE_SUBDOMAIN2}.${CLOUDFLARE_DOMAIN2}
+      - DOMAINS=${CLOUDFLARE_SUBDOMAIN_WWW}.${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_DOMAIN1},${CLOUDFLARE_SUBDOMAIN_WWW}.${CLOUDFLARE_DOMAIN2},${CLOUDFLARE_DOMAIN2}
       - PROXIED=true
       - IP6_PROVIDER=none
       - DELETE_ON_STOP=false

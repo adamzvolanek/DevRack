@@ -5,9 +5,9 @@ services:
     image: ghcr.io/analogj/scrutiny:master-omnibus
     privileged: true
     networks:
-      - proxy
+      - devrack
     env_file:
-      - ../server.env
+      - ./.env
     ports:
       - "${SERVER_IP}:1977:8080/tcp"
     volumes:
@@ -18,7 +18,6 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  devrack:
     name: ${DOCKER_NETWORK}
-    driver: bridge
     external: true

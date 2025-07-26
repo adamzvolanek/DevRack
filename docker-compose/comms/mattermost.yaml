@@ -4,17 +4,16 @@ services:
     container_name: mattermost_db
     image: lscr.io/linuxserver/mariadb:latest
     networks:
-      - proxy
+      - devrack
     env_file:
-      - ../server.env
-      - ./mattermost.env
+      - ./.env
     ports:
       - "${SERVER_IP}:3306:${MARIADB_PORT}"
     volumes:
       - /mnt/user/appdata/comms/mariadb/config:/config
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      TZ: 'America/Chicago'
+      TZ: ${TZ}
       MYSQL_DATABASE: ${USER_DB_NAME}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
