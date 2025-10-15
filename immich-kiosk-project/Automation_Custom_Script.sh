@@ -12,7 +12,7 @@ mkdir -p /home/dietpi/immichkiosk
 wget https://raw.githubusercontent.com/adamzvolanek/DevRack/refs/heads/main/immich-kiosk-project/config.yaml -O /home/dietpi/immichkiosk/config.yaml
 
 # Download and extract immich-kiosk
-wget https://github.com/damongolding/immich-kiosk/releases/download/v0.15.1/immich-kiosk_Linux_arm64.tar.gz -O /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz
+wget https://github.com/damongolding/immich-kiosk/releases/download/v0.25.0/immich-kiosk_Linux_arm64.tar.gz -O /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz
 tar -zxvf /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz -C /home/dietpi/immichkiosk/
 
 # Update the keys in the config file
