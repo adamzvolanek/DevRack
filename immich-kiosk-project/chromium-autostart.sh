@@ -7,13 +7,13 @@ RES_Y=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_RES_Y=/{s/^[^=]*=//p;q}' /boot/d
 
 # Command line switches: https://peter.sh/experiments/chromium-command-line-switches/
 # - Review and add custom flags in: /etc/chromium.d
-CHROMIUM_OPTS="--kiosk --no-memcheck --window-size=${RES_X:-1280},${RES_Y:-800} --window-position=0,0"
+CHROMIUM_OPTS="--kiosk --no-memcheck --window-size=${RES_X:-1920},${RES_Y:-1080} --window-position=0,0"
 
 # If you want tablet mode, uncomment the next line.
 #CHROMIUM_OPTS="$CHROMIUM_OPTS --force-tablet-mode --tablet-ui"
 
 # Home page
-URL=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_AUTOSTART_URL=/{s/^[^=]*=//p;q}' /boot/dietpi.txt)
+#URL=$(sed -n '/^[[:blank:]]*SOFTWARE_CHROMIUM_AUTOSTART_URL=/{s/^[^=]*=//p;q}' /boot/dietpi.txt)
 
 # RPi or Debian Chromium package
 FP_CHROMIUM=$(command -v chromium-browser)
