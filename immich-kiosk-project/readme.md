@@ -1,5 +1,5 @@
 # Directory for Immich Kiosk Project
 
-Replace `AUTO_SETUP_GLOBAL_PASSWORD` in dietpi.txt with your own password.
+Supports [Immich Kiosk](https://github.com/damongolding/immich-kiosk) v0.25.0.
 
 For more information, go to [my docs page](https://docs.adamzvolanek.com/books/projects/page/immich-kiosk-setup).

@@ -16,9 +16,9 @@ wget https://github.com/damongolding/immich-kiosk/releases/download/v0.25.0/immi
 tar -zxvf /home/dietpi/immichkiosk/immich-kiosk_Linux_arm64.tar.gz -C /home/dietpi/immichkiosk/
 
 # Update the keys in the config file
-sed -i "s|api_key:.*|api_key: \"$immich_api_key\"|" /home/dietpi/immichkiosk/config.yaml
-sed -i "s|url:.*|url: \"$immich_url\"|" /home/dietpi/immichkiosk/config.yaml
-sed -i "s|album:.*|album:\n  - \"$album_id\"|" /home/dietpi/immichkiosk/config.yaml
+sed -i "s|immich_api_key:.*|immich_api_key: \"$immich_api_key\"|" /home/dietpi/immichkiosk/config.yaml
+sed -i "s|immich_url:.*|immich_url: \"$immich_url\"|" /home/dietpi/immichkiosk/config.yaml
+sed -i '/^albums:/!b;n;s|.*|  - "'"$album_id"'"|' /home/dietpi/immichkiosk/config.yaml
 
 # Create systemd service file
 wget https://raw.githubusercontent.com/adamzvolanek/DevRack/refs/heads/main/immich-kiosk-project/immich-kiosk.service -O /etc/systemd/system/immich-kiosk.service
