@@ -91,7 +91,7 @@ show_person_age: false
 show_image_time: true
 image_time_format: 24 # 12 or 24
 show_image_date: true
-image_date_format: YYYY-MM-DD
+image_date_format: DD-MM-YYYY
 show_image_description: false
 show_image_exif: false
 show_image_location: true
