@@ -6,12 +6,12 @@ immich_url: ""
 show_time: true
 time_format: 24 # 12 or 24
 show_date: true
-date_format: YYYY/MM/DD
+date_format: DD/MM/YYYY
 clock_source: client
 
 ## Kiosk behaviour
 duration: 60 # in seconds
-disable_screensaver: false # Ask browser to request a lock that prevents device screens from dimming or locking.
+disable_screensaver: true # Ask browser to request a lock that prevents device screens from dimming or locking.
 optimize_images: true # Whether Kiosk should resize images to match your browser screen dimensions for better performance.
 use_gpu: true # Enable GPU acceleration for improved performance.
 
@@ -66,9 +66,9 @@ theme: fade # which theme to use. fade or solid
 layout: single # which layout to use. single | splitview | splitview-landscape | portrait | landscape
 
 ## Sleep mode
-# sleep_start: 22 # sleep mode start time
-# sleep_end: 7 # sleep mode end time
-# sleep_dim_screen: false # dim screen when sleep mode is active (only works with Fully Kiosk Browser)
+sleep_start: 22 # sleep mode start time
+sleep_end: 7 # sleep mode end time
+sleep_dim_screen: true # dim screen when sleep mode is active (only works with Fully Kiosk Browser)
 sleep_icon: true
 
 ## Transition options
@@ -77,7 +77,7 @@ fade_transition_duration: 1 # in seconds
 cross_fade_transition_duration: 1 # in seconds
 
 ## Image display settings
-show_progress_bar: true # display a progress bar
+show_progress_bar: false # display a progress bar
 image_fit: contain # none | contain | cover
 image_effect: none # none | zoom | smart-zoom
 image_effect_amount: 120
