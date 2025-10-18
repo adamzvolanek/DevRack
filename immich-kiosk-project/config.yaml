@@ -59,9 +59,9 @@ disable_ui: false # this is just a shortcut for all ui elements (show_time, show
 frameless: false # remove border around image and rounded corners.
 frame_padding: 0 # padding (px) around the edge of Kiosk; accepts integer or array [top, right, bottom, left]
 hide_cursor: true # Hide cursor/mouse via CSS.
-font_size: 100 # the base font size as a percentage. OMIT the % character
+font_size: 120 # the base font size as a percentage. OMIT the % character
 background_blur: true # display a blurred version of image as background
-background_blur_amount: 10 # amount of blur to apply to background image (sigma)
+background_blur_amount: 30 # amount of blur to apply to background image (sigma)
 theme: fade # which theme to use. fade or solid
 layout: single # which layout to use. single | splitview | splitview-landscape | portrait | landscape
 
@@ -77,7 +77,7 @@ fade_transition_duration: 1 # in seconds
 cross_fade_transition_duration: 1 # in seconds
 
 ## Image display settings
-show_progress_bar: false # display a progress bar
+show_progress_bar: true # display a progress bar
 image_fit: contain # none | contain | cover
 image_effect: none # none | zoom | smart-zoom
 image_effect_amount: 120
@@ -88,9 +88,9 @@ show_owner: true # show the owner of the image
 show_album_name: false
 show_person_name: false
 show_person_age: false
-show_image_time: false
+show_image_time: true
 image_time_format: 24 # 12 or 24
-show_image_date: false
+show_image_date: true
 image_date_format: YYYY-MM-DD
 show_image_description: false
 show_image_exif: false
