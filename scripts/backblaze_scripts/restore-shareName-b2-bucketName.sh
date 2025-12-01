@@ -1,23 +1,29 @@
 #!/bin/bash
+
+# Define variables
+ShareName="ShareName"
+BucketName="YourBucketName"
+LogLocation="/mnt/user/logs/BackBlaze_Logs"
+
 echo "Deleting previous log"
 
-# Check if log file exists and delete if it does
-if [ -f "{logLocation}/restore_{shareName}_log.txt" ]; then
+# Check if log file exists and delete it if it does
+if [ -f "${LogLocation}/${ShareName}.log" ]; then
     echo "Deleting previous log"
-    rm "{logLocation}/restore_{shareName}_log.txt"
+    rm "${LogLocation}/${ShareName}.log"
 fi
 
-# Restores data without deleting local share items
-echo "Running RClone Sync of B2 {shareName} Bucket to {shareName} Share"
+echo "Running RClone Sync of B2 ${ShareName} Bucket to ${ShareName} Share"
+
 rclone sync \
   --progress \
   --transfers 8 \
   --verbose \
   --exclude .Recycle.Bin/** \
   --links \
-  --log-file /mnt/user/logs/BackBlaze_Logs/restore_{shareName}_log.txt \
-  b2_buckets:{bucketName}/ \
-  /mnt/user/{shareName}/
+  --log-file "${LogLocation}/${ShareName}.log" \
+  "b2_buckets:${BucketName}/" \
+  "/mnt/user/${ShareName}/"
 
 echo "Updating permissions of log file"
-chmod 755 {logLocation}/restore_{shareName}_log.txt
+chmod 755 "${LogLocation}/${ShareName}.log"
