@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # shell script to support running whisper via CUDA
+# uses medium model: https://github.com/openai/whisper?tab=readme-ov-file#available-models-and-languages
+# requires ~ 5GB of VRAM
 
 # verbose flag
 # default flag to false
