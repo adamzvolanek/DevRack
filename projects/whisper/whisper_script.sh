@@ -4,11 +4,11 @@
 # uses medium model: https://github.com/openai/whisper?tab=readme-ov-file#available-models-and-languages
 # requires ~ 5GB of VRAM
 
-# verbose flag
-# default flag to false
+# Verbose flag
+# Default flag to False
 VERBOSE=False
 
-# check for true
+# Check for true
 for arg in "$@"; do
     if [[ "$arg" == "-v" || "$arg" == "--verbose" ]]; then
         VERBOSE=True
@@ -17,14 +17,14 @@ for arg in "$@"; do
     fi
 done
 
-# prompt user for directory
+# Prompt user for directory
 while true; do
     read -r -p "Enter the directory path containing the media file: " DIR
 
-    # convert windows backslashes to forward slashes
+    # Convert windows backslashes to forward slashes
     DIR="${DIR//\\//}"
 
-    # check for directory
+    # Check for directory
     if [[ ! -d "$DIR" ]]; then
         echo "Error: Directory not found: $DIR"
         continue
@@ -57,7 +57,7 @@ echo
 echo "File detected: $FILE"
 echo
 
-# language selection (English / Czech)
+# Language selection (English / Czech)
 
 LANGUAGES=("English" "Czech")
 
@@ -79,8 +79,7 @@ echo
 echo "Media language selected: $LANGUAGE"
 echo
 
-
-# task selection (transcribe / translate)
+# Task selection (transcribe / translate)
 
 echo "Select task:"
 echo "1) Transcribe (same language)"
@@ -100,8 +99,8 @@ echo
 echo "Task selected: $TASK"
 echo
 
-# build Whisper command
-# runs CUDA only!
+# Build Whisper command
+# Runs CUDA only!
 
 WHISPER_CMD=(whisper "$FILE" \
     --model medium \
@@ -115,7 +114,7 @@ WHISPER_CMD=(whisper "$FILE" \
     --language "$LANGUAGE" \
     --verbose "$VERBOSE")
 
-# run Whisper
+# Run Whisper
 
 echo "Running Whisper..."
 echo
@@ -136,14 +135,22 @@ else
     fi
 fi
 
-# handle success/failure and rename
+# Handle success/failure and rename
 
 if [ "$WHISPER_SUCCESS" = true ]; then
 
-    # renaming
+    # Determine output language for filename
+    # Assumes translate is to english
+    if [[ "$TASK" == "translate" ]]; then
+        OUT_LANG="English"
+    else
+        OUT_LANG="$LANGUAGE"
+    fi
+
+    # Renaming of srt file
     EXT="srt"
     ORIG_OUTPUT="$DIR/${BASENAME%.*}.${EXT}"
-    NEW_OUTPUT="$DIR/${NAME}_${LANGUAGE}.srt"
+    NEW_OUTPUT="$DIR/${NAME}_${OUT_LANG}.srt"
 
     if [[ -f "$ORIG_OUTPUT" ]]; then
         mv "$ORIG_OUTPUT" "$NEW_OUTPUT"
