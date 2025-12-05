@@ -22,28 +22,26 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Container Name               | External Port                                         |
 |------------------------------|-------------------------------------------------------|
 | AdGuard                      | 53, 67, 68, 80, 443, 784, 853, 3000, 5443, 6060, 8853 |
+| AirTrail                     | 5432                                                  |
 | Beszel                       | 8090                                                  |
 | BookStack                    | 6875                                                  |
 | bookstack_db                 | 3307                                                  |
-| Czkawka                      | 7821, 7921                                            |
-| ClamAV (used with Pingvin)   | N/A                                                   |
 | CloudflareDDNS               | N/A                                                   |
 | Dawarich                     | 7654                                                  |
+| Dozzle                       | 7070                                                  |
+| DumbDrop                     | 9515                                                  |
 | QbitTorreent                 | 6881, 9519, 8118                                      |
 | DiskSpeed                    | 18888                                                 |
 | Flaresolverr                 | 8191                                                  |
 | Homepage                     | 3000                                                  |
-| Home Assistant               | 8123                                                  |
 | Immich                       | 6781                                                  |
 | Jellyfin                     | 1900, 8096, 8920                                      |
 | Jellyseer                    | 5055                                                  |
-| Jetlog                       | 8914                                                  |
 | Memos                        | 5230                                                  |
 | MariaDB                      | 3306                                                  |
 | NginxProxyManager            | 4443, 8080, 8181                                      |
 | Paperless-ngx                | 8138                                                  |
 | Photoprism                   | 2342                                                  |
-| Pingvin-Share                | 4981                                                  |
 | prowlarr                     | 9696                                                  |
 | radarr                       | 7878                                                  |
 | redis                        | 6379                                                  |

@@ -1,3 +1,4 @@
+---
 services:
   dozzle:
     container_name: dozzle
@@ -5,9 +6,13 @@ services:
     networks:
       - devrack
     env_file:
-      - ./.env
+      - .env
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:7070]/'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/png/dozzle.png'
     ports:
-      - ${SERVER_IP}:7070:8080
+      - "${SERVER_IP}:7070:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /mnt/user/appdata/dozzle/data:/data:rw
@@ -18,11 +23,8 @@ services:
       - DOZZLE_HOSTNAME=${SERVER_NAME}
       - DOZZLE_LEVEL=info
       - DOZZLE_MODE=server
-    labels:
-      - net.unraid.docker.managed=dockerman
-      - net.unraid.docker.webui='http://[IP]:[PORT:7070]/'
-      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/png/dozzle.png'
-    restart: unless-stopped
+      - DOZZLE_REMOTE_AGENT=${REMOTE_DOZZLE}:7007
+    restart: always
 
 networks:
   devrack:

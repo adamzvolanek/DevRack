@@ -5,8 +5,6 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:
@@ -21,11 +19,9 @@ services:
 
   sonarr:
     container_name: sonarr
-    image: lscr.io/linuxserver/sonarr:develop # bump to version 4
+    image: lscr.io/linuxserver/sonarr:develop
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:8989:8989" # If port differs change in /config/config.xml
     volumes:
@@ -44,8 +40,6 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:9696:9696" # If port differs change in /config/config.xml
     volumes:
@@ -58,17 +52,21 @@ services:
 
   flaresolverr:
     container_name: flaresolverr
-    image: lscr.io/linuxserver/flaresolverr:latest
-    networks:
-      - devrack
-    env_file:
-      - ./.env
-    ports:
-      - "${SERVER_IP}:8191:8191"
-    environment:
-      - TZ=America/Chicago
+    image: ghcr.io/flaresolverr/flaresolverr:latest
     depends_on:
       - prowlarr
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:8191:8191"
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: http://[IP]:[PORT:8191]
+      net.unraid.docker.icon: 'https://store.elfhosted.com/wp-content/uploads/2023/07/flaresolverr.png'
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
     restart: unless-stopped
 
 networks:

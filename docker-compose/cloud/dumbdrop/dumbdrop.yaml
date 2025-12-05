@@ -1,0 +1,35 @@
+---
+services:
+  dumbdrop:
+    container_name: dumbdrop
+    image: dumbwareio/dumbdrop:latest
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:9515]'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/dumbdrop.webp'
+    networks:
+      - devrack
+    ports:
+      - ${SERVER_IP}:9515:9515
+    volumes:
+      # Where your uploaded files will land
+      - /location/uploads:/app/uploads
+    environment:
+      BASE_URL: https://subdomain.domain.tld
+      MAX_FILE_SIZE: 1024
+      PORT: 9515
+      DUMBDROP_PIN: 123456789
+      DUMBDROP_TITLE: Alexandria Drop
+      APPRISE_URL:
+      APPRISE_MESSAGE:
+      APPRISE_SIZE_UNIT:
+      AUTO_UPLOAD: false
+      ALLOWED_EXTENSIONS:
+      ALLOWED_IFRAME_ORIGINS:
+      UPLOAD_DIR: /app/uploads
+      LOCAL_UPLOAD_DIR:
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
