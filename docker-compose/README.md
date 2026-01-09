@@ -43,20 +43,20 @@ Create the [docker network](https://docs.adamzvolanek.com/books/unraid/page/unra
 | BookStack                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6875                                                  |
 | bookstack_db                 | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3307                                                  |
 | Czkawka                      | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 7821, 7921                                            |
-| ClamAV (used with PingVin)   | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                                   |
+| ClamAV (used with PingVin)   | 5/18/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | N/A                                                   |
 | CloudflareDDNS               | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | ???                                                   |
 | dawarich                     | 1/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7654                                                  |
-| delugevpn                    | 11/20/2022  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                              |
+| delugevpn                    | 11/20/2022  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8112, 8118, 58846, 58946                              |
 | DiskSpeed                    | N/A         | Yes            | Yes      | bridge            | ${SERVER_IP} | 18888                                                 |
-| Dozzle                       | 4/24/2025   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 7070                                                  |
+| Dozzle                       | 4/24/2025   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7070                                                  |
 | Filebrowser                  | 4/30/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 1987                                                  |
 | Flaresolverr                 | 1/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8191                                                  |
 | Homepage                     | 3/16/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3000                                                  |
-| Home Assistant               | 12/19/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8123                                                  |
+| Home Assistant               | 12/19/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8123                                                  |
 | Immich                       | 4/6/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 6781                                                  |
 | Jellyfin                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 1900, 8096, 8920                                      |
 | Jellyseer                    | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 5055                                                  |
-| Jetlog                       | 7/25/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8914                                                  |
+| Jetlog                       | 7/25/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 8914                                                  |
 | Jackett                      | 12/28/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 9117                                                  |
 | Krusader                     | 12/28/2023  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 6481                                                  |
 | Memos                        | 11/02/2024  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 5230                                                  |
@@ -67,7 +67,7 @@ Create the [docker network](https://docs.adamzvolanek.com/books/unraid/page/unra
 | NginxProxyManager            | N/A         | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4443, 8080, 8181                                      |
 | Paperless-ngx                | 10/26/2024  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8138                                                  |
 | Photoprism                   | 4/5/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 2342                                                  |
-| Pingvin-Share                | 5/18/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 4981                                                  |
+| Pingvin-Share                | 5/18/2024   | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 4981                                                  |
 | prowlarr                     | 3/21/2024   | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9696                                                  |
 | qBittorrent                  | 12/21/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 9519                                                  |
 | radarr                       | 12/28/2023  | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 7878                                                  |
@@ -76,7 +76,7 @@ Create the [docker network](https://docs.adamzvolanek.com/books/unraid/page/unra
 | scrutiny                     | 12/28/2023  | Yes            | Yes      | bridge            | ${SERVER_IP} | 1977                                                  |
 | SFTPGO                       | 11/17/2024  | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 2221                                                  |
 | syncthing                    | 6/7/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 8384, 22000, 21027                                    |
-| UniFi-Protect-Backup         | 5/1/2023    | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                                   |
+| UniFi-Protect-Backup         | 5/1/2023    | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | N/A                                                   |
 | UptimeKuma                   | 7/5/2023    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3001                                                  |
-| wikijs                       | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                                  |
-| wikijs_db                    | 5/4/2024    | Yes            | Yes      | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                                  |
+| wikijs                       | 5/4/2024    | Yes            | No       | ${DOCKER_NETWORK} | ${SERVER_IP} | 3256                                                  |
+| wikijs_db                    | 5/4/2024    | Yes            | No       | ${DOCKER_NETWORK} | 0.0.0.0      | 5432                                                  |
