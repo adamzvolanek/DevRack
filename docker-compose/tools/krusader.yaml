@@ -5,8 +5,6 @@ services:
     image: ich777/krusader:latest
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:6481:8080"
     volumes:

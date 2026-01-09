@@ -5,8 +5,6 @@ services:
     image: louislam/uptime-kuma:1
     networks:
       - devrack
-    env_file:
-      - ./.env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:3001]'

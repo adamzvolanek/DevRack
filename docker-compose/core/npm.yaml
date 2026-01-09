@@ -5,8 +5,6 @@ services:
     image: jlesage/nginx-proxy-manager:latest
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:8080:8080" # HTTP Port
       - "${SERVER_IP}:8181:8181" # Admin Web Port

@@ -5,8 +5,6 @@ services:
     container_name: homepage
     networks:
       - devrack
-    env_file:
-      - ./.env
     environment:
       - HOST_OS=Unraid
       - HOST_HOSTNAME=Alexandria

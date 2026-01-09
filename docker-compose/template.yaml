@@ -5,8 +5,6 @@ services:
     image: <docker_container_image_location>
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:7878:7878" # If port differs change in /config/config.xml
     volumes:

@@ -24,8 +24,6 @@ services:
     container_name: dawarich_db
     networks:
       - devrack
-    env_file:
-      - ./.env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/postgresql.webp'
@@ -48,8 +46,6 @@ services:
     container_name: dawarich_app
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:7654:3000"
     volumes:

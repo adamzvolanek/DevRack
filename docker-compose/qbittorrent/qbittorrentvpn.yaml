@@ -1,0 +1,40 @@
+---
+services:
+  qbittorrentvpn:
+    container_name: qbittorrentvpn
+    image: binhex/arch-qbittorrentvpn:latest
+    privileged: true
+    networks:
+      - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: http://[IP]:[PORT:9519]
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/qbittorrent.webp'
+    ports:
+      - "${SERVER_IP}:6881:6881"
+      - "${SERVER_IP}:6881:6881/udp"
+      - "${SERVER_IP}:9519:9519"
+      - "${SERVER_IP}:8118:8118"
+    volumes:
+      - /mnt/user/appdata/sparrow/qbittorrentvpn:/config
+      - /mnt/user/scratch/downloads/:/data
+    environment:
+      VPN_ENABLED: yes
+      VPN_USER: ${VPN_USER}
+      VPN_PASS: ${VPN_PASS}
+      VPN_PROV: ${VPN_PROV}
+      VPN_CLIENT: openvpn
+      VPN_OPTIONS:
+      STRICT_PORT_FORWARD: yes
+      ENABLE_PRIVOXY: no
+      WEBUI_PORT: 9519
+      LAN_NETWORK: ${LAN_NETWORK}
+      NAME_SERVERS: ${NAME_SERVERS}
+      VPN_INPUT_PORTS:
+      VPN_OUTPUT_PORTS:
+      DEBUG: false
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true

@@ -5,8 +5,6 @@ services:
     image: jlesage/czkawka:latest
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:7821:5800"
       - "${SERVER_IP}:7921:5900"

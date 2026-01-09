@@ -30,7 +30,7 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | Dawarich                     | 7654                                                  |
 | Dozzle                       | 7070                                                  |
 | DumbDrop                     | 9515                                                  |
-| QbitTorreent                 | 6881, 9519, 8118                                      |
+| QbitTorrent                  | 6881, 9519, 8118                                      |
 | DiskSpeed                    | 18888                                                 |
 | Flaresolverr                 | 8191                                                  |
 | Homepage                     | 3000                                                  |

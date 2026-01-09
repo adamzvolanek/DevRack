@@ -1,0 +1,22 @@
+---
+services:
+  jetlog:
+    container_name: jetlog
+    image: pbogre/jetlog
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:8914:8914"
+    volumes:
+      - /mnt/user/appdata/jetlog:/data # remember to add /data content from github repo (755)
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - JETLOG_PORT=8914
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true

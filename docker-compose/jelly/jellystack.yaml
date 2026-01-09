@@ -6,8 +6,6 @@ services:
     runtime: nvidia
     networks:
       - devrack
-    env_file:
-      - ./.env
     ports:
       - "${SERVER_IP}:8096:8096"
       - "${SERVER_IP}:8920:8920" # HTTPS
@@ -22,6 +20,15 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - PUID=${PUID}
       - PGID=${PGID}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+        limits:
+          cpus: '4.0'
     labels:
       net.unraid.docker.managed: dockerman
       net.unraid.docker.webui: 'http://[IP]:[PORT:8096]'

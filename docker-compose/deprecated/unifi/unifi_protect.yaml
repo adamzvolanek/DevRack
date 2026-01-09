@@ -1,0 +1,30 @@
+---
+services:
+  unifibackup:
+    container_name: Unifi_Protect_Backup
+    image: ghcr.io/ep1cman/unifi-protect-backup:latest
+    networks:
+      - devrack
+    volumes:
+      - /mnt/user/appdata/internal/Unifi_Protect_Backup/:/config
+      - /mnt/user/Backups/Unifi_Protect/:/data # ONLY USED WITH LOCAL RCLONE REMOTE
+      - /mnt/user/appdata/internal/UniFi-Protect-Backup/config:/config/rclone # rclone config
+      - /mnt/user/appdata/internal/UniFi-Protect-Backup/database/:/config/database
+    environment:
+      TZ: ${TZ}
+      UFP_USERNAME: ${UNIFI_USERNAME}
+      UFP_PASSWORD: ${UNIFI_PASSWORD}
+      UFP_ADDRESS: ${UNIFI_ADDRESS}
+      UFP_PORT: 443 # port of Unifi Protect
+      UFP_SSL_VERIFY: 'false' # false if your UniFi protect instances doesn't have a valid SSL certificate
+      RCLONE_RETENTION: 60d # Format as per the `--max-age` argument of `rclone` (https://rclone.org/filtering/#max-age-don-t-transfer-any-file-older-than-this)
+      RCLONE_DESTINATION: 'local:/data' # destination path in the format {rclone remote}:{path on remote}. E.g.`gdrive:/backups/unifi_protect`
+      IGNORE_CAMERAS: # IDs of the cameras you want unifi-protect-backup to ignore. A list of camera IDs will be appear at the start of the log
+      VERBOSITY: v
+      RCLONE_ARGS: # Optional arguments which are directly passed to `rclone rcat`. See the `rclone` documentation for the full set of arguments it supports (https://rclone.org/docs/)
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
