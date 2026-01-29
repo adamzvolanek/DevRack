@@ -20,10 +20,10 @@ Paste the contents of the script into Unraid's User Scripts and create a new scr
 
 - Displays a live progress indicator of the sync operation, showing transferred files, speed, and estimated time remaining.
 
-`--transfers 8`
+`--transfers 4`
 
 - Sets the number of file transfers to run in parallel.
-  - In this case, 8 files will be uploaded/downloaded simultaneously, which can improve performance.
+  - In this case, 4 files will be uploaded/downloaded simultaneously, which can improve performance.
 
 `--verbose`
 
@@ -38,7 +38,13 @@ Paste the contents of the script into Unraid's User Scripts and create a new scr
 
 - Preserves symbolic links (symlinks) instead of copying the files they point to.
 
+`--fast-list`
+
+- Reduces listing API calls at the cost of RAM usage.
+
 `--log-file "${LogLocation}/${ShareName}.log"`
 
 - Writes all output, including errors, to the specified log file.
   - Quoting the path ensures compatibility with spaces or special characters.
+
+Additional information can be found on the [RClone docs](https://rclone.org/docs/).
