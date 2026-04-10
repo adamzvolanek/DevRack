@@ -1,0 +1,194 @@
+server:
+  minSearchLength: 3                      # minimum length of search query to begin searching (default: 3)
+  disableUpdateCheck: false               # disables backend update check service
+  numImageProcessors: 4                   # number of concurrent image processing jobs used to create previews, default is number of cpu cores available.
+  socket: ""                              # socket to listen on
+  tlsKey: ""                              # path to TLS key
+  tlsCert: ""                             # path to TLS cert
+  disablePreviews: false                  # disable all previews thumbnails, simple icons will be used
+  disablePreviewResize: false             # disable resizing of previews for faster loading over slow connections
+  disableTypeDetectionByHeader: false     # disable type detection by header, useful if filesystem is slow.
+  port: 80                                # port to listen on
+  listen: "0.0.0.0"                       # address to listen on (default: 0.0.0.0)
+  baseURL: "/"                            # base URL for the server, the subpath that the server is running on.
+  logging:
+    - levels: "info|warning|error|debug"  # separated list of log levels to enable. (eg. "info|warning|error|debug")
+      apiLevels: ""                       # separated list of log levels to enable for the API. (eg. "info|warning|error")
+      output: "stdout"                    # output location. (eg. "stdout" or "path/to/file.log")
+      noColors: false                     # disable colors in the output
+      json: false                         # output in json format
+      utc: false                          # use UTC time in the output instead of local time
+  database: "data/database.db"            # path to the database file
+  sources:                                # validate:required,dive  validate:required,dive
+    - path: "/cloud"                      #  validate:required
+      name: "Alexandria Cloud"
+      config:
+        denyByDefault: true
+        private: false
+        disabled: false
+        indexingIntervalMinutes: 0
+        disableIndexing: false
+        conditionals:
+          hidden: false
+          ignoreHidden: false
+          ignoreZeroSizeFolders: false
+          rules:
+        rules:
+        defaultUserScope: "/"
+        defaultEnabled: true
+        createUserDir: false
+        useLogicalSize: false
+  externalUrl: "https://subdomain.domain.tld" # used by share links if set (eg. http://mydomain.com)
+  internalUrl: "http://<SERVER_IP>:8891/" # used by integrations if set, this is the base domain that an integration service will use to communicate with filebrowser (eg. http://localhost:8080)
+  cacheDir: "/home/filebrowser/tmp"       # path to the cache directory, used for thumbnails and other cached files
+  cacheDirCleanup: true                   # whether to automatically cleanup the cache directory. Note: docker must also mount a persistent volume to persist the cache (default: false)
+  maxArchiveSize: 50                      # max pre-archive combined size of files/folder that are allowed to be archived (in GB)
+  filesystem:                             # filesystem settings
+    createFilePermission: "744"           # Unix permissions like 644, 755, 2755 (default: 644)  validate:required,file_permission  validate:required,file_permission
+    createDirectoryPermission: "755"      # Unix permissions like 755, 2755, 1777 (default: 755)  validate:required,file_permission  validate:required,file_permission
+  indexSqlConfig:                         # Index database SQL configuration
+    batchSize: 2000                       # number of items to batch in a single transaction, typically 500-5000. higher = faster but could use more memory.
+    cacheSizeMB: 64                       # size of the SQLite cache in MB
+    walMode: true                         # enable the more complex WAL journaling mode. Slower, more memory usage, but better for deployments with constant user activity.
+    disableReuse: false                   # enable to always create a new indexing database on startup.
+auth:
+  tokenExpirationHours: 2                 # time in hours each web UI session token is valid for. Default is 2 hours.
+  methods:
+    proxy:                                # validate:omitempty  validate:omitempty
+      enabled: false
+      createUser: false                   # create user if not exists
+      header: ""                          # required header to use for authentication. Security Warning: FileBrowser blindly accepts the header value as username.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
+    noauth: false                         # if set to true, overrides all other auth methods and disables authentication
+    password:                             # validate:omitempty  validate:omitempty
+      enabled: true
+      minLength: 8                        # minimum pasword length required, default is 5.  validate:omitempty  validate:omitempty
+      signup: false                       # allow signups on login page if enabled -- not secure.  validate:omitempty  validate:omitempty
+      recaptcha:                          # recaptcha config, only used if signup is enabled  validate:omitempty  validate:omitempty
+        host: ""                          # validate:required  validate:required
+        key: ""                           # validate:required  validate:required
+        secret: ""                        # validate:required  validate:required
+      enforcedOtp: false                  # if set to true, TOTP is enforced for all password users users. Otherwise, users can choose to enable TOTP.
+    oidc:                                 # validate:omitempty  validate:omitempty
+      enabled: false                      # whether to enable OIDC authentication
+      clientId: ""                        # secret: client id of the OIDC application
+      clientSecret: ""                    # secret: client secret of the OIDC application
+      issuerUrl: ""                       # authorization URL of the OIDC provider
+      scopes: ""                          # scopes to request from the OIDC provider
+      userIdentifier: ""                  # the field value to use as the username. Default is "preferred_username", can also be "email" or "username", or "phone"
+      disableVerifyTLS: false             # disable TLS verification for the OIDC provider. This is insecure and should only be used for testing.
+      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
+      createUser: false                   # create user if not exists
+      adminGroup: ""                      # if set, users in this group will be granted admin privileges.
+      groupsClaim: ""                     # the JSON field name to read groups from. Default is "groups"
+  key: ""                                 # secret: the key used to sign the JWT tokens. If not set, a random key will be generated.
+  adminUsername: "**hidden**"             # secret: the username of the admin user. If not set, the default is "admin".
+  adminPassword: "**hidden**"             # secret: the password of the admin user. If not set, the default is "admin".
+  totpSecret: "**hidden**"                # secret: secret used to encrypt TOTP secrets
+frontend:
+  name: "Alexandria Cloud"                # display name
+  disableDefaultLinks: true               # disable default links in the sidebar
+  disableUsedPercentage: true             # disable used percentage for the sources in the sidebar
+  externalLinks:
+  disableNavButtons: false                # disable the nav buttons in the sidebar
+  styling:
+    disableEventThemes: false             # disable the event based themes,
+    customCSS: ""                         # if a valid path to a css file is provided, it will be applied for all users. (eg. "reduce-rounded-corners.css")
+    lightBackground: "#f5f5f5"            # specify a valid CSS color property value to use as the background color in light mode
+    darkBackground: "#141D24"             # Specify a valid CSS color property value to use as the background color in dark mode
+    customThemes:                         # A list of custom css files that each user can select to override the default styling. if "default" is key name then it will be the default option.
+      alternative:
+        description: "Reduce rounded corners"
+        css: "reduce-rounded-corners.css"
+      default:
+        description: "The default theme"
+        css: ""
+  favicon: ""                             # path to a favicon to use for the frontend
+  description: "Alexandria Cloud is a file manager for the web which can be used to manage files on Alexandria" # description that shows up in html head meta description
+  loginIcon: ""                           # path to an image file for the login page icon
+  oidcLoginButtonText: ""                 # text to display on the OIDC login button
+userDefaults:
+  editorQuickSave: false                  # show quick save button in editor
+  hideSidebarFileActions: false           # hide the file actions in the sidebar
+  disableQuickToggles: false              # disable the quick toggles in the sidebar
+  disableSearchOptions: false             # disable the search options in the search bar
+  stickySidebar: true                     # keep sidebar open when navigating
+  darkMode: true                          # should dark mode be enabled
+  locale: "en"                            # language to use: eg. de, en, or fr
+  viewMode: "normal"                      # view mode to use: eg. normal, list, grid, or compact
+  singleClick: false                      # open directory on single click, also enables middle click to open in new tab
+  showHidden: false                       # show hidden files in the UI. On windows this includes files starting with a dot and windows hidden files
+  dateFormat: false                       # when false, the date is relative, when true, the date is an exact timestamp
+  gallerySize: 3                          # 0-9 - the size of the gallery thumbnails
+  themeColor: "var(--blue)"               # theme color to use: eg. #ff0000, or var(--red), var(--purple), etc
+  quickDownload: false                    # show icon to download in one click
+  disablePreviewExt: ""                   # space separated list of file extensions to disable preview for
+  disableViewingExt: ""                   # space separated list of file extensions to disable viewing for
+  lockPassword: false                     # disable the user from changing their password
+  disableSettings: false                  # disable the user from viewing the settings page
+  preview:
+    disableHideSidebar: false             # keep sidebar open when previewing files
+    highQuality: true                     # use high quality thumbnails
+    image: true                           # show thumbnails for image files
+    video: true                           # show thumbnails for video files
+    motionVideoPreview: true              # show multiple frames for videos in thumbnail preview when hovering
+    office: true                          # show thumbnails for office files
+    popup: true                           # show larger popup preview when hovering over thumbnail
+    autoplayMedia: true                   # autoplay media files in preview
+    defaultMediaPlayer: false             # disable the styled feature-rich media player for browser default
+    folder: true                          # show thumbnails for folders that have previewable contents
+  permissions:
+    api: false                            # allow api access
+    admin: false                          # allow admin access
+    modify: true                          # allow modifying files
+    share: true                           # allow sharing files
+    realtime: true                        # allow realtime updates
+    delete: true                          # allow deleting files
+    create: true                          # allow creating or uploading files
+    download: true                        # allow downloading files
+  loginMethod: "password"                 # login method to use: eg. password, proxy, oidc
+  disableUpdateNotifications: false       # disable update notifications banner for admin users
+  deleteWithoutConfirming: false          # delete files without confirmation
+  fileLoading:                            # upload and download settings
+    maxConcurrentUpload: 10
+    uploadChunkSizeMb: 10
+    clearAll: false
+    downloadChunkSizeMb: 0
+  disableOfficePreviewExt: ""
+  disableOnlyOfficeExt: ".md .txt .pdf .html .xml" # list of file extensions to disable onlyoffice editor for
+  customTheme: ""                         # Name of theme to use chosen from custom themes config.
+  showSelectMultiple: false               # show select multiple files on desktop
+  debugOffice: false                      # debug onlyoffice editor
+integrations:
+  office:                                 # validate:omitempty  validate:omitempty
+    url: ""                               # The URL to the OnlyOffice Document Server, needs to be accessible to the user.  validate:required  validate:required
+    internalUrl: ""                       # An optional internal address that the filebrowser server can use to communicate with the OnlyOffice Document Server, could be useful to bypass proxy.
+    secret: ""                            # secret: authentication key for OnlyOffice integration  validate:required  validate:required
+    viewOnly: false                       # view only mode for OnlyOffice
+  media:                                  # validate:omitempty  validate:omitempty
+    ffmpegPath: "/usr/local/bin/"         # path to ffmpeg directory with ffmpeg and ffprobe (eg. /usr/local/bin)
+    convert:                              # config for ffmpeg conversion settings
+      imagePreview:                       # supported image preview formats. defaults vary by type (see individual type docs)
+        heic: false
+        jpeg: true
+      videoPreview:                       # supported video preview formats. defaults to true for all types unless explicitly disabled.
+        3g2: true
+        3gp: true
+        asf: true
+        avi: true
+        f4v: true
+        flv: true
+        m2ts: true
+        m4v: true
+        mkv: true
+        mov: true
+        mp4: true
+        mpeg: true
+        mpg: true
+        ogv: true
+        ts: true
+        vob: true
+        webm: true
+        wmv: true
+    debug: false                          # output ffmpeg stdout for media integration -- careful can produces lots of output!
+    extractEmbeddedSubtitles: false       # extract embedded subtitles from media files

@@ -47,7 +47,6 @@ If you are wanting to try this for yourself, please read the docker-compose [rea
 | redis                        | 6379                                                  |
 | scrutiny                     | 1977                                                  |
 | syncthing                    | 8384, 22000, 21027                                    |
-| UniFi-Protect-Backup         | N/A                                                   |
 | UptimeKuma                   | 3001                                                  |
 
 ## Contributing
