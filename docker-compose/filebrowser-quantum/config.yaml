@@ -39,7 +39,7 @@ server:
         createUserDir: false
         useLogicalSize: false
   externalUrl: "https://subdomain.domain.tld" # used by share links if set (eg. http://mydomain.com)
-  internalUrl: "http://<SERVER_IP>:8891/" # used by integrations if set, this is the base domain that an integration service will use to communicate with filebrowser (eg. http://localhost:8080)
+  internalUrl: "http://<SERVER_IP>:4864/" # used by integrations if set, this is the base domain that an integration service will use to communicate with filebrowser (eg. http://localhost:8080)
   cacheDir: "/home/filebrowser/tmp"       # path to the cache directory, used for thumbnails and other cached files
   cacheDirCleanup: true                   # whether to automatically cleanup the cache directory. Note: docker must also mount a persistent volume to persist the cache (default: false)
   maxArchiveSize: 50                      # max pre-archive combined size of files/folder that are allowed to be archived (in GB)

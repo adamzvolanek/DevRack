@@ -5,23 +5,24 @@ services:
     networks:
       - devrack
     ports:
-      - "${SERVER_IP}:8891:80"
+      - "${SERVER_IP}:4864:80"
     volumes:
       - /mnt/user/appdata/filebrowserQuantum/data:/home/filebrowser/data
       - /mnt/user/appdata/filebrowserQuantum/config:/home/filebrowser/config
-      - /mnt/user/appdata/filebrowserQuantum/tmp:/home/filebrowser/data/tmp
-      - /mnt/user/cloud/:/cloud
+      - /mnt/user/appdata/filebrowserQuantum/tmp:/home/filebrowser/tmp
+      - /location/cloud:/cloud
     environment:
       - FILEBROWSER_CONFIG=config/config.yaml
       - FILEBROWSER_DATABASE=data/database.db
       - TZ=${TZ}
-      - FILEBROWSER_TOTP_SECRET="secure-password" # openssl rand -base64 32
+      - FILEBROWSER_TOTP_SECRET=${TOTP_SECRET}
+    user: "1000:1000" # Formatted as "UID:GID"
     labels:
       - net.unraid.docker.managed=dockerman
-      - net.unraid.docker.webui='http://[IP]:[PORT:8891]/files'
+      - net.unraid.docker.webui='http://[IP]:[PORT:4864]/files'
       - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/filebrowser-quantum.png'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8891/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8891/health"] # port should match the internal port 4864
       interval: 30s
       timeout: 3s
       start_period: 10s
