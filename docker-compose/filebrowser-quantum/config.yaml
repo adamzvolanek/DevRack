@@ -42,7 +42,7 @@ server:
   internalUrl: "http://<SERVER_IP>:4864/" # used by integrations if set, this is the base domain that an integration service will use to communicate with filebrowser (eg. http://localhost:8080)
   cacheDir: "/home/filebrowser/tmp"       # path to the cache directory, used for thumbnails and other cached files
   cacheDirCleanup: true                   # whether to automatically cleanup the cache directory. Note: docker must also mount a persistent volume to persist the cache (default: false)
-  maxArchiveSize: 50                      # max pre-archive combined size of files/folder that are allowed to be archived (in GB)
+  maxArchiveSize: 50                      # maximum archive/unarchive size in GB. 0 means no limit. (default: 20)
   filesystem:                             # filesystem settings
     createFilePermission: "744"           # Unix permissions like 644, 755, 2755 (default: 644)  validate:required,file_permission  validate:required,file_permission
     createDirectoryPermission: "755"      # Unix permissions like 755, 2755, 1777 (default: 755)  validate:required,file_permission  validate:required,file_permission
@@ -51,14 +51,21 @@ server:
     cacheSizeMB: 64                       # size of the SQLite cache in MB
     walMode: true                         # enable the more complex WAL journaling mode. Slower, more memory usage, but better for deployments with constant user activity.
     disableReuse: false                   # enable to always create a new indexing database on startup.
+    startupIntegrityCheck: "quickCheck"   # the method used to check the integrity of the index database on startup (default: quickCheck)  validate:omitempty,oneof=quickCheck probe off  validate:omitempty,oneof=quickCheck probe off
+  disableWebDAV: false                    # disable webdav support (default: false)
 auth:
   tokenExpirationHours: 2                 # time in hours each web UI session token is valid for. Default is 2 hours.
   methods:
     proxy:                                # validate:omitempty  validate:omitempty
       enabled: false
-      createUser: false                   # create user if not exists
+      adminGroup: ""
+      userGroups:
+      groupsClaim: ""
+      userIdentifier: ""
+      disableVerifyTLS: false
+      logoutRedirectUrl: ""
+      createUser: false
       header: ""                          # required header to use for authentication. Security Warning: FileBrowser blindly accepts the header value as username.
-      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
     noauth: false                         # if set to true, overrides all other auth methods and disables authentication
     password:                             # validate:omitempty  validate:omitempty
       enabled: true
@@ -68,19 +75,46 @@ auth:
         host: ""                          # validate:required  validate:required
         key: ""                           # validate:required  validate:required
         secret: ""                        # validate:required  validate:required
-      enforcedOtp: false                  # if set to true, TOTP is enforced for all password users users. Otherwise, users can choose to enable TOTP.
+      enforcedOtp: true                   # if set to true, TOTP is enforced for all password users users. Otherwise, users can choose to enable TOTP.
     oidc:                                 # validate:omitempty  validate:omitempty
-      enabled: false                      # whether to enable OIDC authentication
+      enabled: false
+      adminGroup: ""
+      userGroups:
+      groupsClaim: ""
+      userIdentifier: ""
+      disableVerifyTLS: false
+      logoutRedirectUrl: ""
+      createUser: false
       clientId: ""                        # secret: client id of the OIDC application
       clientSecret: ""                    # secret: client secret of the OIDC application
       issuerUrl: ""                       # authorization URL of the OIDC provider
       scopes: ""                          # scopes to request from the OIDC provider
-      userIdentifier: ""                  # the field value to use as the username. Default is "preferred_username", can also be "email" or "username", or "phone"
-      disableVerifyTLS: false             # disable TLS verification for the OIDC provider. This is insecure and should only be used for testing.
-      logoutRedirectUrl: ""               # if provider logout url is provided, filebrowser will also redirect to logout url. Custom logout query params are respected.
-      createUser: false                   # create user if not exists
-      adminGroup: ""                      # if set, users in this group will be granted admin privileges.
-      groupsClaim: ""                     # the JSON field name to read groups from. Default is "groups"
+    ldap:                                 # validate:omitempty  validate:omitempty
+      enabled: false
+      adminGroup: ""
+      userGroups:
+      groupsClaim: ""
+      userIdentifier: ""
+      disableVerifyTLS: false
+      logoutRedirectUrl: ""
+      createUser: false
+      server: ""                          # scheme://host:port of the LDAP server (e.g. ldap://localhost:389)
+      baseDN: ""                          # LDAP search base DN (e.g. dc=ldap,dc=goauthentik,dc=io)
+      userDN: ""                          # Bind DN for service account (e.g. cn=admin,ou=users,dc=ldap,dc=goauthentik,dc=io)
+      userPassword: ""                    # Bind password for service account
+      userFilter: ""                      # Search filter for finding user by username. Default (&(cn=%s)(objectClass=user)); override e.g. (email=%s) or (sAMAccountName=%s) for other directories.
+    jwt:                                  # validate:omitempty  validate:omitempty
+      enabled: false
+      adminGroup: ""
+      userGroups:
+      groupsClaim: ""
+      userIdentifier: ""
+      disableVerifyTLS: false
+      logoutRedirectUrl: ""
+      createUser: false
+      header: ""                          # HTTP header to look for JWT token (e.g. X-JWT-Assertion). Default is "X-JWT-Assertion"
+      secret: ""                          # Shared secret key/bytes for verifying JWT token signatures (required, eg PUBLIC KEY, RSA PUBLIC KEY, EC PUBLIC KEY, or CERTIFICATE)
+      algorithm: ""                       # JWT signing algorithm (HS256, HS384, HS512, RS256, ES256). Default is "HS256"
   key: ""                                 # secret: the key used to sign the JWT tokens. If not set, a random key will be generated.
   adminUsername: "**hidden**"             # secret: the username of the admin user. If not set, the default is "admin".
   adminPassword: "**hidden**"             # secret: the password of the admin user. If not set, the default is "admin".
@@ -104,8 +138,9 @@ frontend:
         description: "The default theme"
         css: ""
   favicon: ""                             # path to a favicon to use for the frontend
-  description: "Alexandria Cloud is a file manager for the web which can be used to manage files on Alexandria" # description that shows up in html head meta description
+  description: "Manage files on Alexandria" # description that shows up in html head meta description
   loginIcon: ""                           # path to an image file for the login page icon
+  loginButtonText: "Login to Alexandria"  # text to display on the login button
   oidcLoginButtonText: ""                 # text to display on the OIDC login button
 userDefaults:
   editorQuickSave: false                  # show quick save button in editor
@@ -113,6 +148,7 @@ userDefaults:
   disableQuickToggles: false              # disable the quick toggles in the sidebar
   disableSearchOptions: false             # disable the search options in the search bar
   stickySidebar: true                     # keep sidebar open when navigating
+  hideFilesInTree: false                  # hide files in the sidebar tree navigation, when true, will show only directories.
   darkMode: true                          # should dark mode be enabled
   locale: "en"                            # language to use: eg. de, en, or fr
   viewMode: "normal"                      # view mode to use: eg. normal, list, grid, or compact
@@ -128,15 +164,17 @@ userDefaults:
   disableSettings: false                  # disable the user from viewing the settings page
   preview:
     disableHideSidebar: false             # keep sidebar open when previewing files
-    highQuality: true                     # use high quality thumbnails
+    highQuality: true
     image: true                           # show thumbnails for image files
     video: true                           # show thumbnails for video files
+    audio: true                           # show thumbnails for audio files
     motionVideoPreview: true              # show multiple frames for videos in thumbnail preview when hovering
     office: true                          # show thumbnails for office files
     popup: true                           # show larger popup preview when hovering over thumbnail
     autoplayMedia: true                   # autoplay media files in preview
     defaultMediaPlayer: false             # disable the styled feature-rich media player for browser default
     folder: true                          # show thumbnails for folders that have previewable contents
+    models: true                          # show live thumbnails for 3D models files
   permissions:
     api: false                            # allow api access
     admin: false                          # allow admin access
@@ -149,6 +187,7 @@ userDefaults:
   loginMethod: "password"                 # login method to use: eg. password, proxy, oidc
   disableUpdateNotifications: false       # disable update notifications banner for admin users
   deleteWithoutConfirming: false          # delete files without confirmation
+  deleteAfterArchive: true                # delete source files after successful creation/extraction of archives
   fileLoading:                            # upload and download settings
     maxConcurrentUpload: 10
     uploadChunkSizeMb: 10
@@ -159,6 +198,7 @@ userDefaults:
   customTheme: ""                         # Name of theme to use chosen from custom themes config.
   showSelectMultiple: false               # show select multiple files on desktop
   debugOffice: false                      # debug onlyoffice editor
+  preferEditorForMarkdown: false          # prefer editor first for markdown files instead of the Markdown Viewer.
 integrations:
   office:                                 # validate:omitempty  validate:omitempty
     url: ""                               # The URL to the OnlyOffice Document Server, needs to be accessible to the user.  validate:required  validate:required
@@ -192,3 +232,5 @@ integrations:
         wmv: true
     debug: false                          # output ffmpeg stdout for media integration -- careful can produces lots of output!
     extractEmbeddedSubtitles: false       # extract embedded subtitles from media files
+    exiftoolPath: "/usr/bin/exiftool"     # path to exiftool executable
+
