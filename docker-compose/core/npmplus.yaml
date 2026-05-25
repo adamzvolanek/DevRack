@@ -6,6 +6,10 @@ services:
     restart: unless-stopped
     network_mode: host
 #    ipc: host # required when you want to use the openappsec attachment module
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:81]/files'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/nginx-proxy-manager-light.png'
     cap_drop:
       - ALL
     cap_add:
@@ -32,7 +36,7 @@ services:
     volumes:
       - "/mnt/user/appdata/npmplus/opt/npmplus:/data"
 #      - "/var/www:/var/www" # optional, if you want to use NPMplus directly as a webserver for html/php
-#      - "/path/to/old/npm/letsencrypt/folder:/etc/letsencrypt" # Only needed for initial migration from original nginx-proxy-manager to this fork, remove after migration
+#      - "/mnt/user/appdata/nginxproxymanager/letsencrypt:/etc/letsencrypt" # Only needed for initial migration from original nginx-proxy-manager to this fork, remove after migration
 #      - "shm-volume:/dev/shm/check-point" # required if you want to use the openappsec attachment module, also enable this volume at the end of this compose.yaml
     environment:
       - "TZ=${TZ}" # set timezone, required, set it to one of the values from the "TZ identifier" https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
@@ -79,7 +83,7 @@ services:
 #      - "NGINX_TRUST_RSA_PKCS1=true" # enables rsa_pkcs1_sha512:rsa_pkcs1_sha384:rsa_pkcs1_sha256 sigalgs, default false, enable if your use a RSA key and your client doesn't support RSA-PSS sigalgs
 #      - "DISABLE_NGINX_BEAUTIFIER=true" # disables nginxbeautifier, useful when it fails parsing non-standard custom/advanced configs, default false
       - "LOGROTATE=true" # Enables writing http access logs to /opt/npmplus/nginx/logs/access.log, stream access logs to /opt/npmplus/nginx/logs/stream.log and enables daily logrotation, default false
-      - "LOGROTATIONS=7" # Set how often the access.log should be rotated until it is deleted, default 3
+      - "LOGROTATIONS=8" # Set how often the access.log should be rotated until it is deleted, default 3
       - "TRUST_CLOUDFLARE=true" # Enables fetching/whitelisting IPs from cloudflare, so nginx will see the real client IPs, default false
 #      - "CERTBOT_RUN_INTERVAL=72" # Set how many hours should be between certbot trying to renew your certs if needed, default 3
 #      - "ECH_ROTATION_INTERVAL=3" # Set how many hours should be between the runs of your ech cron script, default 1
@@ -124,6 +128,9 @@ services:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: unless-stopped
     network_mode: bridge
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/crowdsec.webp'
     ports:
       - "127.0.0.1:7422:7422"
       - "127.0.0.1:8080:8080"
