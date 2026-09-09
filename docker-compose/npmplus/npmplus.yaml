@@ -65,8 +65,8 @@ services:
 #      - "NPM_LISTEN_LOCALHOST=true" # Binds the NPM UI only to localhost (IPv4+IPv6), overrides NPM_IPV4_BINDING/NPM_IPV6_BINDING, default false
 #      - "GOA_LISTEN_LOCALHOST=true" # Binds goaccess only to localhost (IPv4+IPv6), overrides GOA_IPV4_BINDING/GOA_IPV6_BINDING, default false
 #      - "DEFAULT_CERT_ID=1" # ID of cert to use instead of dummycerts, default 0/unset/dummycerts
-      - "HTTP_PORT=8081" # tcp port to use for http traffic, changing this may break certbot http challenge, default 80
-      - "HTTPS_PORT=8444" # udp and tcp port to use for https traffic, changing this may break certbot http challenge, default 443
+      - "HTTP_PORT=80" # tcp port to use for http traffic, changing this may break certbot http challenge, default 80
+      - "HTTPS_PORT=443" # udp and tcp port to use for https traffic, changing this may break certbot http challenge, default 443
 #      - "DISABLE_HTTP=true" # prevents nginx from listening on port 80, default false
 #      - "LISTEN_PROXY_PROTOCOL=true" # should listeners of http(s) hosts (proxy/redirect/dead and default) use proxy protocol instead of http(s)? default false, overrides DISABLE_H3_QUIC, LISTEN_PROXY_PROTOCOL_HTTP and LISTEN_PROXY_PROTOCOL_HTTPS to true
 #      - "LISTEN_PROXY_PROTOCOL_HTTP=true" # should listeners of http hosts (proxy/redirect/dead and default) use proxy protocol instead of http? default false

@@ -19,7 +19,7 @@ services:
       MAX_FILE_SIZE: 1024
       PORT: 9515
       DUMBDROP_PIN: 123456789
-      DUMBDROP_TITLE: Alexandria Drop
+      DUMBDROP_TITLE: DumbDropTitle
       APPRISE_URL:
       APPRISE_MESSAGE:
       APPRISE_SIZE_UNIT:

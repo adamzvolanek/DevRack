@@ -2,7 +2,7 @@
 services:
   syncthing:
     container_name: syncthing
-    image: lscr.io/linuxserver/syncthing:latest
+    image: ghcr.io/linuxserver/syncthing:latest
     networks:
       - devrack
     hostname: syncthing #optional
@@ -12,9 +12,9 @@ services:
       - ${SERVER_IP}:22000:22000/udp
       - ${SERVER_IP}:21027:21027/udp
     volumes:
-      - /mnt/user/appdata/cloud/syncthing/config:/config
-      - /mnt/user/Adam:/storage/Adam
-#      - /mnt/user/...:/storage/...
+      - /mnt/user/appdata/syncthing/config:/config
+      - /mnt/user/devrack:/storage/devrack
+      - /mnt/user/cloud/:/storage/cloud
     environment:
       - TZ=${TZ}
       - PUID=${PUID}

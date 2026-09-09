@@ -1,38 +1,22 @@
----
 services:
-  qbittorrentvpn:
-    container_name: qbittorrentvpn
-    image: binhex/arch-qbittorrentvpn:latest
-    privileged: true
+  seerr:
+    container_name: seerr
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
     networks:
       - devrack
+    ports:
+      - "${SERVER_IP}:5055:5055" # webUI port
+    volumes:
+      - /mnt/user/appdata/jellyseerr:/app/config/
+    environment:
+      - LOG_LEVEL='info'
+      - TZ=${TZ}
     labels:
       net.unraid.docker.managed: dockerman
-      net.unraid.docker.webui: http://[IP]:[PORT:9519]
-      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/qbittorrent.webp'
-    ports:
-      - "${SERVER_IP}:6881:6881"
-      - "${SERVER_IP}:6881:6881/udp"
-      - "${SERVER_IP}:9519:9519"
-      - "${SERVER_IP}:8118:8118"
-    volumes:
-      - /mnt/user/appdata/sparrow/qbittorrentvpn:/config
-      - /mnt/user/scratch/downloads/:/data
-    environment:
-      VPN_ENABLED: yes
-      VPN_USER: ${VPN_USER}
-      VPN_PASS: ${VPN_PASS}
-      VPN_PROV: ${VPN_PROV}
-      VPN_CLIENT: openvpn
-      VPN_OPTIONS:
-      STRICT_PORT_FORWARD: yes
-      ENABLE_PRIVOXY: no
-      WEBUI_PORT: 9519
-      LAN_NETWORK: ${LAN_NETWORK}
-      NAME_SERVERS: ${NAME_SERVERS}
-      VPN_INPUT_PORTS:
-      VPN_OUTPUT_PORTS:
-      DEBUG: false
+      net.unraid.docker.webui: 'http://[IP]:[PORT:5055]'
+      net.unraid.docker.icon: 'https://raw.githubusercontent.com/Fallenbagel/jellyseerr/develop/public/android-chrome-512x512_maskable.png'
+    restart: unless-stopped
 
 networks:
   devrack:

@@ -1,10 +1,11 @@
----
 services:
   dozzle:
     container_name: dozzle
     image: amir20/dozzle
     networks:
       - devrack
+    env_file:
+      - .env
     labels:
       - net.unraid.docker.managed=dockerman
       - net.unraid.docker.webui='http://[IP]:[PORT:7070]/'

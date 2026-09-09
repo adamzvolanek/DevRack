@@ -1,5 +1,7 @@
 ---
 services:
+
+# Homepage
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -10,19 +12,18 @@ services:
       - HOST_HOSTNAME=Alexandria
       - HOST_CONTAINERNAME=homepage
       - PORT=3000
+      - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-      - TZ=${TZ}
       - HOMEPAGE_ALLOWED_HOSTS=${SERVER_IP}:3000
     labels:
       - net.unraid.docker.managed=dockerman
-      - net.unraid.docker.webui='http://[IP]:[PORT:80]'
-      - net.unraid.docker.icon='https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-512x512.png'
+      - net.unraid.docker.webui='http://[IP]:[PORT:3000]'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons/webp/homepage.webp'
     ports:
       - 3000:3000
     volumes:
-      - /mnt/user/appdata/homepage/:/app/config # configuration mount
-      - /mnt/user/<share_location>/Assets:/images # images mount
+      - /mnt/user/appdata/homepage/:/app/config
       #- /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 

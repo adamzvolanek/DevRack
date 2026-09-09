@@ -2,6 +2,9 @@ services:
   broker:
     container_name: paperless_redis
     image: docker.io/library/redis:7
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/svg/redis.svg'
     networks:
       - devrack
     volumes:
@@ -13,6 +16,8 @@ services:
     image: docker.io/library/postgres:16
     networks:
       - devrack
+    labels:
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/svg/postgresql.svg'
     volumes:
       - /mnt/user/appdata/docs/paperless-ngx/pgdata:/var/lib/postgresql/data
     environment:
@@ -33,11 +38,15 @@ services:
       - tika
     ports:
       - "${SERVER_IP}:8138:8138"
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: http://[IP]:[PORT:8138]
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperless-ngx.svg'
     volumes:
       - /mnt/user/appdata/docs/paperless-ngx/data:/usr/src/paperless/data
-      - /mnt/user/userShare/paperless:/usr/src/paperless/media # where documents are stored
+      - /mnt/user/adam_secure/paperless-docs:/usr/src/paperless/media # where documents are stored
       - /mnt/user/backups/paperless-ngx:/usr/src/paperless/export # when exported, documents, thumbs, metadata, and dB
-      - /mnt/user/Scratch/Uploads:/usr/src/paperless/consume # Drop location
+      - /mnt/user/scratch/uploads:/usr/src/paperless/consume # Drop location
     environment:
       USERMAP_UID: ${USERMAP_UID}
       USERMAP_GID: ${USERMAP_GID}
@@ -50,23 +59,25 @@ services:
       PAPERLESS_DBNAME: ${DB_NAME}
       PAPERLESS_DBUSER: ${DB_USER}
       PAPERLESS_DBPASS: ${DB_PASSWORD}
+      PAPERLESS_SECRET_KEY: ${PAPERLESS_SECRET_KEY}
       PAPERLESS_PORT: 8138
       PAPERLESS_ADMIN_USER: admin
-      PAPERLESS_ADMIN_PASSWORD: admin
+      PAPERLESS_ADMIN_PASSWORD: "admin"
       PAPERLESS_APP_TITLE: "Document Vault"
       PAPERLESS_CONSUMER_RECURSIVE: true
       PAPERLESS_OCR_LANGUAGES: ${PAPERLESS_OCR_LANGUAGES}
       PAPERLESS_OCR_LANGUAGE: ${PAPERLESS_OCR_LANGUAGE}
       PAPERLESS_TASK_WORKERS: 4
       PAPERLESS_LOGROTATE_MAX_BACKUPS: 5
-      PAPERLESS_FILENAME_FORMAT: "{{ correspondent }}/{{ document_type }}/{{ title }}_{{ created_year }}_{{ created_month }}_{{ created_day }}"
+      PAPERLESS_FILENAME_FORMAT: "{{ owner_username }}/{{ added_year }}/{{ correspondent }}/{{ document_type }}/{{ title }}_{{ document_type }}__{{ created }}"
       PAPERLESS_CONSUMER_INOTIFY_DELAY: 30
       PAPERLESS_CONSUMER_IGNORE_PATTERNS: "[\".DS_Store\", \".DS_STORE\", \"._*\", \".stfolder/*\", \".stversions/*\", \".localized/*\", \"desktop.ini\", \"@eaDir/*\", \"Thumbs.db\",\".Recycle.Bin\",\".Recycle.Bin/*\"]"
       PAPERLESS_DATE_ORDER: "MDY"
       # OCR Settings
-      PAPERLESS_OCR_MODE: skip
-      PAPERLESS_OCR_SKIP_ARCHIVE_FILE: never
+      PAPERLESS_OCR_MODE: redo
+      PAPERLESS_OCR_SKIP_ARCHIVE_FILE: always
       PAPERLESS_OCR_CLEAN: clean
+      PAPERLESS_OCR_ROTATE_PAGES_THRESHOLD: 8
     restart: unless-stopped
 
   gotenberg:
@@ -74,6 +85,9 @@ services:
     container_name: paperless_gotenberg
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperless-ngx-light.svg'
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
     command:
@@ -89,6 +103,9 @@ services:
     container_name: paperless_tika
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperless-ngx-light.svg'
     volumes:
       - /mnt/user/appdata/docs/paperless-ngx/tika:/tika
     restart: unless-stopped

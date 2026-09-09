@@ -1,11 +1,16 @@
 ---
 services:
+
+# beszel
   beszel:
     image: 'henrygd/beszel'
     container_name: 'beszel'
-    restart: unless-stopped
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: http://[IP]:[PORT:8090]
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel-light.webp'
     ports:
       - '${SERVER_IP}:8090:8090'
     volumes:
@@ -13,29 +18,27 @@ services:
     environment:
       TZ: ${TZ}
       DISABLE_PASSWORD_AUTH: 'false'
+      AUTO_LOGIN: 'email@domain.tld'
+      CHECK_UPDATES: true
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-    labels:
-      net.unraid.docker.managed: dockerman
-      net.unraid.docker.webui: http://[IP]:[PORT:8090]
-      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel-light.webp'
     restart: unless-stopped
 
+# beszel-agent
   beszel-agent:
     image: 'henrygd/beszel-agent'
     container_name: 'beszel-agent'
-    restart: unless-stopped
     networks:
       - devrack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel.webp'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       TZ: ${TZ}
-      PORT: 123
-      KEY: '1'
-    labels:
-      net.unraid.docker.managed: dockerman
-      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/beszel.webp'
+      LISTEN: 45876
+      KEY: 'long-serial'
     restart: unless-stopped
 
 networks:

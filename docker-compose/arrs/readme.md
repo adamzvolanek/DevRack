@@ -8,3 +8,4 @@ Remember to combine stack specific environment variables with [server environmen
 [Sonarr Source](https://docs.linuxserver.io/images/docker-sonarr/)
 [Prowlarr Source](https://docs.linuxserver.io/images/docker-prowlarr/)
 [Flaresolverr](https://github.com/FlareSolverr/FlareSolverr)
+[Bazarr](https://github.com/linuxserver/docker-bazarr)

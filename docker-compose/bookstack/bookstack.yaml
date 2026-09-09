@@ -1,8 +1,12 @@
 ---
 services:
   bookstack_db:
-    image: lscr.io/linuxserver/mariadb
+    image: ghcr.io/linuxserver/mariadb
     container_name: bookstack_db
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:3306]'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/mariadb.webp'
     networks:
       - devrack
     ports:
@@ -21,8 +25,12 @@ services:
     restart: unless-stopped
 
   bookstack:
-    image: lscr.io/linuxserver/bookstack
+    image: ghcr.io/linuxserver/bookstack
     container_name: bookstack
+    labels:
+      net.unraid.docker.managed: dockerman
+      net.unraid.docker.webui: 'http://[IP]:[PORT:3306]'
+      net.unraid.docker.icon: 'https://cdn.jsdelivr.net/gh/selfhst/icons/webp/bookstack.webp'
     networks:
       - devrack
     ports:
@@ -31,9 +39,10 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       APP_TIMEZONE: ${TZ}
-      APP_URL: http://${SERVER_IP}:${BOOKSTACK_PORT}
+      #APP_URL: http://${SERVER_IP}:${BOOKSTACK_PORT} # local
+      APP_URL: https://docs.adamzvolanek.com # nginx hosted
       DB_HOST: bookstack_db
-      DB_PORT: 3306 # Utilizes bookstack_db NOT cloud's mariadb.
+      DB_PORT: 3306
       DB_USER: ${BOOKSTACK_DB_USER}
       DB_PASS: ${BOOKSTACK_DB_PASSWORD}
       DB_DATABASE: ${BOOKSTACK_DB_NAME}

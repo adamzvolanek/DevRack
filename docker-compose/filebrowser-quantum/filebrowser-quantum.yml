@@ -1,0 +1,35 @@
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: gtstef/filebrowser:stable
+    networks:
+      - devrack
+    ports:
+      - "${SERVER_IP}:4864:80"
+    volumes:
+      - /mnt/user/appdata/filebrowser-quantum/data:/home/filebrowser/data
+      - /mnt/user/appdata/filebrowser-quantum/config:/home/filebrowser/config
+      - /mnt/user/appdata/filebrowser-quantum/tmp:/home/filebrowser/tmp
+      - /mnt/user/cloud/:/cloud
+    environment:
+      - FILEBROWSER_CONFIG=config/config.yaml
+      - FILEBROWSER_DATABASE=data/database.db
+      - TZ=${TZ}
+      - FILEBROWSER_TOTP_SECRET=${TOTP_SECRET}
+    user: "1000:1000" # Formatted as "UID:GID"
+    labels:
+      - net.unraid.docker.managed=dockerman
+      - net.unraid.docker.webui='http://[IP]:[PORT:4864]/files'
+      - net.unraid.docker.icon='https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/filebrowser-quantum.png'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4864/health"] # port should match the internal port 4864
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+    restart: unless-stopped
+
+networks:
+  devrack:
+    name: ${DOCKER_NETWORK}
+    external: true
