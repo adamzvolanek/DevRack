@@ -3,7 +3,7 @@
 # -------------------------
 # Configurable variable
 # -------------------------
-BASE_DIR="/mnt/user/photos-immich/upload"  # Change this to your target directory
+BASE_DIR="</...immich direcory/upload>"  # Change this to your target directory
 # -------------------------
 
 # Ensure BASE_DIR is an absolute path
