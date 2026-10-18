@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === Configurable Settings ===
-SKIP_SHARES=("appdata")
+SKIP_SHARES=(appdata devrack media docker)
 DELETE_SKIPPED_SHARES=false  # Set to true to delete skipped remote shares
 
 # === Helper Function ===
@@ -29,7 +29,7 @@ for share in "${AllShares[@]}"; do
 done
 
 # === Get remote shares ===
-RemoteShares=($(ls -d /mnt/remotes/999.999.999.999_bigdrive/*/ 2>/dev/null | xargs -n 1 basename))
+RemoteShares=($(ls -d /mnt/remotes/OFFSITEBACKUPDOMAIN_bigdrive/*/ 2>/dev/null | xargs -n 1 basename))
 
 # === Delete stale remote shares if not found locally ===
 for RemoteShare in "${RemoteShares[@]}"; do
@@ -39,13 +39,13 @@ for RemoteShare in "${RemoteShares[@]}"; do
         if is_skipped_share "$RemoteShare"; then
             if [[ "$DELETE_SKIPPED_SHARES" == true ]]; then
                 echo "Deleting skipped remote share: $RemoteShare"
-                rm -rf "/mnt/remotes/999.999.999.999_bigdrive/${RemoteShare}"
+                rm -rf "/mnt/remotes/OFFSITEBACKUPDOMAIN_bigdrive/${RemoteShare}"
             else
                 echo "Preserving skipped remote share: $RemoteShare"
             fi
         else
             echo "Deleting stale remote share: $RemoteShare"
-            rm -rf "/mnt/remotes/999.999.999.999_bigdrive/${RemoteShare}"
+            rm -rf "/mnt/remotes/OFFSITEBACKUPDOMAIN_bigdrive/${RemoteShare}"
         fi
     fi
 done
@@ -66,7 +66,7 @@ for ShareName in "${ShareNames[@]}"; do
     rsync -avqh -P --exclude='.Recycle.Bin/' --log-file="$LOG_FILE" \
       --stats \
       --delete \
-      "/mnt/user/${ShareName}/" "/mnt/remotes/999.999.999.999_bigdrive/${ShareName}"
+      "/mnt/user/${ShareName}/" "/mnt/remotes/OFFSITEBACKUPDOMAIN_bigdrive/${ShareName}"
 
     EndTime=$(date "+%Y-%m-%d %H:%M:%S")
     echo "Rsync for ${ShareName} completed at ${EndTime}"
