@@ -1,5 +1,3 @@
-# Scripts
-
 Collection of helpful scripts.
 
 ## Unraid Scripts
